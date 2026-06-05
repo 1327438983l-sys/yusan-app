@@ -673,6 +673,15 @@ function awardPoints(correct) {
   checkBadges();
 }
 
+// Compatibility wrappers for vocab/game code
+function addPoints(pts) {
+  var stats = loadStats();
+  stats.points += pts;
+  saveStats(stats);
+  renderGameStats();
+}
+function updateGameStats() { renderGameStats(); }
+
 function checkBadges() {
   const stats = loadStats();
   let newBadge = null;
