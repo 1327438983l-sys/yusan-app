@@ -245,12 +245,12 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
 // ==================== DATA ====================
 // Textbook vocabulary (课本词语表)
 var TEXTBOOK_VOCAB = [
-  {lesson:'第2课 燕子', words:['燕子','乌黑','剪刀','活泼','轻风','洒落','赶集','光彩夺目','春光','偶尔','闲散','纤细','电线']},
-  {lesson:'第3课 荷花', words:['荷花','公园','清香','赶紧','荷叶','莲蓬','破裂','姿势','画家','本领','了不起','微风','停止']},
-  {lesson:'第6课 灰雀', words:['友情','认识','忠诚','驯良','善良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','恶狠狠','猎人','收拾']},
-  {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生']},
-  {lesson:'第9课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异']},
-  {lesson:'第10课 蜜蜂', words:['实验','验证','记号','减少','阻力','大约','包括','检查','至少','迷失','无误','逆风','陌生','景物','能力']}
+  {lesson:'第2课 燕子', words:['燕子','乌黑','剪刀','活泼','轻风','洒落','赶集','光彩夺目','春光','偶尔','闲散','纤细','电线'], py:['yàn zi','wū hēi','jiǎn dāo','huó pō','qīng fēng','sǎ luò','gǎn jí','guāng cǎi duó mù','chūn guāng','ǒu ěr','xián sàn','xiān xì','diàn xiàn']},
+  {lesson:'第3课 荷花', words:['荷花','公园','清香','赶紧','荷叶','莲蓬','破裂','姿势','画家','本领','了不起','微风','停止'], py:['hé huā','gōng yuán','qīng xiāng','gǎn jǐn','hé yè','lián péng','pò liè','zī shì','huà jiā','běn lǐng','liǎo bu qǐ','wēi fēng','tíng zhǐ']},
+  {lesson:'第6课 灰雀', words:['友情','认识','忠诚','驯良','善良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','恶狠狠','猎人','收拾'], py:['yǒu qíng','rèn shi','zhōng chéng','xùn liáng','shàn liáng','wēn hé','dá xiè','huā yán qiǎo yǔ','zháo jí','xiāng xìn','chén tǔ','xiōng è','è hěn hěn','liè rén','shōu shi']},
+  {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生'], py:['tòng kuài','yún chèn','jīng měi','bié zhì','méi tóu','méi jīng dǎ cǎi','jī ling','huī xīn sàng qì','jī huì','tàn qì','táo shēng']},
+  {lesson:'第9课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异'], py:['níng jìng','qì guān','shì fǒu','qiè qiè sī yǔ','wēi xiǎn','fāng fǎ','jī ròu','gōng jī','lì yòng','hòu tuì','miǎn fèi','chā yì','qīng chu','qí yì']},
+  {lesson:'第10课 蜜蜂', words:['实验','验证','记号','减少','阻力','大约','包括','检查','至少','迷失','无误','逆风','陌生','景物','能力'], py:['shí yàn','yàn zhèng','jì hào','jiǎn shǎo','zǔ lì','dà yuē','bāo kuò','jiǎn chá','zhì shǎo','mí shī','wú wù','nì fēng','mò shēng','jǐng wù','néng lì']}
 ];
 const POEM_STORIES = {
   '绝句': '杜甫是我国最伟大的诗人之一，人称\u201c诗圣\u201d。安史之乱后，他逃难到四川成都，在朋友帮助下盖了一座草堂，就是现在著名的\u201c杜甫草堂\u201d。这首诗就写于草堂。春天来了，阳光暖暖地照在江山上，风里带着花草的香味。燕子衔着湿润的泥土飞来飞去做窝，沙滩上暖洋洋的，鸳鸯正舒服地睡大觉。杜甫看着这么美的春天，心情特别好，就写下了这首诗。你知道吗？杜甫一生写了一千五百多首诗，可他在成都草堂只住了不到四年，却留下了两百四十多首名作！',
@@ -1866,7 +1866,7 @@ function renderVocabReviewQ() {
   var vg = vocabGameState;
   if (vg.wordIdx >= vg.reviewItems.length) { finishVocabGame(); return; }
   var item = vg.reviewItems[vg.wordIdx];
-  showVocabCard(item.word, vg.wordIdx+1, vg.reviewItems.length, '\u9519\u8bcd\u590d\u4e60', item.li, item.wi);
+  var rsec = TEXTBOOK_VOCAB[item.li]; showVocabCard(item.word, vg.wordIdx+1, vg.reviewItems.length, '\u9519\u8bcd\u590d\u4e60', item.li, item.wi, rsec);
 }
 
 function renderVocabQ() {
@@ -1876,10 +1876,10 @@ function renderVocabQ() {
   if (vg.wordIdx >= sec.words.length) { vg.lessonIdx++; vg.wordIdx=0; renderVocabQ(); return; }
   var total = 0; TEXTBOOK_VOCAB.forEach(function(s){total+=s.words.length;});
   var done = 0; for(var i=0;i<vg.lessonIdx;i++) done+=TEXTBOOK_VOCAB[i].words.length; done+=vg.wordIdx;
-  showVocabCard(sec.words[vg.wordIdx], done+1, total, sec.lesson, vg.lessonIdx, vg.wordIdx);
+  showVocabCard(sec.words[vg.wordIdx], done+1, total, sec.lesson, vg.lessonIdx, vg.wordIdx, sec);
 }
 
-function showVocabCard(word, num, total, label, li, wi) {
+function showVocabCard(word, num, total, label, li, wi, sec) {
   var vg = vocabGameState;
   var html = '<div class="unit active">';
   html += '<div class="hearts">';
@@ -1892,7 +1892,8 @@ function showVocabCard(word, num, total, label, li, wi) {
   var pct = Math.round(num/total*100);
   html += '<div class="progress-bar" style="margin:4px 0 12px"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
   html += '<div class="game-question">';
-  html += '<div style="font-size:0.9em;color:var(--gray);margin-bottom:8px">写出这个词（'+word.length+'个字）</div>';
+  html += '<div style="font-size:1.2em;color:var(--blue);font-weight:600;margin-bottom:8px;letter-spacing:2px">'+sec.py[wi]+'</div>';
+  html += '<div style="font-size:0.85em;color:var(--gray);margin-bottom:8px">看拼音，写出这个词（'+word.length+'个字）</div>';
   html += '<div class="vocab-game-word">';
   for(var ci=0;ci<word.length;ci++) html+='<span style="display:inline-block;width:48px;height:48px;line-height:48px;border-bottom:3px solid var(--primary);margin:0 4px"></span>';
   html += '</div>';
