@@ -1907,7 +1907,7 @@ function showVocabCard(word, num, total, label, li, wi, sec) {
   html += '<input class="game-input" id="vocabInput" placeholder="请输入" autocomplete="off" autocapitalize="off">';
   html += '<div class="game-answer" id="vocabAnswer" style="display:none"></div>';
   html += '</div>';
-  html += '<div style="text-align:center;margin-top:12px;display:flex;gap:10px;justify-content:center">';
+  html += '<div id="vocabBtnArea" style="text-align:center;margin-top:12px;display:flex;gap:10px;justify-content:center">';
   html += '<button class="btn btn-sm" style="background:#eee" onclick="showVocabHint(\''+word+'\',\''+label+'\','+num+','+total+','+li+','+wi+')">\ud83d\udca1 看一看</button>';
   html += '<button class="btn btn-primary" id="vocabConfirmBtn" onclick="checkVocabAnswer()">确认</button>';
   html += '</div></div>';
@@ -1945,8 +1945,7 @@ function checkVocabAnswer() {
   if (!val) { vg._locked = false; return; }
   var key = li+'-'+wi;
   if (inp) inp.disabled = true;
-  var btn = document.getElementById('vocabConfirmBtn');
-  if (btn) btn.disabled = true;
+  var btnArea = document.getElementById('vocabBtnArea');
   var isCorrect = (val === word);
   if (isCorrect) {
     vg.correct++; vg.combo++;
@@ -1967,16 +1966,20 @@ function checkVocabAnswer() {
   }
   ans.style.display = 'block';
   updateGameStats();
-  // ADVANCE: show result for 1s then go next
-  window._vocabTimer = setTimeout(function() {
-    window._vocabTimer = null;
-    vg._locked = false;
-    if(vg.hearts<=0) { finishVocabGame(); return; }
-    vg.queueIdx++;
-    if(vg.queueIdx >= vg.queue.length) { finishVocabGame(); return; }
-    if(vg.mode==='review') renderVocabReviewQ();
-    else renderVocabQ();
-  }, 1000);
+  // Show NEXT button instead of auto-advance
+  if (btnArea) {
+    btnArea.innerHTML = '<button class="btn btn-primary" onclick="vocabNext()" style="font-size:1.1em;padding:12px 32px">\u2192 \u4e0b\u4e00\u4e2a</button>';
+  }
+}
+
+function vocabNext() {
+  var vg = vocabGameState;
+  vg._locked = false;
+  if(vg.hearts<=0) { finishVocabGame(); return; }
+  vg.queueIdx++;
+  if(vg.queueIdx >= vg.queue.length) { finishVocabGame(); return; }
+  if(vg.mode==='review') renderVocabReviewQ();
+  else renderVocabQ();
 }
 
 function finishVocabGame() {
