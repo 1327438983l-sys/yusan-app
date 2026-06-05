@@ -1809,102 +1809,180 @@ function gradeRecite(spoken, poemTitle) {
 }
 
 // ==================== VOCAB DICTATION ====================
-var vocabGameState = {lessonIdx:0, wordIdx:0, hearts:3, correct:0, wrong:0, score:0, answered:{}};
+var vocabGameState = {lessonIdx:0, wordIdx:0, hearts:3, correct:0, wrong:0, score:0, combo:0, maxCombo:0, answered:{}, wrongWords:[], mode:'all', reviewItems:[]};
+
+function getVocabProgress() { return JSON.parse(localStorage.getItem('vocab_progress') || '{}'); }
+function isVocabMastered(li, wi) { return !!getVocabProgress()[li+'-'+wi]; }
+function markVocabMastered(li, wi) { var d = getVocabProgress(); d[li+'-'+wi]=true; localStorage.setItem('vocab_progress',JSON.stringify(d)); }
+function getVocabWrong() { return JSON.parse(localStorage.getItem('vocab_wrong') || '[]'); }
+function addVocabWrong(w) { var a=getVocabWrong(); if(a.indexOf(w)<0){a.push(w);localStorage.setItem('vocab_wrong',JSON.stringify(a));} }
+function removeVocabWrong(w) { var a=getVocabWrong(); var i=a.indexOf(w); if(i>=0){a.splice(i,1);localStorage.setItem('vocab_wrong',JSON.stringify(a));} }
+function clearVocabWrong() { localStorage.setItem('vocab_wrong','[]'); }
 
 function renderVocabDictation() {
   var html = '<div class="unit active">';
   html += '<div class="unit-title">默写词语表</div>';
   html += '<div class="unit-subtitle">按课文顺序默写课本词语</div>';
-  html += '<div style="margin:12px 0">';
-  TEXTBOOK_VOCAB.forEach(function(sec) {
-    html += '<div class="vocab-lesson">'+sec.lesson+' ('+sec.words.length+'词)</div>';
+  var pg = getVocabProgress();
+  TEXTBOOK_VOCAB.forEach(function(sec, si) {
+    var done = 0;
+    sec.words.forEach(function(w,wi){ if(pg[si+'-'+wi]) done++; });
+    var pct = Math.round(done/sec.words.length*100);
+    html += '<div style="margin:10px 0">';
+    html += '<div style="display:flex;justify-content:space-between;font-size:0.9em;font-weight:600;color:var(--primary)"><span>'+sec.lesson+'</span><span style="color:var(--gray);font-weight:400">'+done+'/'+sec.words.length+'</span></div>';
+    html += '<div class="progress-bar" style="margin:4px 0 6px"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
     html += '<div class="vocab-words">';
-    sec.words.forEach(function(w){ html += '<span class="vocab-tag">'+w+'</span>'; });
-    html += '</div>';
+    sec.words.forEach(function(w,wi){ var m=pg[si+'-'+wi]; html+='<span class="vocab-tag" style="'+(m?'background:#d4edda;border-color:#c3e6cb;color:#155724':'')+'">'+(m?'\u2713 ':'')+w+'</span>'; });
+    html += '</div></div>';
   });
-  html += '</div>';
-  html += '<div class="btn-group" style="justify-content:center"><button class="btn btn-primary" onclick="startVocabGame()">开始默写</button></div>';
+  var wrong = getVocabWrong();
+  if (wrong.length > 0) {
+    html += '<div style="background:#fff3cd;border-radius:8px;padding:12px;margin:12px 0">';
+    html += '<div style="font-weight:600;color:#856404">\ud83d\udcdd 错词本 ('+wrong.length+')</div>';
+    html += '<div class="vocab-words" style="margin-top:6px">';
+    wrong.forEach(function(w){ html+='<span class="vocab-tag" style="background:#fff;border-color:#ffc107">'+w+'</span>'; });
+    html += '</div>';
+    html += '<button class="btn btn-sm" style="background:#ffc107;color:#333;margin-top:8px" onclick="startVocabReview()">\u4e13\u7ec3\u9519\u8bcd</button>';
+    html += '</div>';
+  }
+  html += '<div class="btn-group" style="justify-content:center"><button class="btn btn-primary" onclick="startVocabGame()">\u5f00\u59cb\u9ed8\u5199</button></div>';
   html += '</div>';
   document.getElementById('app').innerHTML = html;
 }
 
 function startVocabGame() {
-  vocabGameState = {lessonIdx:0, wordIdx:0, hearts:3, correct:0, wrong:0, score:0, answered:{}};
-  renderVocabQuestion();
+  vocabGameState = {lessonIdx:0,wordIdx:0,hearts:3,correct:0,wrong:0,score:0,combo:0,maxCombo:0,answered:{},wrongWords:[],mode:'all',reviewItems:[]};
+  renderVocabQ();
+}
+function startVocabReview() {
+  var wrong = getVocabWrong();
+  var items = [];
+  TEXTBOOK_VOCAB.forEach(function(sec,si){ sec.words.forEach(function(w,wi){ if(wrong.indexOf(w)>=0) items.push({word:w,li:si,wi:wi}); }); });
+  vocabGameState = {lessonIdx:0,wordIdx:0,hearts:3,correct:0,wrong:0,score:0,combo:0,maxCombo:0,answered:{},wrongWords:[],mode:'review',reviewItems:items};
+  renderVocabReviewQ();
 }
 
-function renderVocabQuestion() {
+function renderVocabReviewQ() {
+  var vg = vocabGameState;
+  if (vg.wordIdx >= vg.reviewItems.length) { finishVocabGame(); return; }
+  var item = vg.reviewItems[vg.wordIdx];
+  showVocabCard(item.word, vg.wordIdx+1, vg.reviewItems.length, '\u9519\u8bcd\u590d\u4e60', item.li, item.wi);
+}
+
+function renderVocabQ() {
   var vg = vocabGameState;
   if (vg.lessonIdx >= TEXTBOOK_VOCAB.length) { finishVocabGame(); return; }
   var sec = TEXTBOOK_VOCAB[vg.lessonIdx];
-  if (vg.wordIdx >= sec.words.length) { vg.lessonIdx++; vg.wordIdx=0; renderVocabQuestion(); return; }
-  var word = sec.words[vg.wordIdx];
+  if (vg.wordIdx >= sec.words.length) { vg.lessonIdx++; vg.wordIdx=0; renderVocabQ(); return; }
+  var total = 0; TEXTBOOK_VOCAB.forEach(function(s){total+=s.words.length;});
+  var done = 0; for(var i=0;i<vg.lessonIdx;i++) done+=TEXTBOOK_VOCAB[i].words.length; done+=vg.wordIdx;
+  showVocabCard(sec.words[vg.wordIdx], done+1, total, sec.lesson, vg.lessonIdx, vg.wordIdx);
+}
+
+function showVocabCard(word, num, total, label, li, wi) {
+  var vg = vocabGameState;
   var html = '<div class="unit active">';
   html += '<div class="hearts">';
-  for(var i=0;i<3;i++) html += '<span class="heart '+(i<vg.hearts?'':'lost')+'">'+(i<vg.hearts?'\u2764\ufe0f':'\u2764')+'</span>';
+  for(var i=0;i<3;i++) html+='<span class="heart '+(i<vg.hearts?'':'lost')+'">'+(i<vg.hearts?'\u2764\ufe0f':'\u2764')+'</span>';
   html += '</div>';
-  html += '<div style="text-align:center;color:var(--gray);font-size:0.9em">'+sec.lesson+' | 第 '+(vg.wordIdx+1)+'/'+sec.words.length+' 词</div>';
+  html += '<div style="text-align:center;margin:6px 0">';
+  html += '<div style="color:var(--gray);font-size:0.85em">'+label+' | '+num+'/'+total+'</div>';
+  if (vg.combo >= 3) html += '<div style="color:var(--primary);font-weight:600">\ud83d\udd25 连击 '+vg.combo+'!</div>';
+  html += '</div>';
+  var pct = Math.round(num/total*100);
+  html += '<div class="progress-bar" style="margin:4px 0 12px"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
   html += '<div class="game-question">';
-  html += '<div style="font-size:0.9em;color:var(--gray);margin-bottom:4px">写出这个词（'+word.length+'个字）：</div>';
-  html += '<div class="vocab-game-word">____'+('____').repeat(word.length-1)+'</div>';
+  html += '<div style="font-size:0.9em;color:var(--gray);margin-bottom:8px">写出这个词（'+word.length+'个字）</div>';
+  html += '<div class="vocab-game-word">';
+  for(var ci=0;ci<word.length;ci++) html+='<span style="display:inline-block;width:48px;height:48px;line-height:48px;border-bottom:3px solid var(--primary);margin:0 4px"></span>';
+  html += '</div>';
   html += '<input class="game-input" id="vocabInput" placeholder="请输入" autocomplete="off" autocapitalize="off">';
   html += '<div class="game-answer" id="vocabAnswer" style="display:none"></div>';
   html += '</div>';
-  html += '<div style="text-align:center;margin-top:16px"><button class="btn btn-primary" onclick="checkVocabAnswer()">确认</button></div>';
-  html += '</div>';
+  html += '<div style="text-align:center;margin-top:12px;display:flex;gap:10px;justify-content:center">';
+  html += '<button class="btn btn-sm" style="background:#eee" onclick="showVocabHint(\''+word+'\',\''+label+'\','+num+','+total+','+li+','+wi+')">\ud83d\udca1 看一看</button>';
+  html += '<button class="btn btn-primary" onclick="checkVocabAnswer()">确认</button>';
+  html += '</div></div>';
   document.getElementById('app').innerHTML = html;
   var inp = document.getElementById('vocabInput');
   inp.focus();
   inp.onkeydown = function(e){ if(e.key==='Enter') checkVocabAnswer(); };
 }
 
+function showVocabHint(word, label, num, total, li, wi) {
+  var vg = vocabGameState;
+  var html = '<div class="unit active">';
+  html += '<div class="hearts">';
+  for(var i=0;i<3;i++) html+='<span class="heart '+(i<vg.hearts?'':'lost')+'">'+(i<vg.hearts?'\u2764\ufe0f':'\u2764')+'</span>';
+  html += '</div>';
+  html += '<div style="text-align:center;color:var(--gray);font-size:0.85em;margin:6px 0">'+label+' | '+num+'/'+total+'</div>';
+  html += '<div class="game-question" style="border:2px dashed var(--primary)">';
+  html += '<div style="font-size:2em;font-weight:700;color:var(--primary);letter-spacing:8px;margin:16px 0">'+word+'</div>';
+  html += '<div style="color:var(--gray);font-size:0.9em">\ud83d\udca1 记住了吗？点确认继续默写</div>';
+  html += '<div style="margin-top:16px"><button class="btn btn-primary" onclick="renderVocabQ()">记住了，继续</button></div>';
+  html += '</div></div>';
+  document.getElementById('app').innerHTML = html;
+}
+
 function checkVocabAnswer() {
   var vg = vocabGameState;
-  var sec = TEXTBOOK_VOCAB[vg.lessonIdx];
-  var word = sec.words[vg.wordIdx];
+  var word, li, wi;
+  if (vg.mode === 'review') { var it=vg.reviewItems[vg.wordIdx]; word=it.word; li=it.li; wi=it.wi; }
+  else { word=TEXTBOOK_VOCAB[vg.lessonIdx].words[vg.wordIdx]; li=vg.lessonIdx; wi=vg.wordIdx; }
   var inp = document.getElementById('vocabInput');
   var ans = document.getElementById('vocabAnswer');
   var val = inp.value.trim();
   if (!val) return;
-  var key = vg.lessonIdx+'-'+vg.wordIdx;
+  var key = li+'-'+wi;
   if (vg.answered[key] !== undefined) return;
   vg.answered[key] = true;
   if (val === word) {
-    vg.correct++; vg.score += 10;
+    vg.correct++; vg.combo++;
+    if(vg.combo>vg.maxCombo) vg.maxCombo=vg.combo;
+    var bonus = vg.combo>=5?15:vg.combo>=3?10:0;
+    vg.score += 10+bonus;
     inp.classList.add('correct');
-    ans.innerHTML = '<span class="correct-text">\u2705 答对了！</span>';
-    addPoints(10);
+    ans.innerHTML = '<span class="correct-text">\u2705 答对了！</span>' + (bonus>0?' <span style="color:var(--primary);font-weight:600">+连击'+bonus+'</span>':'');
+    addPoints(10+bonus);
+    markVocabMastered(li,wi);
+    removeVocabWrong(word);
   } else {
-    vg.wrong++; vg.hearts--;
+    vg.wrong++; vg.hearts--; vg.combo=0; vg.score=Math.max(0,vg.score-5);
     inp.classList.add('wrong');
-    ans.innerHTML = '\u274c 正确答案：<span class="correct-text">'+word+'</span>';
+    ans.innerHTML = '\u274c 正确答案：<span class="correct-text" style="font-size:1.3em">'+word+'</span>';
+    addVocabWrong(word);
+    vg.wrongWords.push(word);
   }
-  ans.style.display = 'block';
-  inp.disabled = true;
+  ans.style.display='block'; inp.disabled=true;
   updateGameStats();
   setTimeout(function(){
-    if (vg.hearts <= 0) { finishVocabGame(); return; }
-    vg.wordIdx++;
-    renderVocabQuestion();
-  }, 1200);
+    if(vg.hearts<=0){finishVocabGame();return;}
+    if(vg.mode==='review'){vg.wordIdx++;renderVocabReviewQ();}
+    else{vg.wordIdx++;renderVocabQ();}
+  },1200);
 }
 
 function finishVocabGame() {
-  var vg = vocabGameState;
-  var acc = Math.round(vg.correct / (vg.correct+vg.wrong) * 100);
-  var stars = acc>=90?'\u2b50\u2b50\u2b50':acc>=70?'\u2b50\u2b50':acc>=50?'\u2b50':'';
-  var html = '<div class="unit active"><div class="result-card">';
-  html += '<div style="font-size:3em">'+(vg.hearts>0?'\ud83c\udf89':'\ud83d\ude22')+'</div>';
-  html += '<div class="result-stars">'+stars+'</div>';
-  html += '<div class="result-text">'+(vg.hearts>0?'默写完成！':'生命用完了！')+'</div>';
-  html += '<div style="color:var(--gray)">答对 '+vg.correct+' 个，错误 '+vg.wrong+' 个，得分 '+vg.score+'</div>';
-  html += '<div class="btn-group" style="justify-content:center;margin-top:16px">';
-  html += '<button class="btn btn-primary" onclick="startVocabGame()">再来一次</button>';
-  html += '<button class="btn btn-blue" onclick="renderVocabDictation()">返回</button>';
-  html += '</div></div></div>';
+  var vg=vocabGameState;
+  var total=vg.correct+vg.wrong;
+  var acc=total>0?Math.round(vg.correct/total*100):0;
+  var stars=acc>=90?'\u2b50\u2b50\u2b50':acc>=70?'\u2b50\u2b50':acc>=50?'\u2b50':'';
+  var html='<div class="unit active"><div class="result-card">';
+  html+='<div style="font-size:3em">'+(vg.hearts>0?'\ud83c\udf89':'\ud83d\ude22')+'</div>';
+  html+='<div class="result-stars">'+stars+'</div>';
+  html+='<div class="result-text">'+(vg.hearts>0?'默写完成！':'生命用完了！')+'</div>';
+  html+='<div style="color:var(--gray);line-height:1.8">';
+  html+='答对 <b style="color:var(--green)">'+vg.correct+'</b> 个，错误 <b style="color:var(--red)">'+vg.wrong+'</b> 个<br>';
+  html+='得分 <b style="color:var(--primary)">'+vg.score+'</b> 分';
+  if(vg.maxCombo>=3) html+=' | 最高连击 <b style="color:var(--primary)">'+vg.maxCombo+'</b>';
+  html+='</div>';
+  html+='<div class="btn-group" style="justify-content:center;margin-top:16px">';
+  html+='<button class="btn btn-primary" onclick="startVocabGame()">再来一次</button>';
+  if(getVocabWrong().length>0) html+='<button class="btn btn-green" onclick="startVocabReview()">专练错词</button>';
+  html+='<button class="btn btn-blue" onclick="renderVocabDictation()">返回</button>';
+  html+='</div></div></div>';
   document.getElementById('app').innerHTML = html;
 }
-
 // ==================== GAME DICTATION ====================
 var gameState = { level: 0, hearts: 3, correct: 0, wrong: 0, currentIdx: 0, items: [], levelStars: {} };
 
