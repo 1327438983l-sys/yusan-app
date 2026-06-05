@@ -19,7 +19,7 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
 /* Mode Tabs */
 .mode-tabs{display:flex;background:#fff;border-bottom:2px solid #eee;position:sticky;top:52px;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .mode-tabs::-webkit-scrollbar{display:none}
-.mode-tab{flex:1;min-width:0;padding:12px 8px;cursor:pointer;font-size:0.88em;text-align:center;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;font-weight:500}
+.mode-tab{flex-shrink:0;padding:8px 6px;cursor:pointer;font-size:0.72em;text-align:center;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;font-weight:500}
 .mode-tab:hover{background:#fff5e6}
 .mode-tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:700;background:#fffbf0}
 /* Unit Tabs */
@@ -1502,8 +1502,8 @@ function renderRecite() {
     html += '<button class="play-btn btn-green" onclick="speakPoem(\'' + p.title + '\', 0.5)" title="慢速" style="font-size:1.2em">🐢</button>';
     html += '<button class="play-btn" onclick="stopSpeak()" title="停止" style="background:#eee;font-size:1.2em">⏹</button>';
     html += '</div>';
-    html += '<div class="mic-btn" id="micBtn_'+p.title+'" onclick="startReciteListen(\''+p.title+'\')" title="点击开始背诵">🎤</div>';
-    html += '<div id="reciteResult_'+p.title+'"></div>';
+    html += '<div class="mic-btn" id="micBtn_'+p.title+'" title="点击开始背诵" onclick="try{startReciteListen(\''+p.title+'\')}catch(e){alert(e.message)}">🎤</div>';
+    html += '<div id="reciteResult_'+p.title+'" style="min-height:40px"></div>';
     html += '<div style="margin-top:10px;padding:8px 12px;background:#fff8e1;border-radius:8px;font-size:0.85em;line-height:1.7;border-left:3px solid #f39c12">';
     html += '<b style="color:#e67e22">\ud83d\udcd6 诗人小故事</b><br>' + (POEM_STORIES[p.title] || '') + '</div>';
     html += '</div>';
