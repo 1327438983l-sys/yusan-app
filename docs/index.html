@@ -1622,7 +1622,20 @@ var reciteRecognition = null;
 
 function startReciteListen(poemTitle) {
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { alert('您的浏览器不支持语音识别，请用Chrome打开'); return; }
+  if (!SR) {
+    var ua = navigator.userAgent;
+    var msg = '您的浏览器不支持语音背诵功能。\n\n推荐使用以下浏览器：\n';
+    if (ua.includes('MicroMessenger')) msg += '\u2022 微信内无法使用，请点右上角\u2026选\u201c在浏览器中打开\u201d';
+    else if (ua.includes('QQBrowser')) msg += '\u2022 QQ浏览器\u2014\u2014点击地址栏\u2192切换\u201c极速模式\u201d';
+    else if (ua.includes('UCBrowser')) msg += '\u2022 UC浏览器\u2014\u2014切换到\u201c极速模式\u201d';
+    else if (ua.includes('BaiduBoxApp')) msg += '\u2022 百度APP内无法使用，请在手机自带浏览器中打开';
+    else if (ua.includes('HuaweiBrowser')) msg += '\u2022 华为浏览器\u2014\u2014没问题，试试刷新页面';
+    else if (ua.includes('XiaoMi')) msg += '\u2022 小米浏览器\u2014\u2014请更新到最新版本';
+    else msg += '\u2022 QQ浏览器/UC浏览器（切换极速模式）\n\u2022 手机自带浏览器\n\u2022 Chrome浏览器';
+    msg += '\n\n提示：大部分国产浏览器都支持，切换到\u201c极速模式\u201d即可。';
+    alert(msg);
+    return;
+  }
   var u = UNITS.find(function(x){return x.num===currentUnit;});
   var poem = u.review.poems.find(function(p){return p.title===poemTitle;});
   if (!poem) return;
