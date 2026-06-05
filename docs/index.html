@@ -1933,53 +1933,55 @@ function showVocabHint(word, label, num, total, li, wi) {
 
 function checkVocabAnswer() {
   var vg = vocabGameState;
+  if (vg._checking) return; // prevent double
+  vg._checking = true;
   var item = vg.queue[vg.queueIdx];
-  if (!item) return;
+  if (!item) { vg._checking = false; return; }
   var word = item.word, li = item.li, wi = item.wi;
   var inp = document.getElementById('vocabInput');
   var ans = document.getElementById('vocabAnswer');
-  var val = inp.value.trim();
-  if (!val) return;
+  var val = inp ? inp.value.trim() : '';
+  if (!val) { vg._checking = false; return; }
   var key = li+'-'+wi;
-  if (vg.answered[key] !== undefined) return;
-  vg.answered[key] = true;
+  // Disable buttons immediately
+  if (inp) inp.disabled = true;
+  var btn = document.getElementById('vocabConfirmBtn');
+  if (btn) btn.disabled = true;
+
   if (val === word) {
+    // CORRECT
     vg.correct++; vg.combo++;
     vg.masteredInSession[key] = true;
     if(vg.combo>vg.maxCombo) vg.maxCombo=vg.combo;
     var bonus = vg.combo>=5?15:vg.combo>=3?10:0;
     vg.score += 10+bonus;
-    inp.classList.add('correct');
+    if(inp) inp.classList.add('correct');
     var msgs = ['\u2705 答对了！','\u2b50 太棒了！','\ud83c\udf1f 真厉害！','\ud83d\udcab 完美！'];
-    ans.innerHTML = '<span class="correct-text">'+msgs[Math.floor(Math.random()*msgs.length)]+'</span>' + (bonus>0?' <span style="color:var(--primary);font-weight:600">+连击'+bonus+'</span>':'');
+    ans.innerHTML = '<span class="correct-text">'+msgs[Math.floor(Math.random()*msgs.length)]+'</span>'+(bonus>0?' <span style="color:var(--primary);font-weight:600">+连击'+bonus+'</span>':'');
     addPoints(10+bonus);
     markVocabMastered(li,wi);
     removeVocabWrong(word);
   } else {
+    // WRONG
     vg.wrong++; vg.hearts--; vg.combo=0; vg.score=Math.max(0,vg.score-5);
-    inp.classList.add('wrong');
+    if(inp) inp.classList.add('wrong');
     ans.innerHTML = '\u274c 正确答案：<span class="correct-text" style="font-size:1.3em">'+word+'</span><div style="color:var(--gray);font-size:0.85em;margin-top:4px">\u8bb0\u4f4f\u5b83\uff0c\u4e0b\u6b21\u8fd8\u4f1a\u51fa\u73b0\u54e6\uff01</div>';
     addVocabWrong(word);
     vg.wrongWords.push(word);
-    // Re-queue this word to the end so it comes back
-    vg.queue.push({word:word, li:li, wi:wi, py:vg.queue[vg.queueIdx].py});
+    vg.queue.push({word:word, li:li, wi:wi, py:item.py});
   }
-  ans.style.display='block'; inp.disabled=true;
-  var confirmBtn = document.getElementById('vocabConfirmBtn');
-  if(confirmBtn) confirmBtn.disabled = true;
+  ans.style.display = 'block';
   updateGameStats();
-  // Prevent double-advance
-  if(vg._advancing) return;
-  vg._advancing = true;
-  setTimeout(function(){
-    vg._advancing = false;
-    if(vg.hearts<=0){finishVocabGame();return;}
+
+  // AUTO-ADVANCE after 800ms - no flags, no complexity
+  setTimeout(function() {
+    if(vg.hearts<=0) { finishVocabGame(); return; }
     vg.queueIdx++;
     if(vg.queueIdx >= vg.queue.length) { finishVocabGame(); return; }
+    vg._checking = false;
     if(vg.mode==='review') renderVocabReviewQ();
     else renderVocabQ();
-    setTimeout(function(){var inp=document.getElementById('vocabInput');if(inp)inp.focus();},50);
-  },1000);
+  }, 800);
 }
 
 function finishVocabGame() {
