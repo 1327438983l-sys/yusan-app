@@ -5,92 +5,156 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>三年级下册语文复习</title>
 <style>
-:root{--primary:#e67e22;--green:#27ae60;--red:#e74c3c;--blue:#3498db;--bg:#fdf6ec;--card:#fff;--text:#333;--gray:#999;--shadow:0 2px 12px rgba(0,0,0,0.08)}
+:root{--primary:#e67e22;--primary-light:#f39c12;--green:#27ae60;--red:#e74c3c;--blue:#3498db;--bg:#fdf6ec;--card:#fff;--text:#333;--gray:#999;--shadow:0 2px 12px rgba(0,0,0,0.08);--shadow-lg:0 4px 24px rgba(0,0,0,0.12)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
-.header{background:linear-gradient(135deg,#e67e22,#f39c12);color:#fff;padding:20px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
-.header h1{font-size:1.4em;margin-bottom:4px}
-.header p{font-size:0.85em;opacity:0.9}
-.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #eee;position:sticky;top:68px;z-index:99;-webkit-overflow-scrolling:touch}
+body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
+/* Header */
+.header{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:16px 20px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,0.2)}
+.header h1{font-size:1.3em;margin-bottom:6px;letter-spacing:1px}
+.game-stats{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;font-size:0.82em;margin-top:4px;opacity:0.95}
+.game-stat{background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:12px;white-space:nowrap}
+.badge-display{display:flex;gap:4px;align-items:center}
+.badge-icon{font-size:1em;opacity:0.3;transition:all .3s}
+.badge-icon.earned{opacity:1;animation:badgePulse .6s ease}
+/* Mode Tabs */
+.mode-tabs{display:flex;background:#fff;border-bottom:2px solid #eee;position:sticky;top:52px;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mode-tabs::-webkit-scrollbar{display:none}
+.mode-tab{flex:1;min-width:0;padding:12px 8px;cursor:pointer;font-size:0.88em;text-align:center;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;font-weight:500}
+.mode-tab:hover{background:#fff5e6}
+.mode-tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:700;background:#fffbf0}
+/* Unit Tabs */
+.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #eee;position:sticky;top:102px;z-index:98;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex-shrink:0;padding:12px 18px;cursor:pointer;font-size:0.9em;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.tabs.hidden{display:none}
+.tab{flex-shrink:0;padding:10px 16px;cursor:pointer;font-size:0.85em;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;position:relative}
 .tab:hover{background:#fff5e6}
 .tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
+.tab .progress-dot{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--green)}
+/* Container */
 .container{max-width:800px;margin:0 auto;padding:16px}
-.unit{display:none}
-.unit.active{display:block}
+.unit{display:none}.unit.active{display:block}
 .section{background:var(--card);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
 .section h2{color:var(--primary);font-size:1.15em;margin-bottom:12px;padding-bottom:8px;border-bottom:2px dashed #f0e0c0}
 .section h3{color:var(--green);font-size:1em;margin:12px 0 8px}
 .section h4{color:#555;font-size:0.95em;margin:8px 0 4px}
+/* Poem */
 .poem{background:#fffbf0;border-left:4px solid var(--primary);padding:12px 16px;margin:8px 0;border-radius:0 8px 8px 0;font-size:0.95em}
 .poem .title{font-weight:700;color:var(--primary)}
 .poem .author{text-align:right;color:var(--gray);font-size:0.85em}
+/* Words */
 .word-list{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 .word-tag{background:#f0f9ff;border:1px solid #d0e8ff;border-radius:6px;padding:4px 10px;font-size:0.9em}
 .word-tag .pinyin{color:var(--blue);font-size:0.8em}
+/* Key sentences */
 .key-sentence{background:#f8f8f8;padding:10px 14px;border-radius:8px;margin:6px 0;font-size:0.9em;line-height:1.8}
 .key-sentence em{color:var(--red);font-style:normal;font-weight:600}
+/* Tips */
 .tip{background:#fff3cd;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.88em;color:#856404}
 .tip::before{content:"💡 ";font-size:1.1em}
+/* Progress Bar */
+.progress-bar{background:#eee;border-radius:10px;height:8px;margin:8px 0;overflow:hidden}
+.progress-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--primary),var(--primary-light));transition:width .6s ease}
+.progress-text{font-size:0.8em;color:var(--gray);margin-bottom:4px}
 /* Quiz */
 .quiz-section{background:#f0f7ff;border-radius:12px;padding:20px;margin:16px 0}
 .quiz-section h2{color:var(--blue)}
-.quiz-q{margin:14px 0;padding:12px;background:#fff;border-radius:8px;border:1px solid #e0e0e0}
+.quiz-q{margin:14px 0;padding:12px;background:#fff;border-radius:8px;border:1px solid #e0e0e0;transition:border-color .3s}
+.quiz-q.answered-correct{border-color:var(--green);background:#f0fff4}
+.quiz-q.answered-wrong{border-color:var(--red);background:#fff5f5}
 .quiz-q .q-title{font-weight:600;margin-bottom:8px}
 .quiz-q .q-title .q-num{color:var(--blue);margin-right:6px}
 .quiz-options{display:flex;flex-direction:column;gap:6px}
-.quiz-opt{padding:8px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;transition:all .2s;font-size:0.9em}
+.quiz-opt{padding:8px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;transition:all .2s;font-size:0.9em;user-select:none}
 .quiz-opt:hover{background:#e8f4fd;border-color:var(--blue)}
 .quiz-opt.selected{background:#d4edff;border-color:var(--blue)}
-.quiz-opt.correct{background:#d4edda;border-color:var(--green);color:#155724}
+.quiz-opt.correct{background:#d4edda;border-color:var(--green);color:#155724;font-weight:600}
 .quiz-opt.wrong{background:#f8d7da;border-color:var(--red);color:#721c24}
+.quiz-opt.disabled{pointer-events:none;opacity:0.7}
+.quiz-opt.show-correct{background:#d4edda;border-color:var(--green);color:#155724}
+/* Fill blank */
 .fill-blank{display:inline-block;border-bottom:2px solid var(--primary);min-width:80px;padding:2px 4px;margin:2px 4px}
-.fill-input{border:none;border-bottom:2px solid var(--blue);outline:none;width:100px;padding:2px 4px;font-size:0.95em;text-align:center;font-family:inherit}
-.btn{display:inline-block;padding:10px 24px;border:none;border-radius:8px;font-size:0.95em;cursor:pointer;transition:all .2s;font-family:inherit}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:#d35400}
-.btn-green{background:var(--green);color:#fff}
-.btn-green:hover{background:#219a52}
-.btn-blue{background:var(--blue);color:#fff}
-.btn-blue:hover{background:#2980b9}
+.fill-input{border:none;border-bottom:2px solid var(--blue);outline:none;width:100px;padding:2px 4px;font-size:0.95em;text-align:center;font-family:inherit;transition:all .3s}
+.fill-input.correct{border-color:var(--green);background:#d4edda}
+.fill-input.wrong{border-color:var(--red);background:#f8d7da}
+/* Feedback */
+.feedback{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:0.9em;animation:feedbackIn .3s ease;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
+.feedback.wrong{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
+/* Buttons */
+.btn{display:inline-block;padding:10px 24px;border:none;border-radius:8px;font-size:0.95em;cursor:pointer;transition:all .2s;font-family:inherit;font-weight:500}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:#d35400}
+.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#219a52}
+.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2980b9}
+.btn-sm{padding:6px 14px;font-size:0.85em}
 .btn-group{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
-.score-box{background:linear-gradient(135deg,var(--green),#2ecc71);color:#fff;border-radius:12px;padding:20px;text-align:center;margin:16px 0;display:none}
+/* Score Box */
+.score-box{background:linear-gradient(135deg,var(--green),#2ecc71);color:#fff;border-radius:12px;padding:20px;text-align:center;margin:16px 0;display:none;animation:scoreReveal .5s ease}
 .score-box .score-num{font-size:2.5em;font-weight:700}
 .score-box .score-text{font-size:0.9em;opacity:0.9;margin-top:4px}
-.unit-title{font-size:1.3em;color:var(--primary);font-weight:700;margin-bottom:16px;text-align:center}
-.unit-subtitle{font-size:0.9em;color:var(--gray);text-align:center;margin-top:-12px;margin-bottom:16px}
-/* Print */
-@media print{.header,.tabs,.btn-group,.score-box{display:none!important}.unit{display:block!important}.section{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
-/* Mobile */
-@media(max-width:600px){.container{padding:10px}.section{padding:14px}.tab{padding:10px 12px;font-size:0.82em}.header h1{font-size:1.2em}}
-.list-num{display:inline-block;width:22px;height:22px;background:var(--primary);color:#fff;border-radius:50%;text-align:center;line-height:22px;font-size:0.8em;margin-right:6px;flex-shrink:0}
-.check-item{display:flex;align-items:flex-start;margin:6px 0;padding:6px 0;border-bottom:1px dashed #eee;font-size:0.92em}
-.check-item:last-child{border-bottom:none}
-.check-box{width:18px;height:18px;border:2px solid #ccc;border-radius:4px;margin-right:8px;margin-top:3px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.check-box.checked{background:var(--green);border-color:var(--green);color:#fff}
-.check-box.checked::after{content:"✓";font-size:12px;color:#fff}
+/* Unit title */
+.unit-title{font-size:1.3em;color:var(--primary);font-weight:700;margin-bottom:8px;text-align:center}
+.unit-subtitle{font-size:0.9em;color:var(--gray);text-align:center;margin-top:-8px;margin-bottom:16px}
+/* Flashcard */
+.flashcard-scene{perspective:1000px;width:100%;max-width:420px;margin:0 auto}
+.flashcard-container{width:100%;height:300px;position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.flashcard-container.flipped{transform:rotateY(180deg)}
+.flashcard-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:var(--shadow-lg);overflow:auto}
+.flashcard-front{background:linear-gradient(135deg,#fff8f0,#fff);border:2px solid var(--primary)}
+.flashcard-back{background:linear-gradient(135deg,#f0fff4,#fff);border:2px solid var(--green);transform:rotateY(180deg)}
+.card-type{font-size:0.8em;color:var(--primary);margin-bottom:12px;font-weight:600;background:rgba(230,126,34,0.1);padding:2px 12px;border-radius:10px}
+.card-front-content{font-size:1.1em;line-height:1.8;font-weight:500}
+.card-front-content .card-char{font-size:2em;font-weight:700;color:var(--primary)}
+.card-front-content .card-pinyin{color:var(--blue);font-size:0.9em}
+.card-back-content{font-size:0.95em;line-height:1.8;text-align:left;width:100%}
+.card-back-content .card-poem{white-space:pre-line;font-size:1em;margin-bottom:8px}
+.card-back-content .card-notes{color:#666;font-size:0.85em;border-top:1px dashed #ddd;padding-top:8px;margin-top:8px}
+.card-hint{position:absolute;bottom:12px;font-size:0.75em;color:var(--gray)}
+.flashcard-nav{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:20px}
+.flashcard-counter{font-size:0.9em;color:var(--gray);min-width:60px;text-align:center}
+.flashcard-actions{display:flex;gap:10px;margin-top:16px;justify-content:center}
+/* Due section */
+.due-empty{text-align:center;padding:40px 20px;color:var(--gray)}
+.due-empty .due-icon{font-size:3em;margin-bottom:12px}
+.due-empty p{font-size:1.1em;margin-top:8px}
+/* Badge */
+.badge-earned-toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;padding:12px 24px;border-radius:24px;font-size:0.95em;font-weight:600;z-index:200;animation:toastIn .5s ease,toastOut .5s ease 2.5s forwards;box-shadow:var(--shadow-lg);pointer-events:none}
+/* Nav btn */
 .nav-btn{position:fixed;bottom:20px;right:20px;z-index:100;display:flex;gap:8px}
 .nav-btn .btn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2em;box-shadow:var(--shadow);padding:0}
+/* Animations */
+@keyframes feedbackIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scoreReveal{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
+@keyframes badgePulse{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes toastOut{from{opacity:1}to{opacity:0;pointer-events:none}}
+@keyframes cardShine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+/* Print */
+@media print{.header,.mode-tabs,.tabs,.btn-group,.score-box,.nav-btn,.flashcard-nav,.flashcard-actions{display:none!important}.unit{display:block!important}.section{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
+/* Mobile */
+@media(max-width:600px){.container{padding:10px}.section{padding:14px}.tab{padding:8px 10px;font-size:0.8em}.mode-tab{padding:10px 4px;font-size:0.82em}.header h1{font-size:1.1em}.game-stats{font-size:0.75em;gap:6px}.game-stat{padding:2px 8px}.flashcard-container{height:260px}.flashcard-face{padding:16px}}
 /* Tab colors */
-.tab[data-unit="1"]{border-bottom-color:#e67e22}
-.tab[data-unit="2"]{border-bottom-color:#e74c3c}
-.tab[data-unit="3"]{border-bottom-color:#3498db}
-.tab[data-unit="4"]{border-bottom-color:#9b59b6}
-.tab[data-unit="5"]{border-bottom-color:#1abc9c}
-.tab[data-unit="6"]{border-bottom-color:#e91e63}
-.tab[data-unit="7"]{border-bottom-color:#ff9800}
-.tab[data-unit="8"]{border-bottom-color:#607d8b}
+.tab[data-unit="1"]{border-bottom-color:#e67e22}.tab[data-unit="2"]{border-bottom-color:#e74c3c}
+.tab[data-unit="3"]{border-bottom-color:#3498db}.tab[data-unit="4"]{border-bottom-color:#9b59b6}
+.tab[data-unit="5"]{border-bottom-color:#1abc9c}.tab[data-unit="6"]{border-bottom-color:#e91e63}
+.tab[data-unit="7"]{border-bottom-color:#ff9800}.tab[data-unit="8"]{border-bottom-color:#607d8b}
 </style>
 </head>
 <body>
 
 <div class="header">
   <h1>📚 三年级下册·语文复习</h1>
-  <p>部编版 | 复习清单 + 单元测试</p>
+  <div class="game-stats" id="gameStats"></div>
 </div>
 
-<div class="tabs" id="tabs"></div>
+<div class="mode-tabs" id="modeTabs">
+  <div class="mode-tab active" data-mode="review" onclick="switchMode('review')">📚复习清单</div>
+  <div class="mode-tab" data-mode="quiz" onclick="switchMode('quiz')">📝单元测试</div>
+  <div class="mode-tab" data-mode="flashcard" onclick="switchMode('flashcard')">🃏闪卡记忆</div>
+  <div class="mode-tab" data-mode="review-due" onclick="switchMode('review-due')">📊今日复习</div>
+</div>
+
+<div class="tabs" id="unitTabs"></div>
 
 <div class="container" id="app"></div>
 
@@ -99,82 +163,26 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
 </div>
 
 <script>
-// ============ DATA ============
+// ==================== DATA ====================
 const UNITS = [
 {
   num: 1, title: "第一单元", theme: "可爱的生灵",
   subtitle: "感受春天的美好，体会作者对自然的热爱",
   review: {
     poems: [
-      {
-        title: "绝句", author: "[唐] 杜甫",
-        content: "迟日江山丽，春风花草香。\n泥融飞燕子，沙暖睡鸳鸯。",
-        notes: "迟日=春日。泥融=泥土湿润。鸳鸯=一种水鸟。描写春天阳光明媚、万物复苏的景象。"
-      },
-      {
-        title: "惠崇春江晚景", author: "[宋] 苏轼",
-        content: "竹外桃花三两枝，春江水暖鸭先知。\n蒌蒿满地芦芽短，正是河豚欲上时。",
-        notes: "蒌蒿(lóu hāo)一种草本植物。芦芽=芦苇的嫩芽。河豚=一种味道鲜美但有毒的鱼。这是苏轼为惠崇的画写的题画诗。"
-      },
-      {
-        title: "三衢道中", author: "[宋] 曾几",
-        content: "梅子黄时日日晴，小溪泛尽却山行。\n绿阴不减来时路，添得黄鹂四五声。",
-        notes: "三衢(qú)=今浙江衢州。泛尽=乘船走到尽头。却=又。黄鹂=黄莺。写初夏山行的愉悦心情。"
-      }
+      { title: "绝句", author: "[唐] 杜甫", content: "迟日江山丽，春风花草香。\n泥融飞燕子，沙暖睡鸳鸯。", notes: "迟日=春日。泥融=泥土湿润。鸳鸯=一种水鸟。描写春天阳光明媚、万物复苏的景象。" },
+      { title: "惠崇春江晚景", author: "[宋] 苏轼", content: "竹外桃花三两枝，春江水暖鸭先知。\n蒌蒿满地芦芽短，正是河豚欲上时。", notes: "蒌蒿(lóu hāo)一种草本植物。芦芽=芦苇的嫩芽。河豚=一种味道鲜美但有毒的鱼。这是苏轼为惠崇的画写的题画诗。" },
+      { title: "三衢道中", author: "[宋] 曾几", content: "梅子黄时日日晴，小溪泛尽却山行。\n绿阴不减来时路，添得黄鹂四五声。", notes: "三衢(qú)=今浙江衢州。泛尽=乘船走到尽头。却=又。黄鹂=黄莺。写初夏山行的愉悦心情。" }
     ],
     words: [
-      {char:"融",pinyin:"róng",words:"融化 融合"},
-      {char:"燕",pinyin:"yàn",words:"燕子 海燕"},
-      {char:"鸳",pinyin:"yuān",words:"鸳鸯"},
-      {char:"鸯",pinyin:"yāng",words:"鸳鸯"},
-      {char:"惠",pinyin:"huì",words:"恩惠 优惠"},
-      {char:"崇",pinyin:"chóng",words:"崇高 崇拜"},
-      {char:"芦",pinyin:"lú",words:"芦苇 芦芽"},
-      {char:"芽",pinyin:"yá",words:"发芽 豆芽"},
-      {char:"短",pinyin:"duǎn",words:"长短 短处"},
-      {char:"梅",pinyin:"méi",words:"梅子 梅花"},
-      {char:"溪",pinyin:"xī",words:"小溪 溪水"},
-      {char:"泛",pinyin:"fàn",words:"泛舟 广泛"},
-      {char:"减",pinyin:"jiǎn",words:"减少 减法"},
-      {char:"凑",pinyin:"còu",words:"凑合 凑巧"},
-      {char:"拂",pinyin:"fú",words:"吹拂 拂过"},
-      {char:"集",pinyin:"jí",words:"集合 集市"},
-      {char:"聚",pinyin:"jù",words:"聚会 聚拢"},
-      {char:"形",pinyin:"xíng",words:"形状 形象"},
-      {char:"掠",pinyin:"lüè",words:"掠过 掠夺"},
-      {char:"偶",pinyin:"ǒu",words:"偶尔 偶然"},
-      {char:"沾",pinyin:"zhān",words:"沾水 沾湿"},
-      {char:"倦",pinyin:"juàn",words:"疲倦 倦意"},
-      {char:"纤",pinyin:"xiān",words:"纤细 纤维"},
-      {char:"痕",pinyin:"hén",words:"痕迹 伤痕"},
-      {char:"瓣",pinyin:"bàn",words:"花瓣 豆瓣"},
-      {char:"蓬",pinyin:"péng",words:"莲蓬 蓬松"},
-      {char:"胀",pinyin:"zhàng",words:"饱胀 肿胀"},
-      {char:"裂",pinyin:"liè",words:"裂开 破裂"},
-      {char:"姿",pinyin:"zī",words:"姿势 姿态"},
-      {char:"势",pinyin:"shì",words:"姿势 气势"},
-      {char:"仿",pinyin:"fǎng",words:"仿佛 模仿"},
-      {char:"佛",pinyin:"fú",words:"仿佛"},
-      {char:"随",pinyin:"suí",words:"跟随 随便"},
-      {char:"蹈",pinyin:"dǎo",words:"舞蹈 手舞足蹈"},
-      {char:"蚂",pinyin:"mǎ",words:"蚂蚁"},
-      {char:"蚂",pinyin:"mà",words:"蚂蚱"},
-      {char:"蚱",pinyin:"zhà",words:"蚂蚱"},
-      {char:"翩",pinyin:"piān",words:"翩翩起舞"},
-      {char:"膜",pinyin:"mó",words:"薄膜 耳膜"},
-      {char:"斑",pinyin:"bān",words:"斑点 斑马"}
+      {char:"融",pinyin:"róng",words:"融化 融合"},{char:"燕",pinyin:"yàn",words:"燕子 海燕"},{char:"鸳",pinyin:"yuān",words:"鸳鸯"},{char:"鸯",pinyin:"yāng",words:"鸳鸯"},{char:"惠",pinyin:"huì",words:"恩惠 优惠"},{char:"崇",pinyin:"chóng",words:"崇高 崇拜"},{char:"芦",pinyin:"lú",words:"芦苇 芦芽"},{char:"芽",pinyin:"yá",words:"发芽 豆芽"},{char:"短",pinyin:"duǎn",words:"长短 短处"},{char:"梅",pinyin:"méi",words:"梅子 梅花"},{char:"溪",pinyin:"xī",words:"小溪 溪水"},{char:"泛",pinyin:"fàn",words:"泛舟 广泛"},{char:"减",pinyin:"jiǎn",words:"减少 减法"},{char:"凑",pinyin:"còu",words:"凑合 凑巧"},{char:"拂",pinyin:"fú",words:"吹拂 拂过"},{char:"集",pinyin:"jí",words:"集合 集市"},{char:"聚",pinyin:"jù",words:"聚会 聚拢"},{char:"形",pinyin:"xíng",words:"形状 形象"},{char:"掠",pinyin:"lüè",words:"掠过 掠夺"},{char:"偶",pinyin:"ǒu",words:"偶尔 偶然"},{char:"沾",pinyin:"zhān",words:"沾水 沾湿"},{char:"倦",pinyin:"juàn",words:"疲倦 倦意"},{char:"纤",pinyin:"xiān",words:"纤细 纤维"},{char:"痕",pinyin:"hén",words:"痕迹 伤痕"},{char:"瓣",pinyin:"bàn",words:"花瓣 豆瓣"},{char:"蓬",pinyin:"péng",words:"莲蓬 蓬松"},{char:"胀",pinyin:"zhàng",words:"饱胀 肿胀"},{char:"裂",pinyin:"liè",words:"裂开 破裂"},{char:"姿",pinyin:"zī",words:"姿势 姿态"},{char:"势",pinyin:"shì",words:"姿势 气势"},{char:"仿",pinyin:"fǎng",words:"仿佛 模仿"},{char:"佛",pinyin:"fú",words:"仿佛"},{char:"随",pinyin:"suí",words:"跟随 随便"},{char:"蹈",pinyin:"dǎo",words:"舞蹈 手舞足蹈"},{char:"蚂",pinyin:"mǎ",words:"蚂蚁"},{char:"蚂",pinyin:"mà",words:"蚂蚱"},{char:"蚱",pinyin:"zhà",words:"蚂蚱"},{char:"翩",pinyin:"piān",words:"翩翩起舞"},{char:"膜",pinyin:"mó",words:"薄膜 耳膜"},{char:"斑",pinyin:"bān",words:"斑点 斑马"}
     ],
     keySentences: [
       "一身<em>乌黑</em>的羽毛，一对<em>轻快有力</em>的翅膀，加上<em>剪刀似的</em>尾巴，凑成了那样可爱的活泼的小燕子。（比喻：尾巴像剪刀）",
       "荷叶<em>挨挨挤挤</em>的，像一个个碧绿的<em>大圆盘</em>。（比喻：荷叶像大圆盘）",
       "白荷花在这些大圆盘之间冒出来。有的才展开两三片花瓣儿。有的花瓣儿<em>全展开了</em>，露出嫩黄色的小莲蓬。有的还是花骨朵儿，看起来<em>饱胀得马上要破裂似的</em>。（排比+拟人）"
     ],
-    tips: [
-      "本单元重点：感受春天的美好，学习比喻、拟人等修辞手法",
-      "三首古诗都是描写春天景色的，注意理解诗意和作者情感",
-      "背诵要求：三首古诗全文背诵+默写",
-      "《燕子》和《荷花》要求有感情地朗读课文"
-    ]
+    tips: ["本单元重点：感受春天的美好，学习比喻、拟人等修辞手法","三首古诗都是描写春天景色的，注意理解诗意和作者情感","背诵要求：三首古诗全文背诵+默写","《燕子》和《荷花》要求有感情地朗读课文"]
   },
   quiz: {
     choose: [
@@ -210,33 +218,7 @@ const UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"宋",pinyin:"sòng",words:"宋国 宋朝"},
-      {char:"耕",pinyin:"gēng",words:"耕田 耕种"},
-      {char:"释",pinyin:"shì",words:"解释 释放"},
-      {char:"冀",pinyin:"jì",words:"希望 希冀"},
-      {char:"颈",pinyin:"jǐng",words:"脖子 头颈"},
-      {char:"匀",pinyin:"yún",words:"匀称 均匀"},
-      {char:"致",pinyin:"zhì",words:"精致 兴致"},
-      {char:"配",pinyin:"pèi",words:"配合 分配"},
-      {char:"传",pinyin:"chuán",words:"传说 传递"},
-      {char:"传",pinyin:"zhuàn",words:"传记 自传"},
-      {char:"恼",pinyin:"nǎo",words:"烦恼 恼怒"},
-      {char:"狮",pinyin:"shī",words:"狮子 狮群"},
-      {char:"谦",pinyin:"qiān",words:"谦虚 谦让"},
-      {char:"虚",pinyin:"xū",words:"谦虚 虚心"},
-      {char:"懦",pinyin:"nuò",words:"懦弱 懦夫"},
-      {char:"弱",pinyin:"ruò",words:"懦弱 弱小"},
-      {char:"提",pinyin:"tí",words:"提倡 提醒"},
-      {char:"尘",pinyin:"chén",words:"尘土 灰尘"},
-      {char:"捧",pinyin:"pěng",words:"捧起 吹捧"},
-      {char:"代",pinyin:"dài",words:"代价 代替"},
-      {char:"价",pinyin:"jià",words:"代价 价格"},
-      {char:"触",pinyin:"chù",words:"触角 触摸"},
-      {char:"骄傲",pinyin:"jiāo ào",words:"骄傲 自满"},
-      {char:"古代",pinyin:"gǔ dài",words:"古代 古老"},
-      {char:"国王",pinyin:"guó wáng",words:"国王 君主"},
-      {char:"骄傲",pinyin:"jiāo ào",words:"骄傲 傲慢"},
-      {char:"谦虚",pinyin:"qiān xū",words:"谦虚 谦逊"}
+      {char:"宋",pinyin:"sòng",words:"宋国 宋朝"},{char:"耕",pinyin:"gēng",words:"耕田 耕种"},{char:"释",pinyin:"shì",words:"解释 释放"},{char:"冀",pinyin:"jì",words:"希望 希冀"},{char:"颈",pinyin:"jǐng",words:"脖子 头颈"},{char:"匀",pinyin:"yún",words:"匀称 均匀"},{char:"致",pinyin:"zhì",words:"精致 兴致"},{char:"配",pinyin:"pèi",words:"配合 分配"},{char:"传",pinyin:"chuán",words:"传说 传递"},{char:"传",pinyin:"zhuàn",words:"传记 自传"},{char:"恼",pinyin:"nǎo",words:"烦恼 恼怒"},{char:"狮",pinyin:"shī",words:"狮子 狮群"},{char:"谦",pinyin:"qiān",words:"谦虚 谦让"},{char:"虚",pinyin:"xū",words:"谦虚 虚心"},{char:"懦",pinyin:"nuò",words:"懦弱 懦夫"},{char:"弱",pinyin:"ruò",words:"懦弱 弱小"},{char:"提",pinyin:"tí",words:"提倡 提醒"},{char:"尘",pinyin:"chén",words:"尘土 灰尘"},{char:"捧",pinyin:"pěng",words:"捧起 吹捧"},{char:"代",pinyin:"dài",words:"代价 代替"},{char:"价",pinyin:"jià",words:"代价 价格"},{char:"触",pinyin:"chù",words:"触角 触摸"},{char:"骄傲",pinyin:"jiāo ào",words:"骄傲 自满"},{char:"古代",pinyin:"gǔ dài",words:"古代 古老"},{char:"国王",pinyin:"guó wáng",words:"国王 君主"},{char:"骄傲",pinyin:"jiāo ào",words:"骄傲 傲慢"},{char:"谦虚",pinyin:"qiān xū",words:"谦虚 谦逊"}
     ],
     keySentences: [
       "宋人有耕者。田中有株。兔走触株，折颈而死。因释其耒而守株，冀复得兔。兔不可复得，而身为宋国笑。（守株待兔全文，注意理解每个字的意思）",
@@ -244,13 +226,7 @@ const UNITS = [
       "鹿不敢犹豫，撒开长腿就跑。有力的长腿在灌木丛中蹦来跳去，不一会儿，就把凶猛的狮子远远地甩在了后面。（动作描写）",
       "河水对池子说：我用源源不断的水，年年给人们带来利益。这就叫做<em>流动</em>，才会<em>长流不断</em>。（对比：安逸vs奉献）"
     ],
-    tips: [
-      "守株待兔：不能指望不劳而获，要靠自己的努力",
-      "鹿角和鹿腿：不要只看外表，实用的才是最重要的",
-      "池子与河流：不能贪图安逸，要像河流一样不断进取",
-      "狼和鹿：不要被表面的友善所迷惑",
-      "本单元要掌握：文言文翻译+寓言寓意"
-    ]
+    tips: ["守株待兔：不能指望不劳而获，要靠自己的努力","鹿角和鹿腿：不要只看外表，实用的才是最重要的","池子与河流：不能贪图安逸，要像河流一样不断进取","狼和鹿：不要被表面的友善所迷惑","本单元要掌握：文言文翻译+寓言寓意"]
   },
   quiz: {
     choose: [
@@ -285,33 +261,7 @@ const UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"宁",pinyin:"níng",words:"宁静 安宁"},
-      {char:"官",pinyin:"guān",words:"官员 官府"},
-      {char:"汪",pinyin:"wāng",words:"汪汪 水汪汪"},
-      {char:"险",pinyin:"xiǎn",words:"危险 险要"},
-      {char:"参",pinyin:"cān",words:"参加 参与"},
-      {char:"参",pinyin:"shēn",words:"人参 海参"},
-      {char:"攻",pinyin:"gōng",words:"进攻 攻击"},
-      {char:"推",pinyin:"tuī",words:"推开 推动"},
-      {char:"迅",pinyin:"xùn",words:"迅速"},
-      {char:"速",pinyin:"sù",words:"迅速 速度"},
-      {char:"退",pinyin:"tuì",words:"后退 退步"},
-      {char:"钢",pinyin:"gāng",words:"钢铁 钢琴"},
-      {char:"铁",pinyin:"tiě",words:"钢铁 铁路"},
-      {char:"悄",pinyin:"qiǎo",words:"静悄悄 悄悄"},
-      {char:"嗡",pinyin:"wēng",words:"嗡嗡"},
-      {char:"斑",pinyin:"bān",words:"斑点 斑马"},
-      {char:"蜜",pinyin:"mì",words:"蜜蜂 蜂蜜"},
-      {char:"辨",pinyin:"biàn",words:"辨认 辨别"},
-      {char:"跨",pinyin:"kuà",words:"跨越 跨步"},
-      {char:"括",pinyin:"kuò",words:"包括 括号"},
-      {char:"检",pinyin:"jiǎn",words:"检查 检验"},
-      {char:"查",pinyin:"chá",words:"检查 查看"},
-      {char:"确",pinyin:"què",words:"确实 准确"},
-      {char:"误",pinyin:"wù",words:"错误 误会"},
-      {char:"途",pinyin:"tú",words:"路途 用途"},
-      {char:"陌",pinyin:"mò",words:"陌生 陌路"},
-      {char:"超",pinyin:"chāo",words:"超过 超级"}
+      {char:"宁",pinyin:"níng",words:"宁静 安宁"},{char:"官",pinyin:"guān",words:"官员 官府"},{char:"汪",pinyin:"wāng",words:"汪汪 水汪汪"},{char:"险",pinyin:"xiǎn",words:"危险 险要"},{char:"参",pinyin:"cān",words:"参加 参与"},{char:"参",pinyin:"shēn",words:"人参 海参"},{char:"攻",pinyin:"gōng",words:"进攻 攻击"},{char:"推",pinyin:"tuī",words:"推开 推动"},{char:"迅",pinyin:"xùn",words:"迅速"},{char:"速",pinyin:"sù",words:"迅速 速度"},{char:"退",pinyin:"tuì",words:"后退 退步"},{char:"钢",pinyin:"gāng",words:"钢铁 钢琴"},{char:"铁",pinyin:"tiě",words:"钢铁 铁路"},{char:"悄",pinyin:"qiǎo",words:"静悄悄 悄悄"},{char:"嗡",pinyin:"wēng",words:"嗡嗡"},{char:"斑",pinyin:"bān",words:"斑点 斑马"},{char:"蜜",pinyin:"mì",words:"蜜蜂 蜂蜜"},{char:"辨",pinyin:"biàn",words:"辨认 辨别"},{char:"跨",pinyin:"kuà",words:"跨越 跨步"},{char:"括",pinyin:"kuò",words:"包括 括号"},{char:"检",pinyin:"jiǎn",words:"检查 检验"},{char:"查",pinyin:"chá",words:"检查 查看"},{char:"确",pinyin:"què",words:"确实 准确"},{char:"误",pinyin:"wù",words:"错误 误会"},{char:"途",pinyin:"tú",words:"路途 用途"},{char:"陌",pinyin:"mò",words:"陌生 陌路"},{char:"超",pinyin:"chāo",words:"超过 超级"}
     ],
     keySentences: [
       "你可知道，大海深处是什么样的吗？（设问句，引出下文对海底世界的描写）",
@@ -320,12 +270,7 @@ const UNITS = [
       "蜜蜂靠的不是<em>超常的记忆力</em>，而是一种<em>我无法解释的本能</em>。（转折关系，文章中心句）",
       "小虾在缸里十分自在。它们相互<em>搏斗</em>着，蹦出水面是常有的事。（动作描写）"
     ],
-    tips: [
-      "海底世界：了解海底的声音、动物、植物、矿藏等特点",
-      "蜜蜂：法布尔的实验，蜜蜂辨认方向靠的是本能",
-      "小虾：观察小虾的外形、动作、生活习性",
-      "本单元重点：学会观察，了解自然界的奥秘"
-    ]
+    tips: ["海底世界：了解海底的声音、动物、植物、矿藏等特点","蜜蜂：法布尔的实验，蜜蜂辨认方向靠的是本能","小虾：观察小虾的外形、动作、生活习性","本单元重点：学会观察，了解自然界的奥秘"]
   },
   quiz: {
     choose: [
@@ -355,48 +300,12 @@ const UNITS = [
   subtitle: "了解中华传统文化，感受中华文明的伟大",
   review: {
     poems: [
-      {
-        title: "元日", author: "[宋] 王安石",
-        content: "爆竹声中一岁除，春风送暖入屠苏。\n千门万户曈曈日，总把新桃换旧符。",
-        notes: "元日=农历正月初一(春节)。屠苏=屠苏酒。曈曈(tóng)：日出时光亮的样子。桃/符=桃符，古代新年习俗，挂桃木板驱邪。全诗写春节热闹喜庆的景象。"
-      },
-      {
-        title: "清明", author: "[唐] 杜牧",
-        content: "清明时节雨纷纷，路上行人欲断魂。\n借问酒家何处有？牧童遥指杏花村。",
-        notes: "清明=清明节(4月4-6日)。纷纷=细密的样子。欲断魂=伤感愁闷。杏花村=地名。写清明时节的雨景和行人的忧愁。"
-      },
-      {
-        title: "九月九日忆山东兄弟", author: "[唐] 王维",
-        content: "独在异乡为异客，每逢佳节倍思亲。\n遥知兄弟登高处，遍插茱萸少一人。",
-        notes: "九月九日=重阳节。山东=华山以东。异乡=他乡。倍=更加。茱萸(zhū yú)=一种香草，重阳节佩戴辟邪。写游子对家乡亲人的思念。"
-      }
+      { title: "元日", author: "[宋] 王安石", content: "爆竹声中一岁除，春风送暖入屠苏。\n千门万户曈曈日，总把新桃换旧符。", notes: "元日=农历正月初一(春节)。屠苏=屠苏酒。曈曈(tóng)：日出时光亮的样子。桃/符=桃符，古代新年习俗，挂桃木板驱邪。全诗写春节热闹喜庆的景象。" },
+      { title: "清明", author: "[唐] 杜牧", content: "清明时节雨纷纷，路上行人欲断魂。\n借问酒家何处有？牧童遥指杏花村。", notes: "清明=清明节(4月4-6日)。纷纷=细密的样子。欲断魂=伤感愁闷。杏花村=地名。写清明时节的雨景和行人的忧愁。" },
+      { title: "九月九日忆山东兄弟", author: "[唐] 王维", content: "独在异乡为异客，每逢佳节倍思亲。\n遥知兄弟登高处，遍插茱萸少一人。", notes: "九月九日=重阳节。山东=华山以东。异乡=他乡。倍=更加。茱萸(zhū yú)=一种香草，重阳节佩戴辟邪。写游子对家乡亲人的思念。" }
     ],
     words: [
-      {char:"符",pinyin:"fú",words:"符号 符合"},
-      {char:"欲",pinyin:"yù",words:"欲望 欲望"},
-      {char:"魂",pinyin:"hún",words:"灵魂 魂魄"},
-      {char:"借",pinyin:"jiè",words:"借问 借书"},
-      {char:"酒",pinyin:"jiǔ",words:"酒家 白酒"},
-      {char:"牧",pinyin:"mù",words:"牧童 放牧"},
-      {char:"兄",pinyin:"xiōng",words:"兄弟 兄长"},
-      {char:"独",pinyin:"dú",words:"独自 独立"},
-      {char:"异",pinyin:"yì",words:"异乡 奇异"},
-      {char:"佳",pinyin:"jiā",words:"佳节 美好"},
-      {char:"倍",pinyin:"bèi",words:"加倍 倍数"},
-      {char:"逢",pinyin:"féng",words:"每逢 相逢"},
-      {char:"插",pinyin:"chā",words:"插花 安插"},
-      {char:"忆",pinyin:"yì",words:"回忆 记忆"},
-      {char:"术",pinyin:"shù",words:"技术 美术"},
-      {char:"伟",pinyin:"wěi",words:"伟大 雄伟"},
-      {char:"录",pinyin:"lù",words:"记录 目录"},
-      {char:"保",pinyin:"bǎo",words:"保存 保护"},
-      {char:"存",pinyin:"cún",words:"保存 生存"},
-      {char:"约",pinyin:"yuē",words:"大约 约定"},
-      {char:"验",pinyin:"yàn",words:"经验 检验"},
-      {char:"阿",pinyin:"ā",words:"阿姨"},
-      {char:"欧",pinyin:"ōu",words:"欧洲 欧盟"},
-      {char:"洲",pinyin:"zhōu",words:"欧洲 亚洲"},
-      {char:"社",pinyin:"shè",words:"社会 社区"}
+      {char:"符",pinyin:"fú",words:"符号 符合"},{char:"欲",pinyin:"yù",words:"欲望 欲望"},{char:"魂",pinyin:"hún",words:"灵魂 魂魄"},{char:"借",pinyin:"jiè",words:"借问 借书"},{char:"酒",pinyin:"jiǔ",words:"酒家 白酒"},{char:"牧",pinyin:"mù",words:"牧童 放牧"},{char:"兄",pinyin:"xiōng",words:"兄弟 兄长"},{char:"独",pinyin:"dú",words:"独自 独立"},{char:"异",pinyin:"yì",words:"异乡 奇异"},{char:"佳",pinyin:"jiā",words:"佳节 美好"},{char:"倍",pinyin:"bèi",words:"加倍 倍数"},{char:"逢",pinyin:"féng",words:"每逢 相逢"},{char:"插",pinyin:"chā",words:"插花 安插"},{char:"忆",pinyin:"yì",words:"回忆 记忆"},{char:"术",pinyin:"shù",words:"技术 美术"},{char:"伟",pinyin:"wěi",words:"伟大 雄伟"},{char:"录",pinyin:"lù",words:"记录 目录"},{char:"保",pinyin:"bǎo",words:"保存 保护"},{char:"存",pinyin:"cún",words:"保存 生存"},{char:"约",pinyin:"yuē",words:"大约 约定"},{char:"验",pinyin:"yàn",words:"经验 检验"},{char:"阿",pinyin:"ā",words:"阿姨"},{char:"欧",pinyin:"ōu",words:"欧洲 欧盟"},{char:"洲",pinyin:"zhōu",words:"欧洲 亚洲"},{char:"社",pinyin:"shè",words:"社会 社区"}
     ],
     keySentences: [
       "爆竹声中一岁除，春风送暖入屠苏。（春节热闹场景）",
@@ -405,13 +314,7 @@ const UNITS = [
       "造纸术的发明，是中国对世界文明的伟大贡献之一。（中心句）",
       "赵州桥非常雄伟。桥长五十多米，有九米多宽，中间行车马，两旁走人。（列数字说明方法）"
     ],
-    tips: [
-      "三首古诗分别写三个传统节日：春节、清明节、重阳节",
-      "背诵要求：三首古诗全文背诵+默写，会解释重点字词",
-      "纸的发明：了解造纸术的发明过程和意义",
-      "赵州桥：了解赵州桥的特点（坚固、美观），学习说明方法",
-      "一幅名扬中外的画：了解《清明上河图》"
-    ]
+    tips: ["三首古诗分别写三个传统节日：春节、清明节、重阳节","背诵要求：三首古诗全文背诵+默写，会解释重点字词","纸的发明：了解造纸术的发明过程和意义","赵州桥：了解赵州桥的特点（坚固、美观），学习说明方法","一幅名扬中外的画：了解《清明上河图》"]
   },
   quiz: {
     choose: [
@@ -446,27 +349,7 @@ const UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"棚",pinyin:"péng",words:"草棚 凉棚"},
-      {char:"萝",pinyin:"luó",words:"萝卜"},
-      {char:"卜",pinyin:"bo",words:"萝卜"},
-      {char:"愁",pinyin:"chóu",words:"发愁 忧愁"},
-      {char:"沾",pinyin:"zhān",words:"沾水 沾湿"},
-      {char:"晾",pinyin:"liàng",words:"晾干 晾晒"},
-      {char:"绳",pinyin:"shéng",words:"绳子 跳绳"},
-      {char:"剪",pinyin:"jiǎn",words:"剪刀 剪纸"},
-      {char:"状",pinyin:"zhuàng",words:"形状 告状"},
-      {char:"狐",pinyin:"hú",words:"狐狸"},
-      {char:"狸",pinyin:"lí",words:"狐狸"},
-      {char:"腰",pinyin:"yāo",words:"弯腰 腰部"},
-      {char:"零",pinyin:"líng",words:"零食 零件"},
-      {char:"巧",pinyin:"qiǎo",words:"心灵手巧 灵巧"},
-      {char:"克",pinyin:"kè",words:"千克 克服"},
-      {char:"肠",pinyin:"cháng",words:"香肠 肠胃"},
-      {char:"继",pinyin:"jì",words:"继续 继承"},
-      {char:"续",pinyin:"xù",words:"继续 续写"},
-      {char:"抬",pinyin:"tái",words:"抬头 抬手"},
-      {char:"麻",pinyin:"má",words:"麻烦 芝麻"},
-      {char:"烦",pinyin:"fán",words:"麻烦 烦恼"},
+      {char:"棚",pinyin:"péng",words:"草棚 凉棚"},{char:"萝",pinyin:"luó",words:"萝卜"},{char:"卜",pinyin:"bo",words:"萝卜"},{char:"愁",pinyin:"chóu",words:"发愁 忧愁"},{char:"沾",pinyin:"zhān",words:"沾水 沾湿"},{char:"晾",pinyin:"liàng",words:"晾干 晾晒"},{char:"绳",pinyin:"shéng",words:"绳子 跳绳"},{char:"剪",pinyin:"jiǎn",words:"剪刀 剪纸"},{char:"状",pinyin:"zhuàng",words:"形状 告状"},{char:"狐",pinyin:"hú",words:"狐狸"},{char:"狸",pinyin:"lí",words:"狐狸"},{char:"腰",pinyin:"yāo",words:"弯腰 腰部"},{char:"零",pinyin:"líng",words:"零食 零件"},{char:"巧",pinyin:"qiǎo",words:"心灵手巧 灵巧"},{char:"克",pinyin:"kè",words:"千克 克服"},{char:"肠",pinyin:"cháng",words:"香肠 肠胃"},{char:"继",pinyin:"jì",words:"继续 继承"},{char:"续",pinyin:"xù",words:"继续 续写"},{char:"抬",pinyin:"tái",words:"抬头 抬手"},{char:"麻",pinyin:"má",words:"麻烦 芝麻"},{char:"烦",pinyin:"fán",words:"麻烦 烦恼"}
     ],
     keySentences: [
       "胡萝卜先生常常为胡子发愁，因为他长着浓密的胡子，必须每天刮。（故事开头）",
@@ -474,13 +357,7 @@ const UNITS = [
       "我心里想，我变成了一棵大树，身上长满了各种形状的鸟窝。（大胆想象）",
       "一支铅笔的梦想：它想溜出教室，到山坡上开出花朵，到小河边给小鱼当旗杆……（连续想象）"
     ],
-    tips: [
-      "本单元是习作单元，重点培养想象力",
-      "胡萝卜先生的长胡子：故事留白，续编结尾",
-      "我变成了一棵树：学会用想象表达愿望",
-      "例文：一支铅笔的梦想——学习用连续想象写故事",
-      "习作要求：大胆想象，写出奇妙有趣的故事"
-    ]
+    tips: ["本单元是习作单元，重点培养想象力","胡萝卜先生的长胡子：故事留白，续编结尾","我变成了一棵树：学会用想象表达愿望","例文：一支铅笔的梦想——学习用连续想象写故事","习作要求：大胆想象，写出奇妙有趣的故事"]
   },
   quiz: {
     choose: [
@@ -510,38 +387,7 @@ const UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"墨",pinyin:"mò",words:"水墨 墨水"},
-      {char:"染",pinyin:"rǎn",words:"染色 染绿"},
-      {char:"碎",pinyin:"suì",words:"打碎 碎片"},
-      {char:"浪",pinyin:"làng",words:"波浪 浪花"},
-      {char:"溅",pinyin:"jiàn",words:"飞溅 溅起"},
-      {char:"爽",pinyin:"shuǎng",words:"凉爽 爽快"},
-      {char:"蘑",pinyin:"mó",words:"蘑菇"},
-      {char:"菇",pinyin:"gū",words:"蘑菇"},
-      {char:"腾",pinyin:"téng",words:"沸腾 飞腾"},
-      {char:"碎",pinyin:"suì",words:"打碎 破碎"},
-      {char:"胆",pinyin:"dǎn",words:"胆子 勇敢"},
-      {char:"鬼",pinyin:"guǐ",words:"鬼怪 小鬼"},
-      {char:"理",pinyin:"lǐ",words:"道理 理由"},
-      {char:"夺",pinyin:"duó",words:"争夺 抢夺"},
-      {char:"骂",pinyin:"mà",words:"骂人 责骂"},
-      {char:"仇",pinyin:"chóu",words:"仇恨 仇人"},
-      {char:"差",pinyin:"chà",words:"差生 差不多"},
-      {char:"付",pinyin:"fù",words:"付出 交付"},
-      {char:"倍",pinyin:"bèi",words:"加倍 倍数"},
-      {char:"虽",pinyin:"suī",words:"虽然 虽说"},
-      {char:"件",pinyin:"jiàn",words:"事件 一件"},
-      {char:"皂",pinyin:"zào",words:"肥皂 香皂"},
-      {char:"碗",pinyin:"wǎn",words:"饭碗 碗"},
-      {char:"悠",pinyin:"yōu",words:"悠闲 悠久"},
-      {char:"若",pinyin:"ruò",words:"若是 假若"},
-      {char:"透",pinyin:"tòu",words:"透明 透气"},
-      {char:"娇",pinyin:"jiāo",words:"娇嫩 撒娇"},
-      {char:"扯",pinyin:"chě",words:"扯开 拉扯"},
-      {char:"仰",pinyin:"yǎng",words:"仰望 仰头"},
-      {char:"串",pinyin:"chuàn",words:"一串 串门"},
-      {char:"婴",pinyin:"yīng",words:"婴儿"},
-      {char:"希",pinyin:"xī",words:"希望 希腊"}
+      {char:"墨",pinyin:"mò",words:"水墨 墨水"},{char:"染",pinyin:"rǎn",words:"染色 染绿"},{char:"碎",pinyin:"suì",words:"打碎 碎片"},{char:"浪",pinyin:"làng",words:"波浪 浪花"},{char:"溅",pinyin:"jiàn",words:"飞溅 溅起"},{char:"爽",pinyin:"shuǎng",words:"凉爽 爽快"},{char:"蘑",pinyin:"mó",words:"蘑菇"},{char:"菇",pinyin:"gū",words:"蘑菇"},{char:"腾",pinyin:"téng",words:"沸腾 飞腾"},{char:"碎",pinyin:"suì",words:"打碎 破碎"},{char:"胆",pinyin:"dǎn",words:"胆子 勇敢"},{char:"鬼",pinyin:"guǐ",words:"鬼怪 小鬼"},{char:"理",pinyin:"lǐ",words:"道理 理由"},{char:"夺",pinyin:"duó",words:"争夺 抢夺"},{char:"骂",pinyin:"mà",words:"骂人 责骂"},{char:"仇",pinyin:"chóu",words:"仇恨 仇人"},{char:"差",pinyin:"chà",words:"差生 差不多"},{char:"付",pinyin:"fù",words:"付出 交付"},{char:"倍",pinyin:"bèi",words:"加倍 倍数"},{char:"虽",pinyin:"suī",words:"虽然 虽说"},{char:"件",pinyin:"jiàn",words:"事件 一件"},{char:"皂",pinyin:"zào",words:"肥皂 香皂"},{char:"碗",pinyin:"wǎn",words:"饭碗 碗"},{char:"悠",pinyin:"yōu",words:"悠闲 悠久"},{char:"若",pinyin:"ruò",words:"若是 假若"},{char:"透",pinyin:"tòu",words:"透明 透气"},{char:"娇",pinyin:"jiāo",words:"娇嫩 撒娇"},{char:"扯",pinyin:"chě",words:"扯开 拉扯"},{char:"仰",pinyin:"yǎng",words:"仰望 仰头"},{char:"串",pinyin:"chuàn",words:"一串 串门"},{char:"婴",pinyin:"yīng",words:"婴儿"},{char:"希",pinyin:"xī",words:"希望 希腊"}
     ],
     keySentences: [
       "垂柳把溪水当做梳妆的镜子，山溪像绿玉带一样平静。（比喻+拟人）",
@@ -550,13 +396,7 @@ const UNITS = [
       "这肥皂泡，吹起来很美丽，五色的浮光，在那轻清透明的球面上乱转。（描写肥皂泡的美）",
       "灰雀在树枝间来回跳动，婉转地歌唱，非常惹人喜爱。（拟人+外形+声音）"
     ],
-    tips: [
-      "童年的水墨画：三首小诗分别写了溪边、江上、林中的童年场景",
-      "肥皂泡：吹肥皂泡的过程和想象",
-      "灰雀：列宁和小男孩的故事，诚实守信",
-      "我不能失信：宋庆龄小时候守信用的故事",
-      "本单元重点：感受童年的美好，学习细节描写"
-    ]
+    tips: ["童年的水墨画：三首小诗分别写了溪边、江上、林中的童年场景","肥皂泡：吹肥皂泡的过程和想象","灰雀：列宁和小男孩的故事，诚实守信","我不能失信：宋庆龄小时候守信用的故事","本单元重点：感受童年的美好，学习细节描写"]
   },
   quiz: {
     choose: [
@@ -569,7 +409,7 @@ const UNITS = [
     fill: [
       {q:"人影给溪水____了，钓竿上____着一只红蜻蜓。",a:"染绿,立"},
       {q:"这肥皂泡，吹起来很美丽，____的浮光，在那轻清____的球面上乱转。",a:"五色,透明"},
-      {q:"灰雀在树枝间来回____，____地歌唱。",a:"跳动,婉转"},
+      {q:"灰雀在树枝间来回____，____地歌唱。",a:"跳动,婉转"}
     ],
     read: {
       passage: "垂柳把溪水当做梳妆的镜子，山溪像绿玉带一样平静。人影给溪水染绿了，钓竿上立着一只红蜻蜓。忽然扑腾一声人影碎了，草地上蹦跳着鱼儿和笑声。",
@@ -587,30 +427,7 @@ const UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"必",pinyin:"bì",words:"必须 必定"},
-      {char:"胡",pinyin:"hú",words:"胡子 胡说"},
-      {char:"灿",pinyin:"càn",words:"灿烂 金灿灿"},
-      {char:"骑",pinyin:"qí",words:"骑马 骑车"},
-      {char:"秒",pinyin:"miǎo",words:"秒针 争分夺秒"},
-      {char:"凶",pinyin:"xiōng",words:"凶猛 凶恶"},
-      {char:"猛",pinyin:"měng",words:"凶猛 勇猛"},
-      {char:"庙",pinyin:"miào",words:"寺庙 庙会"},
-      {char:"威",pinyin:"wēi",words:"威武 威风"},
-      {char:"武",pinyin:"wǔ",words:"威武 武术"},
-      {char:"镇",pinyin:"zhèn",words:"镇静 小镇"},
-      {char:"型",pinyin:"xíng",words:"模型 类型"},
-      {char:"蜡",pinyin:"là",words:"蜡烛 蜡笔"},
-      {char:"烛",pinyin:"zhú",words:"蜡烛 烛光"},
-      {char:"诱",pinyin:"yòu",words:"诱人 诱惑"},
-      {char:"润",pinyin:"rùn",words:"湿润 滋润"},
-      {char:"乘",pinyin:"chéng",words:"乘法 乘客"},
-      {char:"芒",pinyin:"máng",words:"光芒 芒果"},
-      {char:"冰",pinyin:"bīng",words:"冰块 冰冷"},
-      {char:"剑",pinyin:"jiàn",words:"宝剑 刀剑"},
-      {char:"普",pinyin:"pǔ",words:"普通 普及"},
-      {char:"通",pinyin:"tōng",words:"普通 通过"},
-      {char:"模",pinyin:"mó",words:"模型 模仿"},
-      {char:"型",pinyin:"xíng",words:"模型 类型"},
+      {char:"必",pinyin:"bì",words:"必须 必定"},{char:"胡",pinyin:"hú",words:"胡子 胡说"},{char:"灿",pinyin:"càn",words:"灿烂 金灿灿"},{char:"骑",pinyin:"qí",words:"骑马 骑车"},{char:"秒",pinyin:"miǎo",words:"秒针 争分夺秒"},{char:"凶",pinyin:"xiōng",words:"凶猛 凶恶"},{char:"猛",pinyin:"měng",words:"凶猛 勇猛"},{char:"庙",pinyin:"miào",words:"寺庙 庙会"},{char:"威",pinyin:"wēi",words:"威武 威风"},{char:"武",pinyin:"wǔ",words:"威武 武术"},{char:"镇",pinyin:"zhèn",words:"镇静 小镇"},{char:"型",pinyin:"xíng",words:"模型 类型"},{char:"蜡",pinyin:"là",words:"蜡烛 蜡笔"},{char:"烛",pinyin:"zhú",words:"蜡烛 烛光"},{char:"诱",pinyin:"yòu",words:"诱人 诱惑"},{char:"润",pinyin:"rùn",words:"湿润 滋润"},{char:"乘",pinyin:"chéng",words:"乘法 乘客"},{char:"芒",pinyin:"máng",words:"光芒 芒果"},{char:"冰",pinyin:"bīng",words:"冰块 冰冷"},{char:"剑",pinyin:"jiàn",words:"宝剑 刀剑"},{char:"普",pinyin:"pǔ",words:"普通 普及"},{char:"通",pinyin:"tōng",words:"普通 通过"},{char:"模",pinyin:"mó",words:"模型 模仿"},{char:"型",pinyin:"xíng",words:"模型 类型"}
     ],
     keySentences: [
       "这地方的火烧云变化极多，一会儿红彤彤的，一会儿金灿灿的，一会儿半紫半黄，一会儿半灰半百合色。（排比+颜色描写）",
@@ -618,13 +435,7 @@ const UNITS = [
       "天空的云从西边一直烧到东边，红彤彤的，好像是天空着了火。（比喻：云像着火）",
       "这是一个奇妙的世界，一切看上去都是有生命的。（中心句）"
     ],
-    tips: [
-      "火烧云：萧红写的，描写火烧云的颜色和形状变化",
-      "暴风雨来临之前：观察暴风雨前的自然现象",
-      "我们奇妙的世界：从天空和大地两个方面写世界的奇妙",
-      "国宝大熊猫：说明文，介绍大熊猫的外形、习性、分布等",
-      "本单元重点：学习观察和描写自然现象"
-    ]
+    tips: ["火烧云：萧红写的，描写火烧云的颜色和形状变化","暴风雨来临之前：观察暴风雨前的自然现象","我们奇妙的世界：从天空和大地两个方面写世界的奇妙","国宝大熊猫：说明文，介绍大熊猫的外形、习性、分布等","本单元重点：学习观察和描写自然现象"]
   },
   quiz: {
     choose: [
@@ -637,7 +448,7 @@ const UNITS = [
     fill: [
       {q:"这地方的火烧云变化极多，一会儿____，一会儿____。",a:"红彤彤的,金灿灿的"},
       {q:"天空的云从西边一直____到东边，好像是天空____了火。",a:"烧,着"},
-      {q:"马是____着的，像等人骑上它的背，它才____似的。",a:"跪,站起来"},
+      {q:"马是____着的，像等人骑上它的背，它才____似的。",a:"跪,站起来"}
     ],
     read: {
       passage: "这地方的火烧云变化极多，一会儿红彤彤的，一会儿金灿灿的，一会儿半紫半黄，一会儿半灰半百合色。葡萄灰，梨黄，茄子紫，这些颜色天空都有。还有些说也说不出来、见也没见过的颜色。\n一会儿，天空出现一匹马，马头向南，马尾向西。马是跪着的，像等人骑上它的背，它才站起来似的。过了两三秒钟，那匹马大起来了，腿伸开了，脖子也长了，尾巴却不见了。看的人正在寻找尾巴，那匹马变模糊了。",
@@ -654,45 +465,14 @@ const UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"性",pinyin:"xìng",words:"性格 性别"},
-      {char:"卷",pinyin:"juǎn",words:"卷起 龙卷风"},
-      {char:"货",pinyin:"huò",words:"货物 货币"},
-      {char:"取",pinyin:"qǔ",words:"取得 取笑"},
-      {char:"夹",pinyin:"jiā",words:"夹子 文件夹"},
-      {char:"夸",pinyin:"kuā",words:"夸奖 夸张"},
-      {char:"务",pinyin:"wù",words:"任务 服务"},
-      {char:"衬",pinyin:"chèn",words:"衬衫 衬托"},
-      {char:"衫",pinyin:"shān",words:"衬衫 衣衫"},
-      {char:"负",pinyin:"fù",words:"负责 负担"},
-      {char:"责",pinyin:"zé",words:"负责 责任"},
-      {char:"艺",pinyin:"yì",words:"手艺 艺术"},
-      {char:"泄",pinyin:"xiè",words:"泄漏 发泄"},
-      {char:"漏",pinyin:"lòu",words:"漏雨 遗漏"},
-      {char:"喂",pinyin:"wèi",words:"喂养 喂食"},
-      {char:"胖",pinyin:"pàng",words:"胖子 肥胖"},
-      {char:"驴",pinyin:"lǘ",words:"毛驴 驴子"},
-      {char:"贼",pinyin:"zéi",words:"盗贼 小贼"},
-      {char:"狼",pinyin:"láng",words:"灰狼 恶狼"},
-      {char:"莫",pinyin:"mò",words:"莫非 莫名"},
-      {char:"厉",pinyin:"lì",words:"厉害 厉声"},
-      {char:"抱",pinyin:"bào",words:"抱住 拥抱"},
-      {char:"架",pinyin:"jià",words:"打架 书架"},
-      {char:"粘",pinyin:"zhān",words:"粘住 粘贴"},
-      {char:"胶",pinyin:"jiāo",words:"胶水 胶带"},
-      {char:"偏",pinyin:"piān",words:"偏偏 偏偏"},
+      {char:"性",pinyin:"xìng",words:"性格 性别"},{char:"卷",pinyin:"juǎn",words:"卷起 龙卷风"},{char:"货",pinyin:"huò",words:"货物 货币"},{char:"取",pinyin:"qǔ",words:"取得 取笑"},{char:"夹",pinyin:"jiā",words:"夹子 文件夹"},{char:"夸",pinyin:"kuā",words:"夸奖 夸张"},{char:"务",pinyin:"wù",words:"任务 服务"},{char:"衬",pinyin:"chèn",words:"衬衫 衬托"},{char:"衫",pinyin:"shān",words:"衬衫 衣衫"},{char:"负",pinyin:"fù",words:"负责 负担"},{char:"责",pinyin:"zé",words:"负责 责任"},{char:"艺",pinyin:"yì",words:"手艺 艺术"},{char:"泄",pinyin:"xiè",words:"泄漏 发泄"},{char:"漏",pinyin:"lòu",words:"漏雨 遗漏"},{char:"喂",pinyin:"wèi",words:"喂养 喂食"},{char:"胖",pinyin:"pàng",words:"胖子 肥胖"},{char:"驴",pinyin:"lǘ",words:"毛驴 驴子"},{char:"贼",pinyin:"zéi",words:"盗贼 小贼"},{char:"狼",pinyin:"láng",words:"灰狼 恶狼"},{char:"莫",pinyin:"mò",words:"莫非 莫名"},{char:"厉",pinyin:"lì",words:"厉害 厉声"},{char:"抱",pinyin:"bào",words:"抱住 拥抱"},{char:"架",pinyin:"jià",words:"打架 书架"},{char:"粘",pinyin:"zhān",words:"粘住 粘贴"},{char:"胶",pinyin:"jiāo",words:"胶水 胶带"},{char:"偏",pinyin:"piān",words:"偏偏 偏偏"}
     ],
     keySentences: [
       "慢性子裁缝和急性子顾客：顾客说我要的是春装，裁缝说我已经做好了。（对比产生幽默效果）",
       "老虎趴在驴圈里想：漏！我翻山越岭这么多年，还从没见过莫非'漏'比我还厉害？（心理描写，故事反转）",
       "枣核虽然小，但是很聪明很勇敢，什么事都能干好。（中心句）"
     ],
-    tips: [
-      "慢性子裁缝和急性子顾客：感受人物性格对比产生的幽默",
-      "漏：民间故事，注意情节的反复和反转",
-      "枣核：民间故事，枣核虽小但聪明能干",
-      "本单元重点：学会复述故事，感受故事的趣味",
-      "口语交际：趣味故事会，选择一个故事讲给大家听"
-    ]
+    tips: ["慢性子裁缝和急性子顾客：感受人物性格对比产生的幽默","漏：民间故事，注意情节的反复和反转","枣核：民间故事，枣核虽小但聪明能干","本单元重点：学会复述故事，感受故事的趣味","口语交际：趣味故事会，选择一个故事讲给大家听"]
   },
   quiz: {
     choose: [
@@ -705,7 +485,7 @@ const UNITS = [
     fill: [
       {q:"慢性子裁缝和急性子____，两个人性格形成了____。",a:"顾客,对比"},
       {q:"老虎趴在驴圈里想：____！莫非____比我还厉害？",a:"漏,漏"},
-      {q:"枣核虽然____，但是很____很勇敢。",a:"小,聪明"},
+      {q:"枣核虽然____，但是很____很勇敢。",a:"小,聪明"}
     ],
     read: {
       passage: "老虎吓得大气都不敢出，心想：漏！我翻山越岭这么多年，还从没见过莫非'漏'比我还厉害？它正想着，只听驴圈里扑通一声。老虎浑身发抖，撒腿就跑。贼也吓得腿脚发软，从驴背上滚下来。老虎以为漏要来抓它，拼命地跑。贼以为漏要来吃它，拼命地跑。跑哇跑，老虎和贼都跑到了一棵歪脖老树下。",
@@ -718,97 +498,353 @@ const UNITS = [
 }
 ];
 
-// ============ APP LOGIC ============
-let currentUnit = 1;
-let quizState = {};
+// ==================== CONSTANTS ====================
+const LEVELS = [
+  {min:0,max:100,name:'识字新秀',icon:'🌱'},
+  {min:100,max:300,name:'语文小能手',icon:'📖'},
+  {min:300,max:600,name:'古诗达人',icon:'🎓'},
+  {min:600,max:Infinity,name:'语文学霸',icon:'🏆'}
+];
+const SR_INTERVALS = [1,3,7,14];
+const LS_STATS = 'cn3_stats';
+const LS_SR = 'cn3_sr';
+const LS_PROGRESS = 'cn3_progress';
+const TOTAL_POEMS = 6; // 3 in unit 1 + 3 in unit 4
 
-function renderTabs() {
-  const tabsEl = document.getElementById('tabs');
-  tabsEl.innerHTML = UNITS.map(u =>
-    `<div class="tab${u.num===currentUnit?' active':''}" data-unit="${u.num}" onclick="switchUnit(${u.num})">${u.title}</div>`
-  ).join('');
+// ==================== STATE ====================
+let currentMode = 'review';
+let currentUnit = 1;
+let quizAnswered = {}; // key: qId => {correct, answered}
+let flashcardIndex = 0;
+let flashcardFlipped = false;
+let sessionStreak = 0; // consecutive correct in current quiz
+let dueQuizState = {}; // for review-due mode
+
+// ==================== LOCALSTORAGE HELPERS ====================
+function loadStats() {
+  try { return JSON.parse(localStorage.getItem(LS_STATS)) || defaultStats(); }
+  catch(e) { return defaultStats(); }
+}
+function defaultStats() { return {points:0,streak:0,lastStudyDate:'',badges:[]}; }
+function saveStats(s) { localStorage.setItem(LS_STATS, JSON.stringify(s)); }
+
+function loadSR() {
+  try { return JSON.parse(localStorage.getItem(LS_SR)) || {}; }
+  catch(e) { return {}; }
+}
+function saveSR(sr) { localStorage.setItem(LS_SR, JSON.stringify(sr)); }
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem(LS_PROGRESS)) || {}; }
+  catch(e) { return {}; }
+}
+function saveProgress(p) { localStorage.setItem(LS_PROGRESS, JSON.stringify(p)); }
+
+// ==================== GAMIFICATION ====================
+function getLevel(points) {
+  for (let i = LEVELS.length - 1; i >= 0; i--) {
+    if (points >= LEVELS[i].min) return LEVELS[i];
+  }
+  return LEVELS[0];
+}
+
+function updateStreak() {
+  const stats = loadStats();
+  const today = new Date().toISOString().slice(0,10);
+  if (stats.lastStudyDate === today) return;
+  const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+  if (stats.lastStudyDate === yesterday) {
+    stats.streak++;
+  } else if (stats.lastStudyDate !== today) {
+    stats.streak = 1;
+  }
+  stats.lastStudyDate = today;
+  saveStats(stats);
+}
+
+function awardPoints(correct) {
+  const stats = loadStats();
+  if (correct) {
+    let pts = 10;
+    sessionStreak++;
+    if (sessionStreak >= 2) pts += 5;
+    stats.points += pts;
+  } else {
+    sessionStreak = 0;
+  }
+  saveStats(stats);
+  checkBadges();
+}
+
+function checkBadges() {
+  const stats = loadStats();
+  let newBadge = null;
+  if (!stats.badges.includes('满分') && quizAnswered) {
+    // Check if any quiz in current session got 100%
+  }
+  if (!stats.badges.includes('连续7天') && stats.streak >= 7) {
+    stats.badges.push('连续7天');
+    newBadge = '🔥连续7天';
+  }
+  const prog = loadProgress();
+  let allPoems = true;
+  UNITS.forEach(u => {
+    u.review.poems.forEach((p,i) => {
+      if (!prog[`poem-${u.num}-${i}`]) allPoems = false;
+    });
+  });
+  if (allPoems && !stats.badges.includes('背完所有古诗')) {
+    stats.badges.push('背完所有古诗');
+    newBadge = '📚背完所有古诗';
+  }
+  saveStats(stats);
+  if (newBadge) showToast(newBadge);
+  renderGameStats();
+}
+
+function markPerfect() {
+  const stats = loadStats();
+  if (!stats.badges.includes('满分')) {
+    stats.badges.push('满分');
+    saveStats(stats);
+    showToast('🏆首次满分');
+    checkBadges();
+  }
+}
+
+function showToast(text) {
+  const existing = document.querySelector('.badge-earned-toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'badge-earned-toast';
+  toast.textContent = '🎉 获得徽章: ' + text;
+  document.body.appendChild(toast);
+  setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3200);
+}
+
+function renderGameStats() {
+  const stats = loadStats();
+  const level = getLevel(stats.points);
+  const badgesHtml = [
+    {key:'满分',icon:'🏆'},
+    {key:'连续7天',icon:'🔥'},
+    {key:'背完所有古诗',icon:'📚'}
+  ].map(b => `<span class="badge-icon ${stats.badges.includes(b.key)?'earned':''}" title="${b.key}">${b.icon}</span>`).join('');
+
+  document.getElementById('gameStats').innerHTML = `
+    <span class="game-stat">⭐ ${stats.points}分</span>
+    <span class="game-stat">${level.icon} ${level.name}</span>
+    <span class="game-stat">🔥 连续${stats.streak}天</span>
+    <span class="badge-display">${badgesHtml}</span>
+  `;
+}
+
+// ==================== SPACED REPETITION ====================
+function recordSR(unitNum, type, qIndex, isCorrect) {
+  const qId = `u${unitNum}-${type}${qIndex}`;
+  const sr = loadSR();
+  if (isCorrect) {
+    if (sr[qId]) {
+      sr[qId].interval = Math.min(sr[qId].interval * 2, 30);
+      sr[qId].nextReview = new Date(Date.now() + sr[qId].interval * 86400000).toISOString();
+    }
+  } else {
+    if (!sr[qId]) {
+      sr[qId] = {interval:1, nextReview: new Date(Date.now() + 1*86400000).toISOString()};
+    } else {
+      const idx = SR_INTERVALS.indexOf(sr[qId].interval);
+      const nextIdx = idx < 0 ? 0 : Math.min(idx + 1, SR_INTERVALS.length - 1);
+      sr[qId].interval = SR_INTERVALS[nextIdx];
+      sr[qId].nextReview = new Date(Date.now() + sr[qId].interval * 86400000).toISOString();
+    }
+  }
+  saveSR(sr);
+}
+
+function getDueQuestions() {
+  const sr = loadSR();
+  const now = new Date();
+  const due = [];
+  for (const [qId, data] of Object.entries(sr)) {
+    if (new Date(data.nextReview) <= now) {
+      due.push(qId);
+    }
+  }
+  return due;
+}
+
+function parseQId(qId) {
+  // Format: u{unit}-{type}{index} e.g. u1-c0, u1-f2, u1-r1
+  const m = qId.match(/^u(\d+)-([cfr])(\d+)$/);
+  if (!m) return null;
+  return {unitNum: parseInt(m[1]), type: m[2], idx: parseInt(m[3])};
+}
+
+function getDueQuestionData(qId) {
+  const parsed = parseQId(qId);
+  if (!parsed) return null;
+  const unit = UNITS.find(u => u.num === parsed.unitNum);
+  if (!unit) return null;
+  if (parsed.type === 'c') {
+    const q = unit.quiz.choose[parsed.idx];
+    if (!q) return null;
+    return {qId, unitNum: parsed.unitNum, type:'choose', qData: q, displayType:'选择题'};
+  } else if (parsed.type === 'f') {
+    const q = unit.quiz.fill[parsed.idx];
+    if (!q) return null;
+    return {qId, unitNum: parsed.unitNum, type:'fill', qData: q, displayType:'填空题'};
+  } else if (parsed.type === 'r') {
+    const q = unit.quiz.read?.questions[parsed.idx];
+    if (!q) return null;
+    return {qId, unitNum: parsed.unitNum, type:'read', qData: q, displayType:'阅读理解'};
+  }
+  return null;
+}
+
+// ==================== PROGRESS ====================
+function recordProgress(key) {
+  const prog = loadProgress();
+  prog[key] = true;
+  saveProgress(prog);
+}
+
+function getUnitQuizProgress(unitNum) {
+  const prog = loadProgress();
+  const unit = UNITS.find(u => u.num === unitNum);
+  let total = unit.quiz.choose.length + unit.quiz.fill.length;
+  if (unit.quiz.read) total += unit.quiz.read.questions.length;
+  let done = 0;
+  unit.quiz.choose.forEach((q,i) => { if (prog[`q-${unitNum}-c${i}`]) done++; });
+  unit.quiz.fill.forEach((q,i) => { if (prog[`q-${unitNum}-f${i}`]) done++; });
+  if (unit.quiz.read) unit.quiz.read.questions.forEach((q,i) => { if (prog[`q-${unitNum}-r${i}`]) done++; });
+  return {done, total, pct: total > 0 ? Math.round(done/total*100) : 0};
+}
+
+function markQuizCorrect(unitNum, type, idx) {
+  recordProgress(`q-${unitNum}-${type}${idx}`);
+  checkBadges();
+}
+
+// ==================== MODE & UNIT SWITCHING ====================
+function switchMode(mode) {
+  currentMode = mode;
+  sessionStreak = 0;
+  quizAnswered = {};
+  dueQuizState = {};
+  document.querySelectorAll('.mode-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.mode === mode);
+  });
+  const unitTabs = document.getElementById('unitTabs');
+  if (mode === 'review-due') {
+    unitTabs.classList.add('hidden');
+  } else {
+    unitTabs.classList.remove('hidden');
+  }
+  renderContent();
+  scrollToTop();
 }
 
 function switchUnit(n) {
   currentUnit = n;
-  renderTabs();
-  renderUnit();
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  flashcardIndex = 0;
+  flashcardFlipped = false;
+  quizAnswered = {};
+  sessionStreak = 0;
+  renderUnitTabs();
+  renderContent();
+  scrollToTop();
 }
 
-function renderUnit() {
-  const u = UNITS.find(x => x.num === currentUnit);
-  const app = document.getElementById('app');
-  quizState = {};
+// ==================== RENDER FUNCTIONS ====================
+function renderUnitTabs() {
+  const el = document.getElementById('unitTabs');
+  el.innerHTML = UNITS.map(u => {
+    const prog = getUnitQuizProgress(u.num);
+    const dot = prog.pct > 0 && prog.pct < 100 ? '<span class="progress-dot"></span>' : '';
+    return `<div class="tab${u.num===currentUnit?' active':''}" data-unit="${u.num}" onclick="switchUnit(${u.num})">${u.title}${dot}</div>`;
+  }).join('');
+}
 
+function renderContent() {
+  switch(currentMode) {
+    case 'review': renderReview(); break;
+    case 'quiz': renderQuiz(); break;
+    case 'flashcard': renderFlashcard(); break;
+    case 'review-due': renderReviewDue(); break;
+  }
+}
+
+// ---------- REVIEW MODE ----------
+function renderReview() {
+  const u = UNITS.find(x => x.num === currentUnit);
+  const prog = getUnitQuizProgress(u.num);
   let html = `<div class="unit active">`;
   html += `<div class="unit-title">${u.title} · ${u.theme}</div>`;
   html += `<div class="unit-subtitle">${u.subtitle}</div>`;
 
-  // Review section
+  // Progress
+  html += `<div class="section" style="padding:14px 20px">
+    <div class="progress-text">学习进度 ${prog.pct}%（${prog.done}/${prog.total}题已掌握）</div>
+    <div class="progress-bar"><div class="progress-fill" style="width:${prog.pct}%"></div></div>
+  </div>`;
+
+  // Review content
   html += `<div class="section"><h2>📋 复习清单</h2>`;
 
-  // Poems
   if (u.review.poems.length > 0) {
     html += `<h3>🖊️ 必背古诗</h3>`;
     u.review.poems.forEach(p => {
-      html += `<div class="poem">
-        <div class="title">《${p.title}》</div>
-        <div class="author">${p.author}</div>
-        <div style="margin-top:8px;white-space:pre-line">${p.content}</div>
-        <div style="margin-top:8px;color:#666;font-size:0.85em">📝 ${p.notes}</div>
-      </div>`;
+      html += `<div class="poem"><div class="title">《${p.title}》</div><div class="author">${p.author}</div><div style="margin-top:8px;white-space:pre-line">${p.content}</div><div style="margin-top:8px;color:#666;font-size:0.85em">📝 ${p.notes}</div></div>`;
     });
   }
 
-  // Words
   html += `<h3>✍️ 必会字词</h3><div class="word-list">`;
   u.review.words.forEach(w => {
     html += `<div class="word-tag"><span style="font-size:1.1em;font-weight:600">${w.char}</span> <span class="pinyin">${w.pinyin}</span><br><span style="font-size:0.82em;color:#666">${w.words}</span></div>`;
   });
   html += `</div>`;
 
-  // Key sentences
   html += `<h3>⭐ 重点句子</h3>`;
-  u.review.keySentences.forEach(s => {
-    html += `<div class="key-sentence">${s}</div>`;
-  });
+  u.review.keySentences.forEach(s => { html += `<div class="key-sentence">${s}</div>`; });
 
-  // Tips
   html += `<h3>📌 复习要点</h3>`;
-  u.review.tips.forEach(t => {
-    html += `<div class="tip">${t}</div>`;
-  });
+  u.review.tips.forEach(t => { html += `<div class="tip">${t}</div>`; });
 
-  html += `</div>`; // end review section
+  html += `</div></div>`;
+  document.getElementById('app').innerHTML = html;
+}
 
-  // Quiz section
+// ---------- QUIZ MODE ----------
+function renderQuiz() {
+  const u = UNITS.find(x => x.num === currentUnit);
+  let html = `<div class="unit active">`;
+  html += `<div class="unit-title">${u.title} · 单元测试</div>`;
+  html += `<div class="unit-subtitle">${u.subtitle}</div>`;
+
   html += `<div class="quiz-section"><h2>📝 单元测试</h2>`;
 
-  // Choose questions
+  // Choose
   html += `<h3>一、选择题（每题3分，共${u.quiz.choose.length*3}分）</h3>`;
   u.quiz.choose.forEach((q, i) => {
-    html += `<div class="quiz-q" data-qi="${i}" data-type="choose">
-      <div class="q-title"><span class="q-num">${i+1}.</span>${q.q}</div>
-      <div class="quiz-options">`;
+    html += `<div class="quiz-q" id="qq-c${i}"><div class="q-title"><span class="q-num">${i+1}.</span>${q.q}</div><div class="quiz-options">`;
     q.opts.forEach((opt, j) => {
-      html += `<div class="quiz-opt" data-qi="${i}" data-oi="${j}" onclick="selectOpt(this,'choose',${i},${j})">${String.fromCharCode(65+j)}. ${opt}</div>`;
+      html += `<div class="quiz-opt" id="qo-c${i}-${j}" onclick="answerChoose(${currentUnit},${i},${j})">${String.fromCharCode(65+j)}. ${opt}</div>`;
     });
-    html += `</div></div>`;
+    html += `</div><div class="feedback" id="fb-c${i}"></div></div>`;
   });
 
-  // Fill questions
+  // Fill
   html += `<h3>二、填空题（每空2分，共${u.quiz.fill.reduce((a,f)=>a+f.a.split(',').length,0)*2}分）</h3>`;
   u.quiz.fill.forEach((q, i) => {
     const parts = q.q.split('____');
-    let fillHtml = `<div class="quiz-q" data-fi="${i}" data-type="fill"><div class="q-title"><span class="q-num">${i+1}.</span>`;
+    let fillHtml = `<div class="quiz-q" id="qq-f${i}"><div class="q-title"><span class="q-num">${i+1}.</span>`;
     parts.forEach((part, pi) => {
       fillHtml += part;
       if (pi < parts.length - 1) {
-        fillHtml += `<input class="fill-input" data-fi="${i}" data-fpi="${pi}" placeholder="____" style="width:${Math.max(60, (q.a.split(',')[pi]||'').length*20)}px">`;
+        fillHtml += `<input class="fill-input" id="fi-${i}-${pi}" placeholder="____" style="width:${Math.max(60,(q.a.split(',')[pi]||'').length*20)}px" onkeydown="if(event.key==='Enter')answerFill(${currentUnit},${i})" onblur="answerFill(${currentUnit},${i})">`;
       }
     });
-    fillHtml += `</div></div>`;
+    fillHtml += `</div><div class="feedback" id="fb-f${i}"></div></div>`;
     html += fillHtml;
   });
 
@@ -817,119 +853,405 @@ function renderUnit() {
     html += `<h3>三、阅读理解</h3>`;
     html += `<div class="quiz-q" style="background:#fffbf0"><div style="white-space:pre-line;font-size:0.92em;line-height:1.8">${u.quiz.read.passage}</div></div>`;
     u.quiz.read.questions.forEach((q, i) => {
-      html += `<div class="quiz-q" data-ri="${i}" data-type="read">
-        <div class="q-title"><span class="q-num">阅读${i+1}.</span>${q.q}</div>
-        <div class="quiz-options">`;
+      html += `<div class="quiz-q" id="qq-r${i}"><div class="q-title"><span class="q-num">阅读${i+1}.</span>${q.q}</div><div class="quiz-options">`;
       q.opts.forEach((opt, j) => {
-        html += `<div class="quiz-opt" data-ri="${i}" data-oi="${j}" onclick="selectOpt(this,'read',${i},${j})">${String.fromCharCode(65+j)}. ${opt}</div>`;
+        html += `<div class="quiz-opt" id="qo-r${i}-${j}" onclick="answerRead(${currentUnit},${i},${j})">${String.fromCharCode(65+j)}. ${opt}</div>`;
       });
-      html += `</div></div>`;
+      html += `</div><div class="feedback" id="fb-r${i}"></div></div>`;
     });
   }
+  html += `</div>`;
 
-  html += `</div>`; // end quiz section
-
-  // Score box
   html += `<div class="score-box" id="scoreBox"><div class="score-num" id="scoreNum"></div><div class="score-text" id="scoreText"></div></div>`;
-
-  // Buttons
   html += `<div class="btn-group">
-    <button class="btn btn-primary" onclick="checkScore()">📊 提交评分</button>
+    <button class="btn btn-primary" onclick="checkAllScore()">📊 查看总分</button>
     <button class="btn btn-green" onclick="resetQuiz()">🔄 重新作答</button>
-    <button class="btn btn-blue" onclick="window.print()">🖨️ 打印本页</button>
   </div>`;
-
-  html += `</div>`; // end unit
-  app.innerHTML = html;
+  html += `</div>`;
+  document.getElementById('app').innerHTML = html;
 }
 
-function selectOpt(el, type, qi, oi) {
-  const prefix = type === 'choose' ? 'choose' : 'read';
-  const attr = type === 'choose' ? 'qi' : 'ri';
-  document.querySelectorAll(`.quiz-q[data-type="${type}"] .quiz-opt`).forEach(o => {
-    if (o.dataset[attr] == qi) o.classList.remove('selected');
-  });
-  el.classList.add('selected');
+function answerChoose(unitNum, qi, oi) {
+  const qId = `q-${unitNum}-c${qi}`;
+  if (quizAnswered[qId]) return;
+  const u = UNITS.find(x => x.num === unitNum);
+  const q = u.quiz.choose[qi];
+  const isCorrect = oi === q.ans;
+  quizAnswered[qId] = {correct: isCorrect};
+
+  // Highlight
+  for (let j = 0; j < q.opts.length; j++) {
+    const el = document.getElementById(`qo-c${qi}-${j}`);
+    el.classList.add('disabled');
+    if (j === q.ans) el.classList.add('show-correct');
+    if (j === oi && !isCorrect) el.classList.add('wrong');
+  }
+  document.getElementById(`qq-c${qi}`).classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  // Feedback
+  const fb = document.getElementById(`fb-c${qi}`);
+  fb.className = `feedback show ${isCorrect ? 'correct' : 'wrong'}`;
+  fb.innerHTML = isCorrect ? '✅ 正确！' : `❌ 不对哦！正确答案是：${String.fromCharCode(65+q.ans)}. ${q.opts[q.ans]}`;
+
+  // Points & SR
+  awardPoints(isCorrect);
+  recordSR(unitNum, 'c', qi, isCorrect);
+  if (isCorrect) markQuizCorrect(unitNum, 'c', qi);
+  updateStreak();
+  renderGameStats();
 }
 
-function checkScore() {
+function answerFill(unitNum, fi) {
+  const qId = `q-${unitNum}-f${fi}`;
+  if (quizAnswered[qId]) return;
+  const u = UNITS.find(x => x.num === unitNum);
+  const q = u.quiz.fill[fi];
+  const answers = q.a.split(',');
+  let allCorrect = true;
+  let userAnswers = [];
+  for (let pi = 0; pi < answers.length; pi++) {
+    const input = document.getElementById(`fi-${fi}-${pi}`);
+    if (!input) continue;
+    const val = input.value.trim();
+    userAnswers.push(val);
+    if (val === answers[pi]) {
+      input.classList.add('correct');
+    } else {
+      input.classList.add('wrong');
+      input.value = val || '___';
+      allCorrect = false;
+    }
+    input.disabled = true;
+  }
+  // If all inputs are empty, don't mark as answered
+  if (userAnswers.every(a => a === '')) return;
+
+  quizAnswered[qId] = {correct: allCorrect};
+  document.getElementById(`qq-f${fi}`).classList.add(allCorrect ? 'answered-correct' : 'answered-wrong');
+
+  const fb = document.getElementById(`fb-f${fi}`);
+  fb.className = `feedback show ${allCorrect ? 'correct' : 'wrong'}`;
+  fb.innerHTML = allCorrect ? '✅ 全部正确！' : `❌ 正确答案：${q.a.replace(/,/g, '、')}`;
+
+  awardPoints(allCorrect);
+  recordSR(unitNum, 'f', fi, allCorrect);
+  if (allCorrect) markQuizCorrect(unitNum, 'f', fi);
+  updateStreak();
+  renderGameStats();
+}
+
+function answerRead(unitNum, ri, oi) {
+  const qId = `q-${unitNum}-r${ri}`;
+  if (quizAnswered[qId]) return;
+  const u = UNITS.find(x => x.num === unitNum);
+  const q = u.quiz.read.questions[ri];
+  const isCorrect = oi === q.ans;
+  quizAnswered[qId] = {correct: isCorrect};
+
+  for (let j = 0; j < q.opts.length; j++) {
+    const el = document.getElementById(`qo-r${ri}-${j}`);
+    el.classList.add('disabled');
+    if (j === q.ans) el.classList.add('show-correct');
+    if (j === oi && !isCorrect) el.classList.add('wrong');
+  }
+  document.getElementById(`qq-r${ri}`).classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  const fb = document.getElementById(`fb-r${ri}`);
+  fb.className = `feedback show ${isCorrect ? 'correct' : 'wrong'}`;
+  fb.innerHTML = isCorrect ? '✅ 正确！' : `❌ 不对哦！正确答案是：${String.fromCharCode(65+q.ans)}. ${q.opts[q.ans]}`;
+
+  awardPoints(isCorrect);
+  recordSR(unitNum, 'r', ri, isCorrect);
+  if (isCorrect) markQuizCorrect(unitNum, 'r', ri);
+  updateStreak();
+  renderGameStats();
+}
+
+function checkAllScore() {
   const u = UNITS.find(x => x.num === currentUnit);
   let total = 0, correct = 0;
+  u.quiz.choose.forEach((q,i) => { total+=3; const a=quizAnswered[`q-${currentUnit}-c${i}`]; if(a&&a.correct) correct+=3; });
+  u.quiz.fill.forEach((q,i) => { total+=2; const a=quizAnswered[`q-${currentUnit}-f${i}`]; if(a&&a.correct) correct+=2; });
+  if (u.quiz.read) u.quiz.read.questions.forEach((q,i) => { total+=3; const a=quizAnswered[`q-${currentUnit}-r${i}`]; if(a&&a.correct) correct+=3; });
 
-  // Check choose
-  u.quiz.choose.forEach((q, i) => {
-    total += 3;
-    const sel = document.querySelector(`.quiz-q[data-qi="${i}"][data-type="choose"] .quiz-opt.selected`);
-    const opts = document.querySelectorAll(`.quiz-q[data-qi="${i}"][data-type="choose"] .quiz-opt`);
-    opts.forEach(o => {
-      const oi = parseInt(o.dataset.oi);
-      if (oi === q.ans) o.classList.add('correct');
-      if (sel && parseInt(sel.dataset.oi) === oi && oi !== q.ans) o.classList.add('wrong');
-    });
-    if (sel && parseInt(sel.dataset.oi) === q.ans) correct += 3;
-  });
-
-  // Check fill
-  u.quiz.fill.forEach((q, i) => {
-    const answers = q.a.split(',');
-    answers.forEach((ans, pi) => {
-      total += 2;
-      const input = document.querySelector(`.fill-input[data-fi="${i}"][data-fpi="${pi}"]`);
-      if (input) {
-        const val = input.value.trim();
-        if (val === ans) {
-          correct += 2;
-          input.style.borderColor = '#27ae60';
-          input.style.background = '#d4edda';
-        } else {
-          input.style.borderColor = '#e74c3c';
-          input.style.background = '#f8d7da';
-          input.placeholder = ans;
-        }
-      }
-    });
-  });
-
-  // Check read
-  if (u.quiz.read) {
-    u.quiz.read.questions.forEach((q, i) => {
-      total += 3;
-      const sel = document.querySelector(`.quiz-q[data-ri="${i}"][data-type="read"] .quiz-opt.selected`);
-      const opts = document.querySelectorAll(`.quiz-q[data-ri="${i}"][data-type="read"] .quiz-opt`);
-      opts.forEach(o => {
-        const oi = parseInt(o.dataset.oi);
-        if (oi === q.ans) o.classList.add('correct');
-        if (sel && parseInt(sel.dataset.oi) === oi && oi !== q.ans) o.classList.add('wrong');
-      });
-      if (sel && parseInt(sel.dataset.oi) === q.ans) correct += 3;
-    });
-  }
+  const answered = Object.keys(quizAnswered).length;
+  if (answered === 0) { alert('请先回答一些题目再查看分数哦！'); return; }
 
   const pct = Math.round(correct / total * 100);
   const box = document.getElementById('scoreBox');
-  const num = document.getElementById('scoreNum');
-  const text = document.getElementById('scoreText');
+  document.getElementById('scoreNum').textContent = `${correct}/${total}分`;
+  document.getElementById('scoreText').textContent = pct >= 90 ? '🌟 优秀！继续保持！' : pct >= 70 ? '👍 良好！再加把劲！' : pct >= 60 ? '💪 及格了，还需努力！' : '📚 加油！再复习一遍吧！';
   box.style.display = 'block';
-  num.textContent = `${correct}/${total}分`;
-  text.textContent = pct >= 90 ? '🌟 优秀！继续保持！' :
-                     pct >= 70 ? '👍 良好！再加把劲！' :
-                     pct >= 60 ? '💪 及格了，还需努力！' :
-                     '📚 加油！再复习一遍吧！';
-  box.scrollIntoView({behavior: 'smooth'});
+  if (pct === 100) markPerfect();
+  box.scrollIntoView({behavior:'smooth'});
 }
 
 function resetQuiz() {
-  renderUnit();
-  window.scrollTo({top: 0, behavior: 'smooth'});
+  sessionStreak = 0;
+  quizAnswered = {};
+  renderQuiz();
+  scrollToTop();
 }
 
-function scrollToTop() {
-  window.scrollTo({top: 0, behavior: 'smooth'});
+// ---------- FLASHCARD MODE ----------
+function generateFlashcards(unitNum) {
+  const u = UNITS.find(x => x.num === unitNum);
+  const cards = [];
+
+  u.review.poems.forEach((p, i) => {
+    cards.push({
+      type: 'poem', typeLabel: '🖊️ 诗句',
+      front: `<div style="font-size:1.3em;font-weight:700;color:var(--primary)">《${p.title}》</div><div style="color:var(--gray);margin-top:8px">${p.author}</div>`,
+      back: `<div class="card-poem">${p.content}</div><div class="card-notes">📝 ${p.notes}</div>`,
+      id: `poem-${unitNum}-${i}`
+    });
+  });
+
+  const wpc = 5;
+  for (let i = 0; i < u.review.words.length; i += wpc) {
+    const group = u.review.words.slice(i, i + wpc);
+    cards.push({
+      type: 'words', typeLabel: '✍️ 字词',
+      front: group.map(w => `<div><span style="font-size:1.4em;font-weight:700;color:var(--primary)">${w.char}</span> <span style="color:var(--blue)">${w.pinyin}</span></div>`).join(''),
+      back: group.map(w => `<div style="margin:4px 0"><strong>${w.char}</strong>: ${w.words}</div>`).join(''),
+      id: `words-${unitNum}-${i}`
+    });
+  }
+
+  u.review.keySentences.forEach((s, i) => {
+    const partial = s.replace(/<em>([^<]+)<\/em>/g, '____');
+    cards.push({
+      type: 'sentence', typeLabel: '⭐ 重点句',
+      front: `<div style="line-height:1.8;font-size:0.95em">${partial}</div>`,
+      back: `<div style="line-height:1.8;font-size:0.95em">${s}</div>`,
+      id: `sentence-${unitNum}-${i}`
+    });
+  });
+
+  return cards;
 }
 
-// Init
-renderTabs();
-renderUnit();
+function renderFlashcard() {
+  const cards = generateFlashcards(currentUnit);
+  if (cards.length === 0) {
+    document.getElementById('app').innerHTML = `<div class="unit active"><div class="section"><div class="due-empty"><div class="due-icon">📭</div><p>本单元暂无闪卡内容</p></div></div></div>`;
+    return;
+  }
+  if (flashcardIndex >= cards.length) flashcardIndex = 0;
+  const card = cards[flashcardIndex];
+  flashcardFlipped = false;
+
+  let html = `<div class="unit active">`;
+  html += `<div class="unit-title">${currentUnit} · 闪卡记忆</div>`;
+
+  html += `<div class="flashcard-scene" onclick="flipCard()">
+    <div class="flashcard-container" id="flashcard3d">
+      <div class="flashcard-face flashcard-front">
+        <div class="card-type">${card.typeLabel}</div>
+        <div class="card-front-content">${card.front}</div>
+        <div class="card-hint">👆 点击翻转</div>
+      </div>
+      <div class="flashcard-face flashcard-back">
+        <div class="card-type" style="color:var(--green)">📝 答案</div>
+        <div class="card-back-content">${card.back}</div>
+      </div>
+    </div>
+  </div>`;
+
+  html += `<div class="flashcard-nav">
+    <button class="btn btn-sm btn-primary" onclick="prevCard()" ${flashcardIndex===0?'disabled':''}>◀ 上一张</button>
+    <span class="flashcard-counter">${flashcardIndex+1} / ${cards.length}</span>
+    <button class="btn btn-sm btn-primary" onclick="nextCard()" ${flashcardIndex>=cards.length-1?'disabled':''}>下一张 ▶</button>
+  </div>`;
+
+  html += `<div class="flashcard-actions">
+    <button class="btn btn-sm btn-green" onclick="markCardLearned()">✅ 已掌握</button>
+  </div>`;
+
+  html += `</div>`;
+  document.getElementById('app').innerHTML = html;
+}
+
+function flipCard() {
+  flashcardFlipped = !flashcardFlipped;
+  const el = document.getElementById('flashcard3d');
+  if (el) el.classList.toggle('flipped', flashcardFlipped);
+}
+
+function nextCard() {
+  const cards = generateFlashcards(currentUnit);
+  if (flashcardIndex < cards.length - 1) {
+    flashcardIndex++;
+    flashcardFlipped = false;
+    renderFlashcard();
+  }
+}
+
+function prevCard() {
+  if (flashcardIndex > 0) {
+    flashcardIndex--;
+    flashcardFlipped = false;
+    renderFlashcard();
+  }
+}
+
+function markCardLearned() {
+  const cards = generateFlashcards(currentUnit);
+  const card = cards[flashcardIndex];
+  if (card && card.type === 'poem') {
+    const m = card.id.match(/poem-(\d+)-(\d+)/);
+    if (m) {
+      recordProgress(`poem-${m[1]}-${m[2]}`);
+      showToast('📖 古诗已标记掌握');
+    }
+  } else {
+    showToast('✅ 已标记');
+  }
+  updateStreak();
+  renderGameStats();
+}
+
+// ---------- REVIEW-DUE MODE ----------
+function renderReviewDue() {
+  const dueIds = getDueQuestions();
+  if (dueIds.length === 0) {
+    document.getElementById('app').innerHTML = `<div class="section"><div class="due-empty"><div class="due-icon">🎉</div><p>今天没有需要复习的内容！</p><p style="font-size:0.85em;color:var(--gray);margin-top:4px">继续保持，明天再来检查吧！</p></div></div>`;
+    return;
+  }
+
+  // Group by unit
+  const grouped = {};
+  dueIds.forEach(id => {
+    const parsed = parseQId(id);
+    if (!parsed) return;
+    if (!grouped[parsed.unitNum]) grouped[parsed.unitNum] = [];
+    grouped[parsed.unitNum].push(id);
+  });
+
+  let html = `<div class="section"><h2>📊 今日复习</h2>`;
+  html += `<p style="color:var(--gray);margin-bottom:16px">共 <strong>${dueIds.length}</strong> 个问题需要复习</p>`;
+
+  for (const [unitNum, ids] of Object.entries(grouped).sort((a,b) => a[0]-b[0])) {
+    const unit = UNITS.find(u => u.num === parseInt(unitNum));
+    html += `<h3 style="margin-top:20px">${unit.title}（${ids.length}题）</h3>`;
+
+    ids.forEach(qId => {
+      const data = getDueQuestionData(qId);
+      if (!data) return;
+      const safeId = qId.replace(/[^a-zA-Z0-9-]/g, '_');
+
+      if (data.type === 'choose') {
+        html += `<div class="quiz-q" id="dq-${safeId}"><div class="q-title"><span class="q-num">${data.displayType}</span>${data.qData.q}</div><div class="quiz-options">`;
+        data.qData.opts.forEach((opt, j) => {
+          html += `<div class="quiz-opt" id="do-${safeId}-${j}" onclick="answerDueChoose('${safeId}',${data.unitNum},'c',${data.qData.ans},${j})">${String.fromCharCode(65+j)}. ${opt}</div>`;
+        });
+        html += `</div><div class="feedback" id="dfb-${safeId}"></div></div>`;
+      } else if (data.type === 'fill') {
+        const parts = data.qData.q.split('____');
+        let fhtml = `<div class="quiz-q" id="dq-${safeId}"><div class="q-title"><span class="q-num">${data.displayType}</span>`;
+        parts.forEach((part, pi) => {
+          fhtml += part;
+          if (pi < parts.length - 1) {
+            fhtml += `<input class="fill-input" id="dfi-${safeId}-${pi}" placeholder="____" style="width:${Math.max(60,(data.qData.a.split(',')[pi]||'').length*20)}px" onkeydown="if(event.key==='Enter')answerDueFill('${safeId}',${data.unitNum},'f')">`;
+          }
+        });
+        fhtml += `</div><div class="feedback" id="dfb-${safeId}"></div></div>`;
+        html += fhtml;
+      } else if (data.type === 'read') {
+        html += `<div class="quiz-q" id="dq-${safeId}"><div class="q-title"><span class="q-num">${data.displayType}</span>${data.qData.q}</div><div class="quiz-options">`;
+        data.qData.opts.forEach((opt, j) => {
+          html += `<div class="quiz-opt" id="do-${safeId}-${j}" onclick="answerDueChoose('${safeId}',${data.unitNum},'r',${data.qData.ans},${j})">${String.fromCharCode(65+j)}. ${opt}</div>`;
+        });
+        html += `</div><div class="feedback" id="dfb-${safeId}"></div></div>`;
+      }
+    });
+  }
+
+  html += `</div>`;
+  document.getElementById('app').innerHTML = html;
+}
+
+function answerDueChoose(safeId, unitNum, type, ansIdx, chosenIdx) {
+  if (dueQuizState[safeId]) return;
+  const isCorrect = chosenIdx === ansIdx;
+  dueQuizState[safeId] = true;
+
+  // Find all options by prefix match
+  const prefix = `do-${safeId}-`;
+  for (let j = 0; j < 10; j++) {
+    const el = document.getElementById(prefix + j);
+    if (!el) break;
+    el.classList.add('disabled');
+    if (j === ansIdx) el.classList.add('show-correct');
+    if (j === chosenIdx && !isCorrect) el.classList.add('wrong');
+  }
+  document.getElementById(`dq-${safeId}`).classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  const fb = document.getElementById(`dfb-${safeId}`);
+  const qData = getDueQuestionData(safeId.replace(/_/g, '-'));
+  fb.className = `feedback show ${isCorrect ? 'correct' : 'wrong'}`;
+  fb.innerHTML = isCorrect ? '✅ 正确！' : `❌ 正确答案是：${String.fromCharCode(65+ansIdx)}`;
+
+  awardPoints(isCorrect);
+  // Parse original qId to record SR
+  const origId = safeId.replace(/_/g, '-');
+  const parsed = parseQId(origId);
+  if (parsed) {
+    recordSR(parsed.unitNum, parsed.type, parsed.idx, isCorrect);
+    if (isCorrect) markQuizCorrect(parsed.unitNum, parsed.type, parsed.idx);
+  }
+  updateStreak();
+  renderGameStats();
+}
+
+function answerDueFill(safeId, unitNum, type) {
+  if (dueQuizState[safeId]) return;
+  const origId = safeId.replace(/_/g, '-');
+  const parsed = parseQId(origId);
+  if (!parsed) return;
+  const unit = UNITS.find(u => u.num === parsed.unitNum);
+  if (!unit) return;
+  const q = unit.quiz.fill[parsed.idx];
+  if (!q) return;
+  const answers = q.a.split(',');
+  let allCorrect = true;
+  let hasInput = false;
+  for (let pi = 0; pi < answers.length; pi++) {
+    const input = document.getElementById(`dfi-${safeId}-${pi}`);
+    if (!input) continue;
+    const val = input.value.trim();
+    if (val) hasInput = true;
+    if (val === answers[pi]) {
+      input.classList.add('correct');
+    } else {
+      input.classList.add('wrong');
+      allCorrect = false;
+    }
+    input.disabled = true;
+  }
+  if (!hasInput) return;
+  dueQuizState[safeId] = true;
+
+  document.getElementById(`dq-${safeId}`).classList.add(allCorrect ? 'answered-correct' : 'answered-wrong');
+  const fb = document.getElementById(`dfb-${safeId}`);
+  fb.className = `feedback show ${allCorrect ? 'correct' : 'wrong'}`;
+  fb.innerHTML = allCorrect ? '✅ 全部正确！' : `❌ 正确答案：${q.a.replace(/,/g, '、')}`;
+
+  awardPoints(allCorrect);
+  recordSR(parsed.unitNum, parsed.type, parsed.idx, allCorrect);
+  if (allCorrect) markQuizCorrect(parsed.unitNum, parsed.type, parsed.idx);
+  updateStreak();
+  renderGameStats();
+}
+
+// ==================== UTILITY ====================
+function scrollToTop() { window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ==================== INIT ====================
+updateStreak();
+renderGameStats();
+renderUnitTabs();
+renderContent();
 </script>
 </body>
 </html>
