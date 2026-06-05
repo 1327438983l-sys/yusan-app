@@ -1809,7 +1809,7 @@ function gradeRecite(spoken, poemTitle) {
 }
 
 // ==================== VOCAB DICTATION ====================
-var vocabGameState = {lessonIdx:0, wordIdx:0, hearts:3, correct:0, wrong:0, score:0, combo:0, maxCombo:0, answered:{}, wrongWords:[], mode:'all', reviewItems:[]};
+var vocabGameState = {lessonIdx:0, wordIdx:0, hearts:3, correct:0, wrong:0, score:0, combo:0, maxCombo:0, answered:{}, wrongWords:[], mode:'all', reviewItems:[], queue:[], queueIdx:0, masteredInSession:{}};
 
 function getVocabProgress() { return JSON.parse(localStorage.getItem('vocab_progress') || '{}'); }
 function isVocabMastered(li, wi) { return !!getVocabProgress()[li+'-'+wi]; }
@@ -1851,32 +1851,38 @@ function renderVocabDictation() {
 }
 
 function startVocabGame() {
-  vocabGameState = {lessonIdx:0,wordIdx:0,hearts:3,correct:0,wrong:0,score:0,combo:0,maxCombo:0,answered:{},wrongWords:[],mode:'all',reviewItems:[]};
+  // Build queue of all words
+  var q = [];
+  TEXTBOOK_VOCAB.forEach(function(sec, si) {
+    sec.words.forEach(function(w, wi) { q.push({word:w, li:si, wi:wi, py:sec.py[wi]}); });
+  });
+  vocabGameState = {lessonIdx:0,wordIdx:0,hearts:3,correct:0,wrong:0,score:0,combo:0,maxCombo:0,answered:{},wrongWords:[],mode:'all',reviewItems:[], queue:q, queueIdx:0, masteredInSession:{}};
   renderVocabQ();
 }
 function startVocabReview() {
   var wrong = getVocabWrong();
   var items = [];
-  TEXTBOOK_VOCAB.forEach(function(sec,si){ sec.words.forEach(function(w,wi){ if(wrong.indexOf(w)>=0) items.push({word:w,li:si,wi:wi}); }); });
-  vocabGameState = {lessonIdx:0,wordIdx:0,hearts:3,correct:0,wrong:0,score:0,combo:0,maxCombo:0,answered:{},wrongWords:[],mode:'review',reviewItems:items};
+  TEXTBOOK_VOCAB.forEach(function(sec,si){ sec.words.forEach(function(w,wi){ if(wrong.indexOf(w)>=0) items.push({word:w,li:si,wi:wi,py:sec.py[wi]}); }); });
+  vocabGameState = {lessonIdx:0,wordIdx:0,hearts:3,correct:0,wrong:0,score:0,combo:0,maxCombo:0,answered:{},wrongWords:[],mode:'review',reviewItems:items, queue:items.slice(), queueIdx:0, masteredInSession:{}};
   renderVocabReviewQ();
 }
 
 function renderVocabReviewQ() {
   var vg = vocabGameState;
-  if (vg.wordIdx >= vg.reviewItems.length) { finishVocabGame(); return; }
-  var item = vg.reviewItems[vg.wordIdx];
-  var rsec = TEXTBOOK_VOCAB[item.li]; showVocabCard(item.word, vg.wordIdx+1, vg.reviewItems.length, '\u9519\u8bcd\u590d\u4e60', item.li, item.wi, rsec);
+  if (vg.queueIdx >= vg.queue.length) { finishVocabGame(); return; }
+  var item = vg.queue[vg.queueIdx];
+  var rsec = TEXTBOOK_VOCAB[item.li];
+  showVocabCard(item.word, vg.queueIdx+1, vg.queue.length, '\u9519\u8bcd\u590d\u4e60', item.li, item.wi, rsec);
 }
 
 function renderVocabQ() {
   var vg = vocabGameState;
-  if (vg.lessonIdx >= TEXTBOOK_VOCAB.length) { finishVocabGame(); return; }
-  var sec = TEXTBOOK_VOCAB[vg.lessonIdx];
-  if (vg.wordIdx >= sec.words.length) { vg.lessonIdx++; vg.wordIdx=0; renderVocabQ(); return; }
-  var total = 0; TEXTBOOK_VOCAB.forEach(function(s){total+=s.words.length;});
-  var done = 0; for(var i=0;i<vg.lessonIdx;i++) done+=TEXTBOOK_VOCAB[i].words.length; done+=vg.wordIdx;
-  showVocabCard(sec.words[vg.wordIdx], done+1, total, sec.lesson, vg.lessonIdx, vg.wordIdx, sec);
+  if (vg.queueIdx >= vg.queue.length) { finishVocabGame(); return; }
+  var item = vg.queue[vg.queueIdx];
+  var sec = TEXTBOOK_VOCAB[item.li];
+  var total = vg.queue.length;
+  var done = vg.queueIdx;
+  showVocabCard(item.word, done+1, total, sec.lesson, item.li, item.wi, sec);
 }
 
 function showVocabCard(word, num, total, label, li, wi, sec) {
@@ -1939,30 +1945,34 @@ function checkVocabAnswer() {
   vg.answered[key] = true;
   if (val === word) {
     vg.correct++; vg.combo++;
+    vg.masteredInSession[key] = true;
     if(vg.combo>vg.maxCombo) vg.maxCombo=vg.combo;
     var bonus = vg.combo>=5?15:vg.combo>=3?10:0;
     vg.score += 10+bonus;
     inp.classList.add('correct');
-    ans.innerHTML = '<span class="correct-text">\u2705 答对了！</span>' + (bonus>0?' <span style="color:var(--primary);font-weight:600">+连击'+bonus+'</span>':'');
+    var msgs = ['\u2705 答对了！','\u2b50 太棒了！','\ud83c\udf1f 真厉害！','\ud83d\udcab 完美！'];
+    ans.innerHTML = '<span class="correct-text">'+msgs[Math.floor(Math.random()*msgs.length)]+'</span>' + (bonus>0?' <span style="color:var(--primary);font-weight:600">+连击'+bonus+'</span>':'');
     addPoints(10+bonus);
     markVocabMastered(li,wi);
     removeVocabWrong(word);
   } else {
     vg.wrong++; vg.hearts--; vg.combo=0; vg.score=Math.max(0,vg.score-5);
     inp.classList.add('wrong');
-    ans.innerHTML = '\u274c 正确答案：<span class="correct-text" style="font-size:1.3em">'+word+'</span>';
+    ans.innerHTML = '\u274c 正确答案：<span class="correct-text" style="font-size:1.3em">'+word+'</span><div style="color:var(--gray);font-size:0.85em;margin-top:4px">\u8bb0\u4f4f\u5b83\uff0c\u4e0b\u6b21\u8fd8\u4f1a\u51fa\u73b0\u54e6\uff01</div>';
     addVocabWrong(word);
     vg.wrongWords.push(word);
+    // Re-queue this word to the end so it comes back
+    vg.queue.push({word:word, li:li, wi:wi, py:vg.queue[vg.queueIdx].py});
   }
   ans.style.display='block'; inp.disabled=true;
   updateGameStats();
   setTimeout(function(){
     if(vg.hearts<=0){finishVocabGame();return;}
-    if(vg.mode==='review'){vg.wordIdx++;renderVocabReviewQ();}
-    else{vg.wordIdx++;renderVocabQ();}
-    // Auto-focus next input
+    vg.queueIdx++;
+    if(vg.mode==='review') renderVocabReviewQ();
+    else renderVocabQ();
     setTimeout(function(){var inp=document.getElementById('vocabInput');if(inp)inp.focus();},100);
-  },800);
+  },1000);
 }
 
 function finishVocabGame() {
@@ -1979,6 +1989,9 @@ function finishVocabGame() {
   html+='得分 <b style="color:var(--primary)">'+vg.score+'</b> 分';
   if(vg.maxCombo>=3) html+=' | 最高连击 <b style="color:var(--primary)">'+vg.maxCombo+'</b>';
   html+='</div>';
+  // Show re-learned stats
+  var relearned = Object.keys(vg.masteredInSession).length;
+  if (relearned > 0) html+='<div style="color:var(--green);font-size:0.9em;margin-top:4px">\ud83c\udf1f \u901a\u8fc7\u9519\u9898\u590d\u4e60\u638c\u63e1\u4e86 '+relearned+' \u4e2a\u8bcd</div>';
   html+='<div class="btn-group" style="justify-content:center;margin-top:16px">';
   html+='<button class="btn btn-primary" onclick="startVocabGame()">再来一次</button>';
   if(getVocabWrong().length>0) html+='<button class="btn btn-green" onclick="startVocabReview()">专练错词</button>';
