@@ -1514,23 +1514,46 @@ function renderRecite() {
 
 function speakPoem(title, rate) {
   stopSpeak();
-  if (!window.speechSynthesis) { alert('您的浏览器不支持朗读功能，请用Chrome或QQ浏览器打开'); return; }
+  if (!window.speechSynthesis) { alert('您的浏览器不支持朗读功能'); return; }
   var unit = UNITS.find(function(x) { return x.num === currentUnit; });
   var poem = unit.review.poems.find(function(p) { return p.title === title; });
   if (!poem) return;
   var text = poem.title + '。' + poem.author + '。' + poem.content.replace(/\n/g, '。');
+  doSpeak(text, rate || 0.8);
+}
+
+function doSpeak(text, rate) {
+  speechSynthesis.cancel();
   var utter = new SpeechSynthesisUtterance(text);
   utter.lang = 'zh-CN';
-  utter.rate = rate || 0.8;
+  utter.rate = rate;
   utter.pitch = 1.1;
-  // Try to find a Chinese voice
   var voices = speechSynthesis.getVoices();
-  var zhVoice = voices.find(function(v) { return v.lang.startsWith('zh'); });
+  var zhVoice = voices.find(function(v) { return v.lang.indexOf('zh') >= 0; });
   if (zhVoice) utter.voice = zhVoice;
-  utter.onerror = function(e) { console.log('Speech error:', e.error); };
+  utter.onerror = function(e) { console.log('Speech err:', e.error); };
+  utter.onend = function() { console.log('Speech done'); };
+  // Chrome needs resume + user gesture
   speechSynthesis.speak(utter);
-  // Chrome bug: need to resume after speak
+  speechSynthesis.pause();
   speechSynthesis.resume();
+  // Retry if not speaking after 200ms (voice loading delay)
+  setTimeout(function() {
+    if (speechSynthesis.speaking) return;
+    console.log('Retrying speech, voices:', speechSynthesis.getVoices().length);
+    speechSynthesis.speak(utter);
+    speechSynthesis.resume();
+  }, 200);
+  setTimeout(function() {
+    if (speechSynthesis.speaking) return;
+    // Final retry with new utterance
+    var u2 = new SpeechSynthesisUtterance(text);
+    u2.lang = 'zh-CN'; u2.rate = rate; u2.pitch = 1.1;
+    var v2 = speechSynthesis.getVoices().find(function(v){return v.lang.indexOf('zh')>=0;});
+    if (v2) u2.voice = v2;
+    speechSynthesis.speak(u2);
+    speechSynthesis.resume();
+  }, 500);
 }
 function stopSpeak() { speechSynthesis.cancel(); }
 
@@ -1615,19 +1638,10 @@ function checkStoryAnswer(el, chosen, correct) {
 }
 
 function speakStory(title) {
-  stopSpeak();
   if (!window.speechSynthesis) { alert('您的浏览器不支持朗读功能'); return; }
   var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
   var story = DAILY_STORIES[dayOfYear % DAILY_STORIES.length];
-  var utter = new SpeechSynthesisUtterance(story.t + '\u3002' + story.body);
-  utter.lang = 'zh-CN';
-  utter.rate = 0.75;
-  utter.pitch = 1.1;
-  var voices = speechSynthesis.getVoices();
-  var zhVoice = voices.find(function(v) { return v.lang.startsWith('zh'); });
-  if (zhVoice) utter.voice = zhVoice;
-  speechSynthesis.speak(utter);
-  speechSynthesis.resume();
+  doSpeak(story.t + '\u3002' + story.body, 0.75);
 }
 
 // ==================== SPEECH RECOGNITION ====================
