@@ -1492,6 +1492,7 @@ function renderRecite() {
   let html = '<div class="unit active">';
   html += '<div class="unit-title">' + u.title + ' \xb7 背诵朗读</div>';
   html += '<div class="unit-subtitle">听一听标准朗读，跟着背一背 🎧</div>';
+  html += '<div id="speechDebug" style="display:none;background:#fff3cd;border-radius:8px;padding:10px;margin:8px 0;font-size:0.8em;color:#856404;line-height:1.6"></div>';
   u.review.poems.forEach(function(p, i) {
     html += '<div class="recite-card">';
     html += '<div style="font-size:1.1em;font-weight:700;color:var(--primary)">《' + p.title + '》</div>';
@@ -1524,35 +1525,62 @@ function speakPoem(title, rate) {
 
 function doSpeak(text, rate) {
   speechSynthesis.cancel();
+  // Debug: show voice info
+  var voices = speechSynthesis.getVoices();
+  var zhVoices = voices.filter(function(v){return v.lang.indexOf('zh')>=0;});
+  console.log('Total voices:', voices.length, 'Chinese:', zhVoices.length);
+  zhVoices.forEach(function(v){console.log('  -', v.name, v.lang, v.default);});
+  var debugDiv = document.getElementById('speechDebug');
+  if (debugDiv) {
+    debugDiv.style.display = 'block';
+    debugDiv.innerHTML = '语音包: ' + voices.length + '个 (中文' + zhVoices.length + '个)<br>' +
+      zhVoices.map(function(v){return v.name + ' (' + v.lang + ')';}).join('<br>') +
+      '<br>播放状态: 准备中...';
+  }
   var utter = new SpeechSynthesisUtterance(text);
   utter.lang = 'zh-CN';
   utter.rate = rate;
   utter.pitch = 1.1;
-  var voices = speechSynthesis.getVoices();
-  var zhVoice = voices.find(function(v) { return v.lang.indexOf('zh') >= 0; });
+  var zhVoice = zhVoices.length > 0 ? zhVoices[0] : null;
   if (zhVoice) utter.voice = zhVoice;
-  utter.onerror = function(e) { console.log('Speech err:', e.error); };
-  utter.onend = function() { console.log('Speech done'); };
+  utter.onerror = function(e) {
+    console.log('Speech err:', e.error);
+    if (debugDiv) debugDiv.innerHTML += '<br>错误: ' + e.error;
+  };
+  utter.onend = function() {
+    console.log('Speech done');
+    if (debugDiv) debugDiv.innerHTML += '<br>状态: 播放完毕';
+  };
+  utter.onstart = function() {
+    if (debugDiv) debugDiv.innerHTML += '<br>状态: 正在播放!';
+  };
   // Chrome needs resume + user gesture
   speechSynthesis.speak(utter);
   speechSynthesis.pause();
   speechSynthesis.resume();
+  if (debugDiv) debugDiv.innerHTML += '<br>状态: 已调用speak()';
   // Retry if not speaking after 200ms (voice loading delay)
   setTimeout(function() {
-    if (speechSynthesis.speaking) return;
+    var speaking = speechSynthesis.speaking;
+    if (debugDiv) debugDiv.innerHTML += '<br>200ms检查: speaking=' + speaking;
+    if (speaking) return;
     console.log('Retrying speech, voices:', speechSynthesis.getVoices().length);
     speechSynthesis.speak(utter);
     speechSynthesis.resume();
+    if (debugDiv) debugDiv.innerHTML += '<br>状态: 第1次重试';
   }, 200);
   setTimeout(function() {
-    if (speechSynthesis.speaking) return;
+    var speaking = speechSynthesis.speaking;
+    if (debugDiv) debugDiv.innerHTML += '<br>500ms检查: speaking=' + speaking;
+    if (speaking) return;
     // Final retry with new utterance
     var u2 = new SpeechSynthesisUtterance(text);
     u2.lang = 'zh-CN'; u2.rate = rate; u2.pitch = 1.1;
-    var v2 = speechSynthesis.getVoices().find(function(v){return v.lang.indexOf('zh')>=0;});
+    var v2 = speechSynthesis.getVoices().filter(function(v){return v.lang.indexOf('zh')>=0;})[0];
     if (v2) u2.voice = v2;
     speechSynthesis.speak(u2);
     speechSynthesis.resume();
+    if (debugDiv) debugDiv.innerHTML += '<br>状态: 第2次重试(新对象)';
   }, 500);
 }
 function stopSpeak() { speechSynthesis.cancel(); }
