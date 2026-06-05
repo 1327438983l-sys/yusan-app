@@ -1933,9 +1933,9 @@ function showVocabHint(word, label, num, total, li, wi) {
 
 function checkVocabAnswer() {
   var vg = vocabGameState;
-  var word, li, wi;
-  if (vg.mode === 'review') { var it=vg.reviewItems[vg.wordIdx]; word=it.word; li=it.li; wi=it.wi; }
-  else { word=TEXTBOOK_VOCAB[vg.lessonIdx].words[vg.wordIdx]; li=vg.lessonIdx; wi=vg.wordIdx; }
+  var item = vg.queue[vg.queueIdx];
+  if (!item) return;
+  var word = item.word, li = item.li, wi = item.wi;
   var inp = document.getElementById('vocabInput');
   var ans = document.getElementById('vocabAnswer');
   var val = inp.value.trim();
