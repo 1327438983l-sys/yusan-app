@@ -182,15 +182,23 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
 
 <script>
 // ==================== DATA ====================
+const POEM_STORIES = {
+  '绝句': '杜甫是我国最伟大的诗人之一，人称\u201c诗圣\u201d。安史之乱后，他逃难到四川成都，在朋友帮助下盖了一座草堂，就是现在著名的\u201c杜甫草堂\u201d。这首诗就写于草堂。春天来了，阳光暖暖地照在江山上，风里带着花草的香味。燕子衔着湿润的泥土飞来飞去做窝，沙滩上暖洋洋的，鸳鸯正舒服地睡大觉。杜甫看着这么美的春天，心情特别好，就写下了这首诗。你知道吗？杜甫一生写了一千五百多首诗，可他在成都草堂只住了不到四年，却留下了两百四十多首名作！',
+  '惠崇春江晚景': '苏轼是北宋的大文豪，也是个超级美食家！他有个好朋友叫惠崇，是个和尚，但画画特别好。有一天惠崇画了一幅《春江晚景》，苏轼看了特别喜欢，就提笔在画上写了这首诗。诗里最有名的一句是\u201c春江水暖鸭先知\u201d\u2014\u2014鸭子最先知道春天来了，因为它们在水里游泳呀！苏轼还有个外号叫\u201c东坡肉\u201d，因为他发明了东坡肉这道菜。一个会写诗、会画画、还会做菜的人，是不是很厉害？',
+  '三衢道中': '曾几是南宋诗人，他特别喜欢游山玩水。有一年初夏，他去浙江衢州（古时候叫三衢）游玩。这个时候梅子刚好黄了，本该天天下雨（就是\u201c梅雨季节\u201d），可偏偏天天都是大晴天！曾几先坐小船沿着溪水走，船走到头了就改走山路。一路上绿树成荫，跟来的时候一样凉快，而且山里还多了黄鹂鸟在唱歌，叽叽喳喳四五声，特别好听。曾几心情好极了，觉得这趟旅行太完美了！',
+  '元日': '王安石不仅是诗人，还是北宋的宰相（相当于现在的总理）！他写这首诗的时候，正好是春节，也是他推行新法的时候。古代过年可热闹了\u2014\u2014天还没亮就放爆竹（那时候没有烟花，是真的烧竹子，竹节里的空气膨胀会发出\u201c噼里啪啦\u201d的响声），全家人一起喝屠苏酒（一种用草药泡的酒，据说喝了能防病）。门口还要换新的桃符（相当于现在的春联），把旧的撕下来换上新的。王安石看着千家万户都在迎新年，心里特别高兴，觉得新的一年什么都会变好！',
+  '清明': '杜牧是晚唐著名诗人。清明节那天，天上下着毛毛细雨，路上的行人都低着头，很伤心的样子\u2014\u2014因为清明节是祭拜亲人的日子。杜牧一个人走在路上，又累又冷又难过，特别想找个小酒馆喝杯酒暖暖身子。他看见路边有个放牛的小孩（牧童），就问：\u201c小朋友，哪里有酒馆呀？\u201d牧童没有说话，只是用手指了指远处\u2014\u2014那里有一片开满杏花的村庄，酒馆就在那里！这首诗就像一幅画：细雨、行人、牧童、杏花村\u2026\u2026是不是很有画面感？',
+  '九月九日忆山东兄弟': '王维写这首诗的时候才17岁！他一个人离开家乡到长安（现在的西安）求学，年纪小小的就想家了。重阳节那天，别的小朋友都跟家人在一起登高（爬山）、戴茱萸（一种有香味的草，古人认为可以辟邪），可王维一个人在外地。他想：今天我的兄弟们肯定在爬山，每个人身上都插着茱萸，可是数来数去少了一个人\u2014\u2014那就是我呀！\u201c每逢佳节倍思亲\u201d这句话后来成了千古名句，每个在外面想家的人听到都会特别感动。你有没有离开家的时候特别想爸爸妈妈的经历？'
+};
 const UNITS = [
 {
   num: 1, title: "第一单元", theme: "可爱的生灵",
   subtitle: "感受春天的美好，体会作者对自然的热爱",
   review: {
     poems: [
-      { title: "绝句", author: "[唐] 杜甫", content: "迟日江山丽，春风花草香。\n泥融飞燕子，沙暖睡鸳鸯。", notes: "迟日=春日。泥融=泥土湿润。鸳鸯=一种水鸟。描写春天阳光明媚、万物复苏的景象。", story: "杜甫是我国最伟大的诗人之一，人称"诗圣"。安史之乱后，他逃难到四川成都，在朋友帮助下盖了一座草堂，就是现在著名的"杜甫草堂"。这首诗就写于草堂。春天来了，阳光暖暖地照在江山上，风里带着花草的香味。燕子衔着湿润的泥土飞来飞去做窝，沙滩上暖洋洋的，鸳鸯正舒服地睡大觉。杜甫看着这么美的春天，心情特别好，就写下了这首诗。你知道吗？杜甫一生写了一千五百多首诗，可他在成都草堂只住了不到四年，却留下了两百四十多首名作！" },
-      { title: "惠崇春江晚景", author: "[宋] 苏轼", content: "竹外桃花三两枝，春江水暖鸭先知。\n蒌蒿满地芦芽短，正是河豚欲上时。", notes: "蒌蒿(lóu hāo)一种草本植物。芦芽=芦苇的嫩芽。河豚=一种味道鲜美但有毒的鱼。这是苏轼为惠崇的画写的题画诗。", story: "苏轼是北宋的大文豪，也是个超级美食家！他有个好朋友叫惠崇，是个和尚，但画画特别好。有一天惠崇画了一幅《春江晚景》，苏轼看了特别喜欢，就提笔在画上写了这首诗。诗里最有名的一句是"春江水暖鸭先知"——鸭子最先知道春天来了，因为它们在水里游泳呀！苏轼还有个外号叫"东坡肉"，因为他发明了东坡肉这道菜。一个会写诗、会画画、还会做菜的人，是不是很厉害？" },
-      { title: "三衢道中", author: "[宋] 曾几", content: "梅子黄时日日晴，小溪泛尽却山行。\n绿阴不减来时路，添得黄鹂四五声。", notes: "三衢(qú)=今浙江衢州。泛尽=乘船走到尽头。却=又。黄鹂=黄莺。写初夏山行的愉悦心情。", story: "曾几是南宋诗人，他特别喜欢游山玩水。有一年初夏，他去浙江衢州（古时候叫三衢）游玩。这个时候梅子刚好黄了，本该天天下雨（就是"梅雨季节"），可偏偏天天都是大晴天！曾几先坐小船沿着溪水走，船走到头了就改走山路。一路上绿树成荫，跟来的时候一样凉快，而且山里还多了黄鹂鸟在唱歌，叽叽喳喳四五声，特别好听。曾几心情好极了，觉得这趟旅行太完美了！" }
+      { title: "绝句", author: "[唐] 杜甫", content: "迟日江山丽，春风花草香。\n泥融飞燕子，沙暖睡鸳鸯。", notes: "迟日=春日。泥融=泥土湿润。鸳鸯=一种水鸟。描写春天阳光明媚、万物复苏的景象。" },
+      { title: "惠崇春江晚景", author: "[宋] 苏轼", content: "竹外桃花三两枝，春江水暖鸭先知。\n蒌蒿满地芦芽短，正是河豚欲上时。", notes: "蒌蒿(lóu hāo)一种草本植物。芦芽=芦苇的嫩芽。河豚=一种味道鲜美但有毒的鱼。这是苏轼为惠崇的画写的题画诗。" },
+      { title: "三衢道中", author: "[宋] 曾几", content: "梅子黄时日日晴，小溪泛尽却山行。\n绿阴不减来时路，添得黄鹂四五声。", notes: "三衢(qú)=今浙江衢州。泛尽=乘船走到尽头。却=又。黄鹂=黄莺。写初夏山行的愉悦心情。" }
     ],
     words: [
       {char:"融",pinyin:"róng",words:"融化 融合"},{char:"燕",pinyin:"yàn",words:"燕子 海燕"},{char:"鸳",pinyin:"yuān",words:"鸳鸯"},{char:"鸯",pinyin:"yāng",words:"鸳鸯"},{char:"惠",pinyin:"huì",words:"恩惠 优惠"},{char:"崇",pinyin:"chóng",words:"崇高 崇拜"},{char:"芦",pinyin:"lú",words:"芦苇 芦芽"},{char:"芽",pinyin:"yá",words:"发芽 豆芽"},{char:"短",pinyin:"duǎn",words:"长短 短处"},{char:"梅",pinyin:"méi",words:"梅子 梅花"},{char:"溪",pinyin:"xī",words:"小溪 溪水"},{char:"泛",pinyin:"fàn",words:"泛舟 广泛"},{char:"减",pinyin:"jiǎn",words:"减少 减法"},{char:"凑",pinyin:"còu",words:"凑合 凑巧"},{char:"拂",pinyin:"fú",words:"吹拂 拂过"},{char:"集",pinyin:"jí",words:"集合 集市"},{char:"聚",pinyin:"jù",words:"聚会 聚拢"},{char:"形",pinyin:"xíng",words:"形状 形象"},{char:"掠",pinyin:"lüè",words:"掠过 掠夺"},{char:"偶",pinyin:"ǒu",words:"偶尔 偶然"},{char:"沾",pinyin:"zhān",words:"沾水 沾湿"},{char:"倦",pinyin:"juàn",words:"疲倦 倦意"},{char:"纤",pinyin:"xiān",words:"纤细 纤维"},{char:"痕",pinyin:"hén",words:"痕迹 伤痕"},{char:"瓣",pinyin:"bàn",words:"花瓣 豆瓣"},{char:"蓬",pinyin:"péng",words:"莲蓬 蓬松"},{char:"胀",pinyin:"zhàng",words:"饱胀 肿胀"},{char:"裂",pinyin:"liè",words:"裂开 破裂"},{char:"姿",pinyin:"zī",words:"姿势 姿态"},{char:"势",pinyin:"shì",words:"姿势 气势"},{char:"仿",pinyin:"fǎng",words:"仿佛 模仿"},{char:"佛",pinyin:"fú",words:"仿佛"},{char:"随",pinyin:"suí",words:"跟随 随便"},{char:"蹈",pinyin:"dǎo",words:"舞蹈 手舞足蹈"},{char:"蚂",pinyin:"mǎ",words:"蚂蚁"},{char:"蚂",pinyin:"mà",words:"蚂蚱"},{char:"蚱",pinyin:"zhà",words:"蚂蚱"},{char:"翩",pinyin:"piān",words:"翩翩起舞"},{char:"膜",pinyin:"mó",words:"薄膜 耳膜"},{char:"斑",pinyin:"bān",words:"斑点 斑马"}
@@ -318,9 +326,9 @@ const UNITS = [
   subtitle: "了解中华传统文化，感受中华文明的伟大",
   review: {
     poems: [
-      { title: "元日", author: "[宋] 王安石", content: "爆竹声中一岁除，春风送暖入屠苏。\n千门万户曈曈日，总把新桃换旧符。", notes: "元日=农历正月初一(春节)。屠苏=屠苏酒。曈曈(tóng)：日出时光亮的样子。桃/符=桃符，古代新年习俗，挂桃木板驱邪。全诗写春节热闹喜庆的景象。", story: "王安石不仅是诗人，还是北宋的宰相（相当于现在的总理）！他写这首诗的时候，正好是春节，也是他推行新法的时候。古代过年可热闹了——天还没亮就放爆竹（那时候没有烟花，是真的烧竹子，竹节里的空气膨胀会发出"噼里啪啦"的响声），全家人一起喝屠苏酒（一种用草药泡的酒，据说喝了能防病）。门口还要换新的桃符（相当于现在的春联），把旧的撕下来换上新的。王安石看着千家万户都在迎新年，心里特别高兴，觉得新的一年什么都会变好！" },
-      { title: "清明", author: "[唐] 杜牧", content: "清明时节雨纷纷，路上行人欲断魂。\n借问酒家何处有？牧童遥指杏花村。", notes: "清明=清明节(4月4-6日)。纷纷=细密的样子。欲断魂=伤感愁闷。杏花村=地名。写清明时节的雨景和行人的忧愁。", story: "杜牧是晚唐著名诗人。清明节那天，天上下着毛毛细雨，路上的行人都低着头，很伤心的样子——因为清明节是祭拜亲人的日子。杜牧一个人走在路上，又累又冷又难过，特别想找个小酒馆喝杯酒暖暖身子。他看见路边有个放牛的小孩（牧童），就问："小朋友，哪里有酒馆呀？"牧童没有说话，只是用手指了指远处——那里有一片开满杏花的村庄，酒馆就在那里！这首诗就像一幅画：细雨、行人、牧童、杏花村……是不是很有画面感？" },
-      { title: "九月九日忆山东兄弟", author: "[唐] 王维", content: "独在异乡为异客，每逢佳节倍思亲。\n遥知兄弟登高处，遍插茱萸少一人。", notes: "九月九日=重阳节。山东=华山以东。异乡=他乡。倍=更加。茱萸(zhū yú)=一种香草，重阳节佩戴辟邪。写游子对家乡亲人的思念。", story: "王维写这首诗的时候才17岁！他一个人离开家乡到长安（现在的西安）求学，年纪小小的就想家了。重阳节那天，别的小朋友都跟家人在一起登高（爬山）、戴茱萸（一种有香味的草，古人认为可以辟邪），可王维一个人在外地。他想：今天我的兄弟们肯定在爬山，每个人身上都插着茱萸，可是数来数去少了一个人——那就是我呀！"每逢佳节倍思亲"这句话后来成了千古名句，每个在外面想家的人听到都会特别感动。你有没有离开家的时候特别想爸爸妈妈的经历？" }
+      { title: "元日", author: "[宋] 王安石", content: "爆竹声中一岁除，春风送暖入屠苏。\n千门万户曈曈日，总把新桃换旧符。", notes: "元日=农历正月初一(春节)。屠苏=屠苏酒。曈曈(tóng)：日出时光亮的样子。桃/符=桃符，古代新年习俗，挂桃木板驱邪。全诗写春节热闹喜庆的景象。" },
+      { title: "清明", author: "[唐] 杜牧", content: "清明时节雨纷纷，路上行人欲断魂。\n借问酒家何处有？牧童遥指杏花村。", notes: "清明=清明节(4月4-6日)。纷纷=细密的样子。欲断魂=伤感愁闷。杏花村=地名。写清明时节的雨景和行人的忧愁。" },
+      { title: "九月九日忆山东兄弟", author: "[唐] 王维", content: "独在异乡为异客，每逢佳节倍思亲。\n遥知兄弟登高处，遍插茱萸少一人。", notes: "九月九日=重阳节。山东=华山以东。异乡=他乡。倍=更加。茱萸(zhū yú)=一种香草，重阳节佩戴辟邪。写游子对家乡亲人的思念。" }
     ],
     words: [
       {char:"符",pinyin:"fú",words:"符号 符合"},{char:"欲",pinyin:"yù",words:"欲望 欲望"},{char:"魂",pinyin:"hún",words:"灵魂 魂魄"},{char:"借",pinyin:"jiè",words:"借问 借书"},{char:"酒",pinyin:"jiǔ",words:"酒家 白酒"},{char:"牧",pinyin:"mù",words:"牧童 放牧"},{char:"兄",pinyin:"xiōng",words:"兄弟 兄长"},{char:"独",pinyin:"dú",words:"独自 独立"},{char:"异",pinyin:"yì",words:"异乡 奇异"},{char:"佳",pinyin:"jiā",words:"佳节 美好"},{char:"倍",pinyin:"bèi",words:"加倍 倍数"},{char:"逢",pinyin:"féng",words:"每逢 相逢"},{char:"插",pinyin:"chā",words:"插花 安插"},{char:"忆",pinyin:"yì",words:"回忆 记忆"},{char:"术",pinyin:"shù",words:"技术 美术"},{char:"伟",pinyin:"wěi",words:"伟大 雄伟"},{char:"录",pinyin:"lù",words:"记录 目录"},{char:"保",pinyin:"bǎo",words:"保存 保护"},{char:"存",pinyin:"cún",words:"保存 生存"},{char:"约",pinyin:"yuē",words:"大约 约定"},{char:"验",pinyin:"yàn",words:"经验 检验"},{char:"阿",pinyin:"ā",words:"阿姨"},{char:"欧",pinyin:"ōu",words:"欧洲 欧盟"},{char:"洲",pinyin:"zhōu",words:"欧洲 亚洲"},{char:"社",pinyin:"shè",words:"社会 社区"}
@@ -813,7 +821,8 @@ function renderReview() {
   if (u.review.poems.length > 0) {
     html += `<h3>🖊️ 必背古诗</h3>`;
     u.review.poems.forEach(p => {
-      html += `<div class="poem"><div class="title">《${p.title}》</div><div class="author">${p.author}</div><div style="margin-top:8px;white-space:pre-line">${p.content}</div><div style="margin-top:8px;color:#666;font-size:0.85em">📝 ${p.notes}</div>${p.story ? `<div style="margin-top:10px;padding:10px 14px;background:#fff8e1;border-radius:8px;font-size:0.88em;line-height:1.8;border-left:3px solid #f39c12"><b style="color:#e67e22">📖 诗人小故事</b><br>${p.story}</div>` : ''}</div>`;
+      const _s = POEM_STORIES[p.title] || '';
+      html += `<div class="poem"><div class="title">《${p.title}》</div><div class="author">${p.author}</div><div style="margin-top:8px;white-space:pre-line">${p.content}</div><div style="margin-top:8px;color:#666;font-size:0.85em">📝 ${p.notes}</div>${_s ? `<div style="margin-top:10px;padding:10px 14px;background:#fff8e1;border-radius:8px;font-size:0.88em;line-height:1.8;border-left:3px solid #f39c12"><b style="color:#e67e22">📖 诗人小故事</b><br>${_s}</div>` : ''}</div>`;
     });
   }
 
@@ -1150,7 +1159,7 @@ function generateFlashcards(unitNum) {
     cards.push({
       type: 'poem', typeLabel: '🖊️ 诗句',
       front: `<div style="font-size:1.3em;font-weight:700;color:var(--primary)">《${p.title}》</div><div style="color:var(--gray);margin-top:8px">${p.author}</div>`,
-      back: `<div class="card-poem">${p.content}</div><div class="card-notes">📝 ${p.notes}</div>${p.story ? `<div style="margin-top:8px;padding:8px 12px;background:#fff8e1;border-radius:6px;font-size:0.82em;line-height:1.7;border-left:3px solid #f39c12"><b style="color:#e67e22">📖 小故事</b> ${p.story.substring(0,80)}…</div>` : ''}`,
+      back: `<div class="card-poem">${p.content}</div><div class="card-notes">📝 ${p.notes}</div>${POEM_STORIES[p.title] ? `<div style="margin-top:8px;padding:8px 12px;background:#fff8e1;border-radius:6px;font-size:0.82em;line-height:1.7;border-left:3px solid #f39c12"><b style="color:#e67e22">📖 小故事</b> ${POEM_STORIES[p.title].substring(0,80)}…</div>` : ''}`,
       id: `poem-${unitNum}-${i}`
     });
   });
