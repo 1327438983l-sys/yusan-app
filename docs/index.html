@@ -1514,15 +1514,23 @@ function renderRecite() {
 
 function speakPoem(title, rate) {
   stopSpeak();
-  var u = UNITS.find(function(x) { return x.num === currentUnit; });
-  var poem = u.review.poems.find(function(p) { return p.title === title; });
+  if (!window.speechSynthesis) { alert('您的浏览器不支持朗读功能，请用Chrome或QQ浏览器打开'); return; }
+  var unit = UNITS.find(function(x) { return x.num === currentUnit; });
+  var poem = unit.review.poems.find(function(p) { return p.title === title; });
   if (!poem) return;
   var text = poem.title + '。' + poem.author + '。' + poem.content.replace(/\n/g, '。');
-  var u = new SpeechSynthesisUtterance(text);
-  u.lang = 'zh-CN';
-  u.rate = rate || 0.8;
-  u.pitch = 1.1;
-  speechSynthesis.speak(u);
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'zh-CN';
+  utter.rate = rate || 0.8;
+  utter.pitch = 1.1;
+  // Try to find a Chinese voice
+  var voices = speechSynthesis.getVoices();
+  var zhVoice = voices.find(function(v) { return v.lang.startsWith('zh'); });
+  if (zhVoice) utter.voice = zhVoice;
+  utter.onerror = function(e) { console.log('Speech error:', e.error); };
+  speechSynthesis.speak(utter);
+  // Chrome bug: need to resume after speak
+  speechSynthesis.resume();
 }
 function stopSpeak() { speechSynthesis.cancel(); }
 
@@ -1608,13 +1616,18 @@ function checkStoryAnswer(el, chosen, correct) {
 
 function speakStory(title) {
   stopSpeak();
+  if (!window.speechSynthesis) { alert('您的浏览器不支持朗读功能'); return; }
   var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
   var story = DAILY_STORIES[dayOfYear % DAILY_STORIES.length];
-  var u = new SpeechSynthesisUtterance(story.t + '\u3002' + story.body);
-  u.lang = 'zh-CN';
-  u.rate = 0.75;
-  u.pitch = 1.1;
-  speechSynthesis.speak(u);
+  var utter = new SpeechSynthesisUtterance(story.t + '\u3002' + story.body);
+  utter.lang = 'zh-CN';
+  utter.rate = 0.75;
+  utter.pitch = 1.1;
+  var voices = speechSynthesis.getVoices();
+  var zhVoice = voices.find(function(v) { return v.lang.startsWith('zh'); });
+  if (zhVoice) utter.voice = zhVoice;
+  speechSynthesis.speak(utter);
+  speechSynthesis.resume();
 }
 
 // ==================== SPEECH RECOGNITION ====================
