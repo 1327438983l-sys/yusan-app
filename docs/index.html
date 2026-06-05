@@ -1492,16 +1492,17 @@ function renderRecite() {
   let html = '<div class="unit active">';
   html += '<div class="unit-title">' + u.title + ' \xb7 背诵朗读</div>';
   html += '<div class="unit-subtitle">听一听标准朗读，跟着背一背 🎧</div>';
+  html += '<div style="text-align:center;margin:8px 0"><label style="cursor:pointer;font-size:0.9em;color:var(--gray)"><input type="checkbox" id="hidePoemText" onchange="toggleHidePoem()" style="margin-right:6px">背诵模式（隐藏原文）</label></div>';
   html += '<div id="speechDebug" style="display:none;background:#fff3cd;border-radius:8px;padding:10px;margin:8px 0;font-size:0.8em;color:#856404;line-height:1.6"></div>';
   u.review.poems.forEach(function(p, i) {
     html += '<div class="recite-card">';
     html += '<div style="font-size:1.1em;font-weight:700;color:var(--primary)">《' + p.title + '》</div>';
     html += '<div style="color:var(--gray);font-size:0.9em;margin:4px 0">' + p.author + '</div>';
-    html += '<div class="recite-poem">' + p.content.replace(/\n/g, '<br>') + '</div>';
+    html += '<div class="recite-poem" id="poemText_'+p.title+'">' + p.content.replace(/\n/g, '<br>') + '</div>';
     html += '<div class="recite-controls">';
-    html += '<button class="play-btn btn-primary" onclick="speakPoem(\'' + p.title + '\', 0.8)" title="正常速度">▶</button>';
-    html += '<button class="play-btn btn-green" onclick="speakPoem(\'' + p.title + '\', 0.5)" title="慢速" style="font-size:1.2em">🐢</button>';
-    html += '<button class="play-btn" onclick="stopSpeak()" title="停止" style="background:#eee;font-size:1.2em">⏹</button>';
+    html += '<button class="play-btn btn-primary" onclick="playPoemAudio(\'' + p.title + '\',\'normal\')" title="正常速度">▶</button>';
+    html += '<button class="play-btn btn-green" onclick="playPoemAudio(\'' + p.title + '\',\'slow\')" title="慢速" style="font-size:1.2em">🐢</button>';
+    html += '<button class="play-btn" onclick="stopAudio()" title="停止" style="background:#eee;font-size:1.2em">⏹</button>';
     html += '</div>';
     html += '<div class="mic-btn" id="micBtn_'+p.title+'" title="点击开始背诵" onclick="try{startReciteListen(\''+p.title+'\')}catch(e){alert(e.message)}">🎤</div>';
     html += '<div id="reciteResult_'+p.title+'" style="min-height:40px"></div>';
@@ -1670,6 +1671,56 @@ function speakStory(title) {
   var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(),0,0)) / 86400000);
   var story = DAILY_STORIES[dayOfYear % DAILY_STORIES.length];
   doSpeak(story.t + '\u3002' + story.body, 0.75);
+}
+
+// ==================== AUDIO PLAYER ====================
+var currentAudio = null;
+var POEM_AUDIO_MAP = {
+  '\u7edd\u53e5': 'jueju', '\u60e0\u5d07\u6625\u6c5f\u665a\u666f': 'huichong',
+  '\u4e09\u8862\u9053\u4e2d': 'sanqu', '\u5143\u65e5': 'yuanri',
+  '\u6e05\u660e': 'qingming', '\u4e5d\u6708\u4e5d\u65e5\u5fc6\u5c71\u4e1c\u5144\u5f1f': 'jiuyue'
+};
+var STORY_AUDIO_MAP = ['story0','story1','story2','story3','story4','story5'];
+
+function playPoemAudio(title, speed) {
+  stopAudio();
+  var key = POEM_AUDIO_MAP[title];
+  if (!key) { speakPoem(title, speed==='slow'?0.5:0.8); return; }
+  var url = 'audio/' + key + (speed==='slow'?'_slow':'') + '.mp3';
+  currentAudio = new Audio(url);
+  currentAudio.play().catch(function(e) {
+    console.log('Audio play failed, fallback to TTS:', e);
+    speakPoem(title, speed==='slow'?0.5:0.8);
+  });
+}
+
+function playStoryAudio(storyIdx) {
+  stopAudio();
+  var key = STORY_AUDIO_MAP[storyIdx];
+  if (!key) return;
+  currentAudio = new Audio('audio/' + key + '.mp3');
+  currentAudio.play().catch(function(e) { console.log('Story audio failed:', e); });
+}
+
+function stopAudio() {
+  if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+  if (window.speechSynthesis) speechSynthesis.cancel();
+}
+
+function toggleHidePoem() {
+  var checked = document.getElementById('hidePoemText').checked;
+  var titles = Object.keys(POEM_AUDIO_MAP);
+  titles.forEach(function(t) {
+    var el = document.getElementById('poemText_' + t);
+    if (el) {
+      if (checked) {
+        el.dataset.origText = el.innerHTML;
+        el.innerHTML = '<div style="text-align:center;color:var(--gray);padding:20px;font-size:1.1em">\ud83d\udcdd 原文已隐藏，点击播放听朗读，然后试着背出来！</div>';
+      } else if (el.dataset.origText) {
+        el.innerHTML = el.dataset.origText;
+      }
+    }
+  });
 }
 
 // ==================== SPEECH RECOGNITION ====================
