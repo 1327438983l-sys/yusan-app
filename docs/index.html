@@ -1960,7 +1960,9 @@ function checkVocabAnswer() {
     if(vg.hearts<=0){finishVocabGame();return;}
     if(vg.mode==='review'){vg.wordIdx++;renderVocabReviewQ();}
     else{vg.wordIdx++;renderVocabQ();}
-  },1200);
+    // Auto-focus next input
+    setTimeout(function(){var inp=document.getElementById('vocabInput');if(inp)inp.focus();},100);
+  },800);
 }
 
 function finishVocabGame() {
