@@ -1908,7 +1908,7 @@ function showVocabCard(word, num, total, label, li, wi, sec) {
   html += '</div>';
   html += '<div style="text-align:center;margin-top:12px;display:flex;gap:10px;justify-content:center">';
   html += '<button class="btn btn-sm" style="background:#eee" onclick="showVocabHint(\''+word+'\',\''+label+'\','+num+','+total+','+li+','+wi+')">\ud83d\udca1 看一看</button>';
-  html += '<button class="btn btn-primary" onclick="checkVocabAnswer()">确认</button>';
+  html += '<button class="btn btn-primary" id="vocabConfirmBtn" onclick="checkVocabAnswer()">确认</button>';
   html += '</div></div>';
   document.getElementById('app').innerHTML = html;
   var inp = document.getElementById('vocabInput');
@@ -1965,13 +1965,20 @@ function checkVocabAnswer() {
     vg.queue.push({word:word, li:li, wi:wi, py:vg.queue[vg.queueIdx].py});
   }
   ans.style.display='block'; inp.disabled=true;
+  var confirmBtn = document.getElementById('vocabConfirmBtn');
+  if(confirmBtn) confirmBtn.disabled = true;
   updateGameStats();
+  // Prevent double-advance
+  if(vg._advancing) return;
+  vg._advancing = true;
   setTimeout(function(){
+    vg._advancing = false;
     if(vg.hearts<=0){finishVocabGame();return;}
     vg.queueIdx++;
+    if(vg.queueIdx >= vg.queue.length) { finishVocabGame(); return; }
     if(vg.mode==='review') renderVocabReviewQ();
     else renderVocabQ();
-    setTimeout(function(){var inp=document.getElementById('vocabInput');if(inp)inp.focus();},100);
+    setTimeout(function(){var inp=document.getElementById('vocabInput');if(inp)inp.focus();},50);
   },1000);
 }
 
