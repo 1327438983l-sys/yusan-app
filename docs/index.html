@@ -2287,160 +2287,171 @@ var currentGrade = parseInt(localStorage.getItem('app_grade') || '3');
 var GRADE_DATA = {
   1: {
     vocab: [
-      {lesson:'汉语拼音',words:['a','o','e','i','u','ü','b','p','m','f','d','t','n','l','g','k','h','j','q','x','z','c','s','zh','ch','sh','r','y','w'],py:['a','o','e','i','u','ü','b','p','m','f','d','t','n','l','g','k','h','j','q','x','z','c','s','zh','ch','sh','r','y','w']},
-      {lesson:'识字(一)',words:['一','二','三','四','五','六','七','八','九','十','口','耳','目','手','足'],py:['yī','èr','sān','sì','wǔ','liù','qī','bā','jiǔ','shí','kǒu','ěr','mù','shǒu','zú']},
-      {lesson:'课文1-5',words:['人','火','文','六','七','八','九','十','木','禾','竹','牙','尺','毛','花','鸟','虫','牛','羊'],py:['rén','huǒ','wén','liù','qī','bā','jiǔ','shí','mù','hé','zhú','yá','chǐ','máo','huā','niǎo','chóng','niú','yáng']},
-      {lesson:'课文6-10',words:['爸','妈','大','土','不','马','米','地','多','少'],py:['bà','mā','dà','tǔ','bù','mǎ','mǐ','dì','duō','shǎo']}
+      {lesson:'识字1·春夏秋冬',words:['春','风','冬','雪','花','飞','入','姓','氏','李'],py:['chūn','fēng','dōng','xuě','huā','fēi','rù','xìng','shì','lǐ']},
+      {lesson:'识字1·姓氏歌',words:['张','吴','赵','钱','孙','周','王','方','国','全'],py:['zhāng','wú','zhào','qián','sūn','zhōu','wáng','fāng','guó','quán']},
+      {lesson:'识字1·小青蛙',words:['清','晴','眼','睛','保','护','害','事','情','请'],py:['qīng','qíng','yǎn','jīng','bǎo','hù','hài','shì','qíng','qǐng']},
+      {lesson:'识字1·猜字谜',words:['相','遇','喜','欢','怕','言','互','令','动','万'],py:['xiāng','yù','xǐ','huān','pà','yán','hù','lìng','dòng','wàn']},
+      {lesson:'课文1·吃水不忘挖井人',words:['吃','叫','主','江','住','没','以','会','走','北'],py:['chī','jiào','zhǔ','jiāng','zhù','méi','yǐ','huì','zǒu','běi']},
+      {lesson:'课文2·我多想去看看',words:['告','诉','路','京','安','门','广','公','厂','想'],py:['gào','sù','lù','jīng','ān','mén','guǎng','gōng','chǎng','xiǎng']},
+      {lesson:'课文3·小公鸡和小鸭子',words:['块','捉','急','直','河','行','死','信','跟','忽'],py:['kuài','zhuō','jí','zhí','hé','xíng','sǐ','xìn','gēn','hū']},
+      {lesson:'课文4·树和喜鹊',words:['单','居','招','呼','快','乐','窝','孤','都','种'],py:['dān','jū','zhāo','hū','kuài','lè','wō','gū','dōu','zhòng']},
+      {lesson:'课文5·怎么都快乐',words:['怎','独','跳','绳','讲','得','羽','球','戏','排'],py:['zěn','dú','tiào','shéng','jiǎng','dé','yǔ','qiú','xì','pái']},
+      {lesson:'课文6·静夜思',words:['夜','思','床','前','光','低','故','乡','色','外'],py:['yè','sī','chuáng','qián','guāng','dī','gù','xiāng','sè','wài']},
+      {lesson:'课文7·夜色',words:['色','外','看','爸','晚','笑','再','事','拉','也'],py:['sè','wài','kàn','bà','wǎn','xiào','zài','shì','lā','yě']},
+      {lesson:'课文8·彩虹',words:['虹','座','浇','提','洒','挑','兴','镜','拿','照'],py:['hóng','zuò','jiāo','tí','sǎ','tiāo','xìng','jìng','ná','zhào']},
+      {lesson:'课文9·端午粽',words:['端','粽','节','总','米','间','分','豆','肉','带'],py:['duān','zòng','jié','zǒng','mǐ','jiān','fēn','dòu','ròu','dài']}
     ],
     math: [
-      {unit:'数一数',formulas:['按顺序数数1-10'],practice:[{q:'3+2=?',a:'5'},{q:'7-3=?',a:'4'},{q:'2+6=?',a:'8'},{q:'9-4=?',a:'5'},{q:'4+4=?',a:'8'},{q:'10-6=?',a:'4'}]},
-      {unit:'比一比',formulas:['多的画多少的画少'],practice:[{q:'5和3哪个大？',a:'5'},{q:'8和8一样大吗？',a:'一样'},{q:'4和7哪个小？',a:'4'}]},
-      {unit:'认识图形',formulas:['正方形四条边','三角形三条边'],practice:[{q:'正方形几条边？',a:'4'},{q:'三角形几条边？',a:'3'},{q:'圆有几个角？',a:'0'}]},
-      {unit:'10以内加减法',formulas:['凑十法','破十法'],practice:[{q:'1+2=?',a:'3'},{q:'3+4=?',a:'7'},{q:'5+3=?',a:'8'},{q:'9-3=?',a:'6'},{q:'7-4=?',a:'3'},{q:'10-6=?',a:'4'}]}
+      {unit:'20以内退位减法',formulas:['破十法','想加算减'],practice:[{q:'12-5=?',a:'7'},{q:'15-8=?',a:'7'},{q:'13-6=?',a:'7'},{q:'11-4=?',a:'7'},{q:'16-9=?',a:'7'},{q:'14-7=?',a:'7'}]},
+      {unit:'认识图形(二)',formulas:['正方形四条边相等','三角形有三条边','圆是曲线图形'],practice:[{q:'正方形有几条边？',a:'4'},{q:'三角形有几条边？',a:'3'},{q:'长方形有几条边？',a:'4'},{q:'圆有几个角？',a:'0'},{q:'正方形几个角？',a:'4'}]},
+      {unit:'100以内数的认识',formulas:['十位上的数表示几个十','个位上的数表示几个一','10个十是100'],practice:[{q:'45里面有几个十？',a:'4'},{q:'3个十和7个一是？',a:'37'},{q:'56的十位是？',a:'5'},{q:'89的个位是？',a:'9'},{q:'100是几位数？',a:'3'}]},
+      {unit:'认识人民币',formulas:['1元=10角','1角=10分','1元=100分'],practice:[{q:'1元=?角',a:'10'},{q:'5角=?分',a:'50'},{q:'1元2角=?角',a:'12'},{q:'35角=?元?角',a:'3元5角'},{q:'2元=?分',a:'200'}]},
+      {unit:'100以内加减法(一)',formulas:['相同数位对齐','从个位算起','满十进一'],practice:[{q:'34+25=?',a:'59'},{q:'67-18=?',a:'49'},{q:'42+38=?',a:'80'},{q:'91-56=?',a:'35'},{q:'23+47=?',a:'70'},{q:'80-36=?',a:'44'}]},
+      {unit:'小小商店',formulas:['总价=单价×数量','付款-总价=找回'],practice:[{q:'买3支铅笔每支2角付1元找回？',a:'4角'},{q:'书包35元付50元找回？',a:'15元'},{q:'橡皮1元买5块需要？',a:'5元'},{q:'尺子8角付1元找回？',a:'2角'}]}
     ]
   },
   2: {
     vocab: [
-      {lesson:'识字1',words:['秋','气','了','树','叶','飞','会','个'],py:['qiū','qì','le','shù','yè','fēi','huì','gè']},
-      {lesson:'课文1-4',words:['尺','作','业','本','笔','桌','面','从','众','林'],py:['chǐ','zuò','yè','běn','bǐ','zhuō','miàn','cóng','zhòng','lín']},
-      {lesson:'课文5-8',words:['铜','号','领','巾','队','旗','铜','号'],py:['tóng','hào','lǐng','jīn','duì','qí','tóng','hào']},
-      {lesson:'古诗',words:['赠','刘','景','文','荷','尽','已','无','擎','雨','盖','菊','残','犹','有','傲','霜','枝'],py:['zèng','liú','jǐng','wén','hé','jìn','yǐ','wú','qíng','yǔ','gài','jú','cán','yóu','yǒu','ào','shuāng','zhī']}
+      {lesson:'课文1·古诗二首(村居/咏柳)',words:['村','居','草','莺','拂','堤','柳','醉','咏','碧'],py:['cūn','jū','cǎo','yīng','fú','dī','liǔ','zuì','yǒng','bì']},
+      {lesson:'课文2·找春天',words:['脱','袄','寻','羞','姑','遮','掩','探','嫩','符'],py:['tuō','ǎo','xún','xiū','gū','zhē','yǎn','tàn','nèn','fú']},
+      {lesson:'课文3·开满鲜花的小路',words:['邮','递','裹','寄','局','堆','破','漏','懊','丧'],py:['yóu','dì','guǒ','jì','jú','duī','pò','lòu','ào','sàng']},
+      {lesson:'课文4·邓小平爷爷植树',words:['邓','植','格','引','注','满','休','息','手','兴'],py:['dèng','zhí','gé','yǐn','zhù','mǎn','xiū','xī','shǒu','xīng']},
+      {lesson:'识字·神州谣',words:['州','湾','岛','峡','民','族','谊','齐','奋','涌'],py:['zhōu','wān','dǎo','xiá','mín','zú','yì','qí','fèn','yǒng']},
+      {lesson:'识字·传统节日',words:['贴','街','舟','艾','敬','转','团','热','闹','宵'],py:['tiē','jiē','zhōu','ài','jìng','zhuǎn','tuán','rè','nào','xiāo']},
+      {lesson:'识字·"贝"的故事',words:['贝','壳','甲','骨','钱','币','与','财','关','珍'],py:['bèi','ké','jiǎ','gǔ','qián','bì','yǔ','cái','guān','zhēn']},
+      {lesson:'识字·中国美食',words:['烧','烤','煎','炒','爆','炖','蒸','饺','酱','粥'],py:['shāo','kǎo','jiān','chǎo','bào','dùn','zhēng','jiǎo','jiàng','zhōu']},
+      {lesson:'课文5·雷锋叔叔你在哪里',words:['锋','昨','冒','留','弯','背','洒','温','暖','爱'],py:['fēng','zuó','mào','liú','wān','bēi','sǎ','wēn','nuǎn','ài']},
+      {lesson:'课文6·千人糕',words:['糕','特','嘛','买','粉','糖','蔗','汁','菜','熬'],py:['gāo','tè','ma','mǎi','fěn','táng','zhè','zhī','cài','áo']},
+      {lesson:'课文7·一匹出色的马',words:['匹','妹','波','纹','像','景','恋','舍','求','郊'],py:['pǐ','mèi','bō','wén','xiàng','jǐng','liàn','shě','qiú','jiāo']}
     ],
     math: [
-      {unit:'100以内加减法',formulas:['相同数位对齐','从个位算起'],practice:[{q:'34+25=?',a:'59'},{q:'67+18=?',a:'85'},{q:'92-45=?',a:'47'},{q:'80-36=?',a:'44'}]},
-      {unit:'乘法口诀',formulas:['一一得一到九九八十一'],practice:[{q:'3×4=?',a:'12'},{q:'5×6=?',a:'30'},{q:'7×8=?',a:'56'},{q:'9×9=?',a:'81'}]},
-      {unit:'认识时间',formulas:['1小时=60分钟'],practice:[{q:'1小时=?分钟',a:'60'},{q:'钟面几个大格？',a:'12'}]},
-      {unit:'长度单位',formulas:['1米=100厘米'],practice:[{q:'1米=?厘米',a:'100'},{q:'3米=?厘米',a:'300'}]}
+      {unit:'有余数的除法',formulas:['被除数÷除数=商……余数','余数必须小于除数'],practice:[{q:'13÷4=?……?',a:'3余1'},{q:'17÷5=?……?',a:'3余2'},{q:'23÷6=?……?',a:'3余5'},{q:'20÷3=?……?',a:'6余2'},{q:'35÷8=?……?',a:'4余3'}]},
+      {unit:'时分秒',formulas:['1时=60分','1分=60秒','1时=3600秒'],practice:[{q:'1时=?分',a:'60'},{q:'3分=?秒',a:'180'},{q:'120分=?时',a:'2'},{q:'1时30分=?分',a:'90'},{q:'钟面有几大格？',a:'12'}]},
+      {unit:'认识方向',formulas:['上北下南左西右东','东和西相对','南和北相对'],practice:[{q:'太阳从哪个方向升起？',a:'东方'},{q:'面对北方左边是？',a:'西方'},{q:'面对南方右边是？',a:'西方'},{q:'地图上通常哪个方向朝上？',a:'北方'}]},
+      {unit:'认识万以内的数',formulas:['个十百千万','每相邻单位进率是十','读数从高位读起'],practice:[{q:'3456的千位是？',a:'3'},{q:'8个千和7个百是？',a:'8700'},{q:'5020读作？',a:'五千零二十'},{q:'最大的三位数是？',a:'999'},{q:'一万=?个千',a:'10'}]},
+      {unit:'分米和毫米',formulas:['1米=10分米','1分米=10厘米','1厘米=10毫米'],practice:[{q:'1分米=?厘米',a:'10'},{q:'5厘米=?毫米',a:'50'},{q:'1米=?毫米',a:'10000'},{q:'30毫米=?厘米',a:'3'},{q:'2分米=?毫米',a:'200'}]},
+      {unit:'三位数加减三位数',formulas:['相同数位对齐','从个位算起','满十进一退一当十'],practice:[{q:'245+378=?',a:'623'},{q:'801-564=?',a:'237'},{q:'456+345=?',a:'801'},{q:'700-285=?',a:'415'},{q:'369+542=?',a:'911'}]},
+      {unit:'角的初步认识',formulas:['角有一个顶点两条边','直角=90度','锐角小于90度','钝角大于90度'],practice:[{q:'直角是多少度？',a:'90度'},{q:'正方形有几个直角？',a:'4'},{q:'三角板有几种角？',a:'2种'},{q:'锐角比直角？',a:'小'}]},
+      {unit:'数据的收集与整理',formulas:['统计可以用画正字法','数一数每种的个数','记录在表格中'],practice:[{q:'正字法一笔表示？',a:'1'},{q:'正字法一共几笔？',a:'5'},{q:'苹果5个梨3个共？',a:'8个'},{q:'哪种最多？怎么知道？',a:'比较数量'}]}
     ]
   },
   3: {
     vocab: [
-      {lesson:'第一组',words:['坪','坝','戴','鲜','艳','服','装','扮','朝','霞','飘','扬','敬','礼','铜','钟','粗','壮','凤','尾'],py:['píng','bà','dài','xiān','yàn','fú','zhuāng','dǎ','bàn','zhāo','xiá','piāo','yáng','jìng','lǐ','tóng','zhōng','cū','zhuàng','fèng','wěi']},
-      {lesson:'第二组',words:['灰','雀','郊','散','步','胸','脯','渣','或','者','敢','惜','低','诚','基','础','突','按','摆','弄'],py:['huī','què','jiāo','sàn','bù','xiōng','pú','zhā','huò','zhě','gǎn','xī','dī','chéng','jī','chǔ','tū','àn','bǎi','nòng']},
-      {lesson:'第三组',words:['促','忆','异','逢','佳','倍','遥','遍','插','萧','萧','梧','桐'],py:['cù','yì','yì','féng','jiā','bèi','yáo','biàn','chā','xiāo','xiāo','wú','tóng']},
-      {lesson:'第四组',words:['艳','瓣','内','梦','醒','苏','湿','娇','嫩','强','适','昆','播','修','建'],py:['yàn','bàn','nèi','mèng','xǐng','sū','shī','jiāo','nèn','qiáng','shì','kūn','bō','xiū','jiàn']}
+      {lesson:'第一单元',words:['坪','坝','戴','鲜','艳','服','装','扮','朝','霞','飘','扬','敬','礼','铜','钟','粗','壮'],py:['píng','bà','dài','xiān','yàn','fú','zhuāng','dǎ','bàn','zhāo','xiá','piāo','yáng','jìng','lǐ','tóng','zhōng','cū','zhuàng']},
+      {lesson:'第二单元',words:['灰','雀','郊','散','步','胸','脯','渣','或','者','敢','惜','低','诚'],py:['huī','què','jiāo','sàn','bù','xiōng','pú','zhā','huò','zhě','gǎn','xī','dī','chéng']},
+      {lesson:'第三单元',words:['促','忆','异','逢','佳','倍','遥','遍','插'],py:['cù','yì','yì','féng','jiā','bèi','yáo','biàn','chā']},
+      {lesson:'第四单元',words:['艳','瓣','内','梦','醒','苏','湿','娇','嫩','强','适','昆'],py:['yàn','bàn','nèi','mèng','xǐng','sū','shī','jiāo','nèn','qiáng','shì','kūn']},
+      {lesson:'第五单元',words:['玩','耍','假','装','些','钓','察','瓣','拢','趣'],py:['wán','shuǎ','jiǎ','zhuāng','xiē','diào','chá','bàn','lǒng','qù']},
+      {lesson:'第六单元',words:['断','楚','至','孤','帆','饮','初','镜','未','磨','遥','银'],py:['duàn','chǔ','zhì','gū','fān','yǐn','chū','jìng','wèi','mó','yáo','yín']}
     ],
     math: [
-      {unit:'测量',formulas:['毫米=10丝米','厘米=10毫米','分米=10厘米','米=10分米','千米=1000米'],practice:[{q:'1厘米=?毫米',a:'10'},{q:'1米=?分米',a:'10'},{q:'1千米=?米',a:'1000'},{q:'30毫米=?厘米',a:'3'}]},
-      {unit:'万以内的加减法',formulas:['相同数位对齐','从个位算起','满十进一'],practice:[{q:'276+345=?',a:'621'},{q:'803-456=?',a:'347'},{q:'456+378=?',a:'834'}]},
-      {unit:'倍的认识',formulas:['一个数里面有几个另一个数就是几倍'],practice:[{q:'12是3的几倍？',a:'4'},{q:'6的3倍是多少？',a:'18'},{q:'20里面有几个5？',a:'4'}]},
-      {unit:'多位数乘一位数',formulas:['先用一位数乘个位再乘十位百位'],practice:[{q:'23×3=?',a:'69'},{q:'45×2=?',a:'90'},{q:'123×4=?',a:'492'}]}
+      {unit:'两位数乘两位数',formulas:['先用第二个数的个位乘','再用第二个数的十位乘','最后把两次的积相加'],practice:[{q:'12×13=?',a:'156'},{q:'21×24=?',a:'504'},{q:'34×11=?',a:'374'},{q:'42×23=?',a:'966'},{q:'15×35=?',a:'525'}]},
+      {unit:'千米和吨',formulas:['1千米=1000米','1吨=1000千克','1千米=100000厘米'],practice:[{q:'3千米=?米',a:'3000'},{q:'5000克=?千克',a:'5'},{q:'2吨=?千克',a:'2000'},{q:'4000米=?千米',a:'4'},{q:'8000千克=?吨',a:'8'}]},
+      {unit:'混合运算',formulas:['先算乘除后算加减','有括号先算括号里','同级运算从左到右'],practice:[{q:'24+16÷4=?',a:'28'},{q:'(24+16)÷4=?',a:'10'},{q:'35-5×6=?',a:'5'},{q:'48÷6+12=?',a:'20'},{q:'(100-64)÷6=?',a:'6'}]},
+      {unit:'年月日',formulas:['大月31天：1/3/5/7/8/10/12','小月30天：4/6/9/11','平年2月28天闰年2月29天'],practice:[{q:'一年有几个大月？',a:'7'},{q:'一年有几个小月？',a:'4'},{q:'平年有多少天？',a:'365'},{q:'闰年有多少天？',a:'366'},{q:'2024年是平年还是闰年？',a:'闰年'}]},
+      {unit:'长方形和正方形',formulas:['长方形周长=(长+宽)×2','正方形周长=边长×4','长方形面积=长×宽'],practice:[{q:'长5宽3周长=?',a:'16'},{q:'边长6周长=?',a:'24'},{q:'长8宽4周长=?',a:'24'},{q:'边长9周长=?',a:'36'},{q:'长10宽5面积=?',a:'50'}]},
+      {unit:'分数的初步认识',formulas:['把一个物体平均分成几份取其中几份','分母=分成的份数','分子=取的份数'],practice:[{q:'1/2+1/2=?',a:'1'},{q:'1/4+2/4=?',a:'3/4'},{q:'3/5-1/5=?',a:'2/5'},{q:'1/3+1/3=?',a:'2/3'},{q:'把圆平均分成4份取1份是？',a:'1/4'}]},
+      {unit:'小数的初步认识',formulas:['小数点左边是整数部分','小数点右边是小数部分','一位小数表示十分之几'],practice:[{q:'0.5读作？',a:'零点五'},{q:'3.8读作？',a:'三点八'},{q:'1/10用小数表示是？',a:'0.1'},{q:'0.3+0.7=?',a:'1.0'},{q:'2.5+1.3=?',a:'3.8'}]}
+    ],
+    english: [
+      {unit:'Unit 1 Welcome back',words:[{en:'welcome',cn:'欢迎'},{en:'school',cn:'学校'},{en:'boy',cn:'男孩'},{en:'girl',cn:'女孩'},{en:'teacher',cn:'老师'},{en:'student',cn:'学生'},{en:'friend',cn:'朋友'},{en:'new',cn:'新的'},{en:'class',cn:'班级'}],sentences:['Welcome back to school!','Nice to meet you.','This is my friend.','I\'m a student.']},
+      {unit:'Unit 2 In the library',words:[{en:'library',cn:'图书馆'},{en:'shout',cn:'大叫'},{en:'eat',cn:'吃'},{en:'run',cn:'跑'},{en:'talk',cn:'说话'},{en:'sleep',cn:'睡觉'},{en:'drink',cn:'喝'},{en:'open',cn:'打开'},{en:'close',cn:'关闭'},{en:'book',cn:'书'}],sentences:['Don\'t shout in the library.','Don\'t eat here.','Be quiet, please.','Open your books.']},
+      {unit:'Unit 3 Pencil?',words:[{en:'pencil',cn:'铅笔'},{en:'pen',cn:'钢笔'},{en:'ruler',cn:'尺子'},{en:'rubber',cn:'橡皮'},{en:'crayon',cn:'蜡笔'},{en:'bag',cn:'书包'},{en:'mine',cn:'我的'},{en:'yours',cn:'你的'},{en:'his',cn:'他的'},{en:'hers',cn:'她的'}],sentences:['Is this your pencil?','Yes, it is.','No, it isn\'t.','That\'s my rubber.']},
+      {unit:'Unit 4 Where bird?',words:[{en:'bird',cn:'鸟'},{en:'on',cn:'在…上面'},{en:'in',cn:'在…里面'},{en:'under',cn:'在…下面'},{en:'behind',cn:'在…后面'},{en:'beside',cn:'在…旁边'},{en:'tree',cn:'树'},{en:'desk',cn:'课桌'},{en:'chair',cn:'椅子'}],sentences:['Where\'s the bird?','It\'s on your desk.','It\'s in the tree.','It\'s under the desk.']},
+      {unit:'Unit 5 How old?',words:[{en:'one',cn:'一'},{en:'two',cn:'二'},{en:'three',cn:'三'},{en:'four',cn:'四'},{en:'five',cn:'五'},{en:'six',cn:'六'},{en:'seven',cn:'七'},{en:'eight',cn:'八'},{en:'nine',cn:'九'},{en:'ten',cn:'十'}],sentences:['How old are you?','I\'m nine.','Happy birthday!','What about you?']},
+      {unit:'Unit 6 What time?',words:[{en:'time',cn:'时间'},{en:'breakfast',cn:'早餐'},{en:'lunch',cn:'午餐'},{en:'dinner',cn:'晚餐'},{en:'bed',cn:'床'},{en:'morning',cn:'早上'},{en:'afternoon',cn:'下午'},{en:'evening',cn:'晚上'},{en:'o\'clock',cn:'点钟'},{en:'milk',cn:'牛奶'}],sentences:['What time is it?','It\'s seven o\'clock.','It\'s time for breakfast.','It\'s time to go to bed.']},
+      {unit:'Unit 7 On the farm',words:[{en:'farm',cn:'农场'},{en:'pig',cn:'猪'},{en:'cow',cn:'牛'},{en:'chicken',cn:'鸡'},{en:'duck',cn:'鸭'},{en:'apple',cn:'苹果'},{en:'orange',cn:'橙子'},{en:'pear',cn:'梨'},{en:'banana',cn:'香蕉'}],sentences:['Welcome to my farm!','Are these apples?','Yes, they are.','What are these?']},
+      {unit:'Unit 8 Twins!',words:[{en:'twin',cn:'双胞胎'},{en:'brother',cn:'兄弟'},{en:'sister',cn:'姐妹'},{en:'father',cn:'父亲'},{en:'mother',cn:'母亲'},{en:'grandpa',cn:'爷爷'},{en:'grandma',cn:'奶奶'},{en:'man',cn:'男人'},{en:'woman',cn:'女人'}],sentences:['We\'re twins!','This is my brother.','Who\'s he?','He\'s my father.']}
     ]
   },
   4: {
     vocab: [
-      {lesson:'第一组',words:['潮','称','盐','笼','罩','蒙','薄','雾','昂','沸','贯','旧','恢'],py:['cháo','chēng','yán','lóng','zhào','méng','bó','wù','áng','fèi','guàn','jiù','huī']},
-      {lesson:'第二组',words:['虎','占','铺','均','匀','叠','茎','柄','触','墙','壁','虚','选'],py:['hǔ','zhàn','pū','jūn','yún','dié','jīng','bǐng','chù','qiáng','bì','xū','xuǎn']},
-      {lesson:'第三组',words:['溢','允','墙','牌','添','训','覆','凝','辣','酷','愉','拆'],py:['yì','yǔn','qiáng','pái','tiān','xùn','fù','níng','là','kù','yú','chāi']},
-      {lesson:'第四组',words:['颈','厉','剧','餐','倘','饮','侍','脾','蹲','供','邻'],py:['jǐng','lì','jù','cān','tǎng','yǐn','shì','pí','dūn','gōng','lín']}
+      {lesson:'第一单元',words:['杂','篱','疏','蜻','蜓','蝶','宿','徐','翁','剥'],py:['zá','lí','shū','qīng','tíng','dié','sù','xú','wēng','bāo']},
+      {lesson:'第二单元',words:['芙','蓉','楼','洛','壶','雁','砚','乾坤'],py:['fú','róng','lóu','luò','hú','yàn','yàn','qián','kūn']},
+      {lesson:'第三单元',words:['蝙','蝠','漆','朗','萤','屏','障','碍','荧','光'],py:['biān','fú','qī','lǎng','yíng','píng','zhàng','ài','yíng','guāng']},
+      {lesson:'第四单元',words:['繁','星','漫','灭','藤','萝','膝','涛','躲','藏'],py:['fán','xīng','màn','miè','téng','luó','xī','tāo','duǒ','cáng']},
+      {lesson:'第五单元',words:['纳','努','矩','距','硫','系','辩','辨','辫','辩'],py:['nà','nǔ','jǔ','jù','liú','xì','biàn','biàn','biàn','biàn']},
+      {lesson:'第六单元',words:['晋','冀','絮','扭','姥','吧','劫','柜','晃','枪'],py:['jìn','jì','xù','niǔ','lǎo','ba','jié','guì','huǎng','qiāng']},
+      {lesson:'第七单元',words:['乾','坤','囊','萤','夜','读','恭','勤','博','贫'],py:['qián','kūn','náng','yíng','yè','dú','gōng','qín','bó','pín']}
     ],
     math: [
-      {unit:'大数的认识',formulas:['个十百千万十万百万千万亿','每相邻单位进率是十'],practice:[{q:'一亿=?个万',a:'10000'},{q:'10个一千=?',a:'一万'},{q:'最大的四位数是？',a:'9999'}]},
-      {unit:'三位数乘两位数',formulas:['先用个位乘再用十位乘最后相加'],practice:[{q:'123×45=?',a:'5535'},{q:'256×12=?',a:'3072'},{q:'345×20=?',a:'6900'}]},
-      {unit:'平行与垂直',formulas:['不相交的两条线平行','相交成直角垂直'],practice:[{q:'正方形相邻两边？',a:'垂直'},{q:'正方形对边？',a:'平行'},{q:'长方形几个直角？',a:'4'}]}
+      {unit:'两位数乘两位数',formulas:['先用第二个数的个位乘','再用第二个数的十位乘','最后把两次的积相加'],practice:[{q:'23×34=?',a:'782'},{q:'45×12=?',a:'540'},{q:'31×21=?',a:'651'},{q:'56×15=?',a:'840'},{q:'18×26=?',a:'468'}]},
+      {unit:'千米和吨',formulas:['1千米=1000米','1吨=1000千克'],practice:[{q:'5千米=?米',a:'5000'},{q:'3吨=?千克',a:'3000'},{q:'6000米=?千米',a:'6'},{q:'7000千克=?吨',a:'7'}]},
+      {unit:'混合运算',formulas:['先算乘除后算加减','有括号先算括号里'],practice:[{q:'120-60÷5=?',a:'108'},{q:'(120-60)÷5=?',a:'12'},{q:'45×2+30=?',a:'120'},{q:'200-25×4=?',a:'100'}]},
+      {unit:'年月日',formulas:['大月31天小月30天','平年365天闰年366天'],practice:[{q:'2023年是平年还是闰年？',a:'平年'},{q:'一年有几个月？',a:'12'},{q:'8月有几天？',a:'31'},{q:'二月最多几天？',a:'29'}]},
+      {unit:'长方形和正方形的周长',formulas:['长方形周长=(长+宽)×2','正方形周长=边长×4'],practice:[{q:'长7宽3周长=?',a:'20'},{q:'边长8周长=?',a:'32'},{q:'长12宽5周长=?',a:'34'},{q:'边长11周长=?',a:'44'}]},
+      {unit:'分数的初步认识',formulas:['分母=总份数','分子=取的份数'],practice:[{q:'1/3+2/3=?',a:'1'},{q:'5/8-3/8=?',a:'2/8'},{q:'1/6+3/6=?',a:'4/6'},{q:'7/10-2/10=?',a:'5/10'}]},
+      {unit:'小数的初步认识',formulas:['小数点左边是整数部分','一位小数表示十分之几'],practice:[{q:'0.3+0.7=?',a:'1.0'},{q:'1.5+2.3=?',a:'3.8'},{q:'4.6-1.2=?',a:'3.4'},{q:'3.9+1.1=?',a:'5.0'}]}
+    ],
+    english: [
+      {unit:'Unit 1 Our school subjects',words:[{en:'school',cn:'学校'},{en:'subject',cn:'科目'},{en:'Chinese',cn:'语文'},{en:'Maths',cn:'数学'},{en:'English',cn:'英语'},{en:'Science',cn:'科学'},{en:'Music',cn:'音乐'},{en:'Art',cn:'美术'},{en:'PE',cn:'体育'},{en:'Computer',cn:'电脑'}],sentences:['What subjects do you like?','I like Chinese and Maths.','We have English this morning.','Let\'s go to the library.']},
+      {unit:'Unit 2 After school',words:[{en:'Wednesday',cn:'星期三'},{en:'Saturday',cn:'星期六'},{en:'Sunday',cn:'星期日'},{en:'Monday',cn:'星期一'},{en:'Tuesday',cn:'星期二'},{en:'Thursday',cn:'星期四'},{en:'Friday',cn:'星期五'},{en:'after school',cn:'放学后'},{en:'go home',cn:'回家'},{en:'what day',cn:'星期几'}],sentences:['What day is it today?','It\'s Wednesday.','I have a football match.','See you tomorrow!']},
+      {unit:'Unit 3 My day',words:[{en:'usually',cn:'通常'},{en:'sometimes',cn:'有时'},{en:'often',cn:'经常'},{en:'every',cn:'每个'},{en:'morning',cn:'早上'},{en:'afternoon',cn:'下午'},{en:'evening',cn:'晚上'},{en:'weekend',cn:'周末'},{en:'homework',cn:'家庭作业'},{en:'watch',cn:'观看'}],sentences:['I usually get up at six.','I often go to school by bus.','Sometimes I watch TV.','What do you do on weekends?']},
+      {unit:'Unit 4 Drawing in the park',words:[{en:'park',cn:'公园'},{en:'tree',cn:'树'},{en:'flower',cn:'花'},{en:'boat',cn:'船'},{en:'river',cn:'河'},{en:'lake',cn:'湖'},{en:'hill',cn:'山'},{en:'draw',cn:'画画'},{en:'easy',cn:'容易'},{en:'difficult',cn:'困难'}],sentences:['Let\'s draw some pictures.','What can you see?','I can see a boat.','It\'s easy.']},
+      {unit:'Unit 5 Seasons',words:[{en:'spring',cn:'春天'},{en:'summer',cn:'夏天'},{en:'autumn',cn:'秋天'},{en:'winter',cn:'冬天'},{en:'warm',cn:'温暖'},{en:'hot',cn:'炎热'},{en:'cool',cn:'凉爽'},{en:'cold',cn:'寒冷'},{en:'fly',cn:'飞'},{en:'skate',cn:'滑冰'}],sentences:['In spring, it is warm.','I can go boating.','In winter, I can go skating.','It\'s hot in summer.']},
+      {unit:'Unit 6 Whose dress is this?',words:[{en:'dress',cn:'连衣裙'},{en:'skirt',cn:'短裙'},{en:'shirt',cn:'衬衫'},{en:'sweater',cn:'毛衣'},{en:'jacket',cn:'夹克'},{en:'trousers',cn:'裤子'},{en:'socks',cn:'袜子'},{en:'shoes',cn:'鞋子'},{en:'whose',cn:'谁的'},{en:'mine',cn:'我的'}],sentences:['Whose dress is this?','It\'s Helen\'s.','Are these your shoes?','Try this.']},
+      {unit:'Unit 7 What\'s the matter?',words:[{en:'matter',cn:'事情'},{en:'ill',cn:'生病'},{en:'tired',cn:'疲倦'},{en:'hungry',cn:'饿'},{en:'thirsty',cn:'渴'},{en:'cold',cn:'冷'},{en:'hot',cn:'热'},{en:'sick',cn:'不舒服'},{en:'feel',cn:'感觉'},{en:'have a fever',cn:'发烧'}],sentences:['What\'s the matter?','I\'m tired.','Have some water.','I\'m hungry.']},
+      {unit:'Unit 8 How are you?',words:[{en:'dear',cn:'亲爱的'},{en:'fine',cn:'好的'},{en:'happy',cn:'快乐'},{en:'sad',cn:'伤心'},{en:'see',cn:'看'},{en:'you',cn:'你'},{en:'come',cn:'来'},{en:'here',cn:'这里'},{en:'call',cn:'打电话'},{en:'speak',cn:'说话'}],sentences:['How are you?','I\'m fine, thank you.','Come in, please.','See you tomorrow.']}
     ]
   },
   5: {
     vocab: [
-      {lesson:'第一组',words:['窃','炒','锅','踮','哟','饿','惧','充','檐','碗','酸','撑'],py:['qiè','chǎo','guō','diǎn','yō','è','jù','chōng','yán','wǎn','suān','chēng']},
-      {lesson:'第二组',words:['洛','榆','畔','帐','魂','缕','幽','葬','愁','腮','甚','绵'],py:['luò','yú','pàn','zhàng','hún','lǚ','yōu','zàng','chóu','sāi','shèn','mián']},
-      {lesson:'第三组',words:['鲸','猪','腭','哺','滤','肚','肺','矮','判','胎'],py:['jīng','zhū','è','bǔ','lǜ','dù','fèi','ǎi','pàn','tāi']},
-      {lesson:'第四组',words:['捞','饵','溅','钩','翼','纵','啪','鳃','皎','唇','沮','诱'],py:['lāo','ěr','jiàn','gōu','yì','zòng','pā','sāi','jiǎo','chún','jǔ','yòu']}
+      {lesson:'第一单元',words:['蝉','猿','浦','榆','树','河','渔','舟','钟','山'],py:['chán','yuán','pǔ','yú','shù','hé','yú','zhōu','zhōng','shān']},
+      {lesson:'第二单元',words:['督','委','鲁','诸','葛','商','议','罚','输','军'],py:['dū','wěi','lǔ','zhū','gě','shāng','yì','fá','shū','jūn']},
+      {lesson:'第三单元',words:['祭','祀','乃','熏','亥','恃','喑','抖','擞','亡'],py:['jì','sì','nǎi','xūn','hài','shì','yīn','dǒu','sǒu','wáng']},
+      {lesson:'第四单元',words:['泻','潜','试','胎','皇','履','疆','倾','壁','避'],py:['xiè','qián','shì','tāi','huáng','lǚ','jiāng','qīng','bì','bì']},
+      {lesson:'第五单元',words:['擞','耽','兜','侄','喉','咙','皆','媳','监','掀'],py:['sǒu','dān','dōu','zhí','hóu','lóng','jiē','xí','jiān','xiān']},
+      {lesson:'第六单元',words:['艘','航','肆','桅','撕','唬','钩','咧','鸥','恐'],py:['sōu','háng','sì','wéi','sī','hǔ','gōu','liě','ōu','kǒng']},
+      {lesson:'第七单元',words:['仑','锦','璃','珑','剔','览','煌','殿','陵','统'],py:['lún','jǐn','lí','lóng','tī','lǎn','huáng','diàn','líng','tǒng']},
+      {lesson:'第八单元',words:['搂','仗','鞭','挠','扳','腕','疤','监','咙','皆'],py:['lǒu','zhàng','biān','náo','bān','wàn','bā','jiān','lóng','jiē']}
     ],
     math: [
-      {unit:'小数乘法',formulas:['先按整数乘再点小数点'],practice:[{q:'2.5×4=?',a:'10'},{q:'1.2×3=?',a:'3.6'},{q:'0.8×0.5=?',a:'0.4'}]},
-      {unit:'简易方程',formulas:['含有未知数的等式叫方程'],practice:[{q:'x+5=12,x=?',a:'7'},{q:'3x=18,x=?',a:'6'},{q:'x-7=3,x=?',a:'10'}]},
-      {unit:'多边形面积',formulas:['平行四边形=底×高','三角形=底×高÷2','梯形=(上底+下底)×高÷2'],practice:[{q:'底5高3平行四边形=?',a:'15'},{q:'底6高4三角形=?',a:'12'},{q:'上底3下底7高4梯形=?',a:'20'}]}
+      {unit:'简易方程',formulas:['含有未知数的等式叫方程','等式两边同时加减乘除相同数仍相等'],practice:[{q:'x+8=15,x=?',a:'7'},{q:'3x=24,x=?',a:'8'},{q:'x-9=6,x=?',a:'15'},{q:'2x+3=11,x=?',a:'4'},{q:'5x-10=15,x=?',a:'5'},{q:'x÷4=7,x=?',a:'28'}]},
+      {unit:'折线统计图',formulas:['折线图表示数据变化趋势','上升表示增加','下降表示减少'],practice:[{q:'折线图的优点是？',a:'能反映变化趋势'},{q:'条形图的优点是？',a:'便于比较数量'},{q:'折线图上升说明？',a:'数量增加'},{q:'折线图下降说明？',a:'数量减少'}]},
+      {unit:'因数和倍数',formulas:['如果a÷b=c(a,b,c都是整数)则a是b的倍数','b是a的因数','一个数的因数个数有限'],practice:[{q:'12的因数有哪些？',a:'1,2,3,4,6,12'},{q:'6的倍数有哪些？',a:'6,12,18,24...'},{q:'既是2的倍数又是3的倍数的最小数是？',a:'6'},{q:'20的因数有？个',a:'6个'},{q:'一个数最小的因数是？',a:'1'}]},
+      {unit:'分数的意义和性质',formulas:['把单位1平均分成若干份','分子表示取的份数','分母表示总份数','分数的基本性质：分子分母同乘除相同数'],practice:[{q:'3/4的分子是？分母是？',a:'分子3分母4'},{q:'5/8=15/?',a:'30'},{q:'2/3和4/6的关系是？',a:'相等'},{q:'把5平均分成8份每份是？',a:'5/8'}]},
+      {unit:'分数加法和减法',formulas:['同分母分数加减分母不变分子相加减','异分母先通分再计算'],practice:[{q:'2/7+3/7=?',a:'5/7'},{q:'5/9-2/9=?',a:'3/9'},{q:'1/3+1/4=?',a:'7/12'},{q:'3/5-1/2=?',a:'1/10'},{q:'2/3+1/6=?',a:'5/6'}]},
+      {unit:'圆',formulas:['半径r是圆心到圆上一点的长度','直径d=2r','周长C=2πr=πd','面积S=πr²'],practice:[{q:'r=3cm周长=?',a:'18.84cm'},{q:'d=10cm面积=?',a:'78.5cm²'},{q:'r=5cm面积=?',a:'78.5cm²'},{q:'直径8cm半径=?',a:'4cm'}]}
+    ],
+    english: [
+      {unit:'Unit 1 Cinderella',words:[{en:'prince',cn:'王子'},{en:'princess',cn:'公主'},{en:'fairy',cn:'仙女'},{en:'shoe',cn:'鞋子'},{en:'party',cn:'聚会'},{en:'visit',cn:'拜访'},{en:'before',cn:'在…之前'},{en:'late',cn:'迟到'},{en:'leave',cn:'离开'},{en:'try',cn:'试'}],sentences:['Why are you sad?','Because I can\'t go to the party.','Put on the new shoe.','Cinderella is a kind girl.']},
+      {unit:'Unit 2 How do you come to school?',words:[{en:'ship',cn:'轮船'},{en:'bike',cn:'自行车'},{en:'plane',cn:'飞机'},{en:'train',cn:'火车'},{en:'taxi',cn:'出租车'},{en:'metro',cn:'地铁'},{en:'bus',cn:'公共汽车'},{en:'on foot',cn:'步行'},{en:'near',cn:'近的'},{en:'far',cn:'远的'}],sentences:['How do you come to school?','I come to school by bus.','I live near school.','It\'s far from my home.']},
+      {unit:'Unit 3 Asking the way',words:[{en:'turn left',cn:'左转'},{en:'turn right',cn:'右转'},{en:'go straight',cn:'直走'},{en:'traffic light',cn:'交通灯'},{en:'crossing',cn:'十字路口'},{en:'street',cn:'街道'},{en:'along',cn:'沿着'},{en:'next to',cn:'旁边'},{en:'behind',cn:'后面'},{en:'hospital',cn:'医院'}],sentences:['Excuse me, how do I get to...?','Turn left at the traffic light.','Go along this street.','It\'s on your right.']},
+      {unit:'Unit 4 Seeing the doctor',words:[{en:'headache',cn:'头痛'},{en:'fever',cn:'发烧'},{en:'toothache',cn:'牙痛'},{en:'cold',cn:'感冒'},{en:'see a doctor',cn:'看医生'},{en:'rest',cn:'休息'},{en:'medicine',cn:'药'},{en:'check',cn:'检查'},{en:'brush',cn:'刷'},{en:'feel',cn:'感觉'}],sentences:['What\'s wrong with you?','I have a headache.','You should take some medicine.','You should have a rest.']},
+      {unit:'Unit 5 Helping our parents',words:[{en:'cook',cn:'做饭'},{en:'clean',cn:'打扫'},{en:'sweep',cn:'扫地'},{en:'wash',cn:'洗'},{en:'bedroom',cn:'卧室'},{en:'garden',cn:'花园'},{en:'grow',cn:'种植'},{en:'messy',cn:'凌乱的'},{en:'tidy',cn:'整洁的'},{en:'help',cn:'帮助'}],sentences:['What are you doing?','I\'m helping my parents.','He is cooking dinner.','She is sweeping the floor.']},
+      {unit:'Unit 6 In the kitchen',words:[{en:'meat',cn:'肉'},{en:'vegetable',cn:'蔬菜'},{en:'bread',cn:'面包'},{en:'soup',cn:'汤'},{en:'chicken',cn:'鸡肉'},{en:'tomato',cn:'番茄'},{en:'potato',cn:'土豆'},{en:'ready',cn:'准备好的'},{en:'dinner',cn:'晚餐'},{en:'tasty',cn:'美味的'}],sentences:['What\'s for dinner?','I\'m cooking dinner.','Do you like meat?','The soup is delicious.']},
+      {unit:'Unit 7 Chinese festivals',words:[{en:'Spring Festival',cn:'春节'},{en:'Mid-Autumn',cn:'中秋节'},{en:'Dragon Boat',cn:'端午节'},{en:'mooncake',cn:'月饼'},{en:'dumpling',cn:'饺子'},{en:'dragon boat',cn:'龙舟'},{en:'festival',cn:'节日'},{en:'custom',cn:'习俗'},{en:'celebrate',cn:'庆祝'},{en:'gather',cn:'团聚'}],sentences:['What do you do at Spring Festival?','We eat dumplings.','I like mooncakes.','People get together.']},
+      {unit:'Unit 8 Birthdays',words:[{en:'birthday',cn:'生日'},{en:'April',cn:'四月'},{en:'March',cn:'三月'},{en:'January',cn:'一月'},{en:'February',cn:'二月'},{en:'present',cn:'礼物'},{en:'card',cn:'卡片'},{en:'cake',cn:'蛋糕'},{en:'candle',cn:'蜡烛'},{en:'blow',cn:'吹'}],sentences:['When\'s your birthday?','It\'s on the first of May.','Happy birthday!','I get lots of presents.']}
     ]
   },
   6: {
     vocab: [
-      {lesson:'第一组',words:['邀','俯','瀑','流','峭','躯','津','蕴','侠'],py:['yāo','fǔ','pù','liú','qiào','qū','jīn','yùn','xiá']},
-      {lesson:'第二组',words:['施','挠','庸','艰','毅','铲','劣','惹','讥','浆','叉'],py:['shī','náo','yōng','jiān','yì','chǎn','liè','rě','jī','jiāng','chā']},
-      {lesson:'第三组',words:['汹','涌','澎','湃','溅','熄','淋','嘿','糟','嘛','吟','呻'],py:['xiōng','yǒng','péng','pài','jiàn','xī','lín','hēi','zāo','ma','yín','shēn']},
-      {lesson:'第四组',words:['晶','莹','蔼','资','矿','赐','竭'],py:['jīng','yíng','ǎi','zī','kuàng','cì','jié']}
+      {lesson:'第一单元',words:['陈','醋','蒜','饺','翡','拌','榛','栗','筝','鞭'],py:['chén','cù','suàn','jiǎo','fěi','bàn','zhēn','lì','zhēng','biān']},
+      {lesson:'第二单元',words:['惧','凄','籍','聊','蓄','控','贷','剔','毙','覆'],py:['jù','qī','jí','liáo','xù','kòng','dài','tī','bì','fù']},
+      {lesson:'第三单元',words:['搁','填','怨','掀','魁','梧','淋','撕','霉','虑'],py:['gē','tián','yuàn','xiān','kuí','wú','lín','sī','méi','lǜ']},
+      {lesson:'第四单元',words:['乖','凭','砚','铭','嗖','撇','噎','搓','绞','殃'],py:['guāi','píng','yàn','míng','sōu','piē','yē','cuō','jiǎo','yāng']},
+      {lesson:'第五单元',words:['械','铸','媚','砖','蚁','噬','隔','誉','卓','匠'],py:['xiè','zhù','mèi','zhuān','yǐ','shì','gé','yù','zhuó','jiàng']},
+      {lesson:'第六单元',words:['甸','斓','瞅','鹿','鹤','嫌','虹','弧','翩','骏'],py:['diàn','lán','chǒu','lù','hè','xián','hóng','hú','piān','jùn']}
     ],
     math: [
-      {unit:'分数乘法',formulas:['分子×整数/分母','分子相乘/分母相乘'],practice:[{q:'1/2×3=?',a:'3/2'},{q:'2/3×4=?',a:'8/3'},{q:'3/5×5/6=?',a:'1/2'}]},
-      {unit:'百分数',formulas:['小数→%: ×100加%','分数→%: 分子÷分母×100'],practice:[{q:'0.75=?%',a:'75%'},{q:'3/4=?%',a:'75%'},{q:'40%=?小数',a:'0.4'}]},
-      {unit:'圆的面积',formulas:['面积=πr²','周长=2πr=πd','π≈3.14'],practice:[{q:'r=3cm面积=?',a:'28.26'},{q:'d=10cm周长=?',a:'31.4'},{q:'r=5cm面积=?',a:'78.5'}]}
+      {unit:'扇形统计图',formulas:['扇形图表示各部分占总体的百分比','圆心角=360°×百分比','所有部分之和为100%'],practice:[{q:'一个扇形占圆的1/4圆心角是？',a:'90°'},{q:'扇形图所有百分比之和是？',a:'100%'},{q:'某部分占30%圆心角是？',a:'108°'},{q:'条形图适合比较什么？',a:'数量多少'}]},
+      {unit:'圆柱和圆锥',formulas:['圆柱侧面积=底面周长×高','圆柱体积=底面积×高','圆锥体积=1/3×底面积×高'],practice:[{q:'底面周长20cm高10cm侧面积=?',a:'200cm²'},{q:'底面积15cm²高8cm圆柱体积=?',a:'120cm³'},{q:'底面积9cm²高6cm圆锥体积=?',a:'18cm³'},{q:'等底等高圆锥是圆柱体积的？',a:'1/3'}]},
+      {unit:'比例',formulas:['表示两个比相等的式子','比例的基本性质：内项积=外项积'],practice:[{q:'2:3=4:6成立吗？',a:'成立'},{q:'3:5=?%:100',a:'60'},{q:'如果a/b=c/d则ad=?',a:'bc'},{q:'把1/2化成比例？',a:'1:2=2:4'}]},
+      {unit:'正比例和反比例',formulas:['y/x=k(一定)→正比例','x×y=k(一定)→反比例','正比同增反比一增一减'],practice:[{q:'速度一定路程和时间成？',a:'正比例'},{q:'面积一定长和宽成？',a:'反比例'},{q:'单价一定总价和数量成？',a:'正比例'},{q:'路程一定速度和时间成？',a:'反比例'}]},
+      {unit:'总复习',formulas:['百分数→小数÷100','圆的面积=πr²','比例=比=除法'],practice:[{q:'75%=?小数',a:'0.75'},{q:'半径4cm圆面积=?',a:'50.24cm²'},{q:'2:3=?:9',a:'6'},{q:'直径6cm圆面积=?',a:'28.26cm²'}]}
+    ],
+    english: [
+      {unit:'Unit 1 The lion and the mouse',words:[{en:'lion',cn:'狮子'},{en:'mouse',cn:'老鼠'},{en:'large',cn:'大的'},{en:'strong',cn:'强壮的'},{en:'weak',cn:'弱小的'},{en:'sharp',cn:'尖锐的'},{en:'net',cn:'网'},{en:'bite',cn:'咬'},{en:'hole',cn:'洞'},{en:'deep',cn:'深的'}],sentences:['The lion is large and strong.','The mouse is small and weak.','The lion bit the net with his sharp teeth.','The mouse helped the lion.']},
+      {unit:'Unit 2 Good habits',words:[{en:'habit',cn:'习惯'},{en:'tidy',cn:'整洁的'},{en:'messy',cn:'凌乱的'},{en:'early',cn:'早的'},{en:'late',cn:'晚的'},{en:'fast',cn:'快的'},{en:'slowly',cn:'慢地'},{en:'weak',cn:'弱的'},{en:'bedtime',cn:'就寝时间'},{en:'sleepy',cn:'困的'}],sentences:['He gets up early every morning.','She goes to bed late.','He keeps his room tidy.','Bad habits are not good.']},
+      {unit:'Unit 3 A healthy diet',words:[{en:'healthy',cn:'健康的'},{en:'diet',cn:'饮食'},{en:'meat',cn:'肉'},{en:'sweet',cn:'甜的'},{en:'healthy food',cn:'健康食品'},{en:'a lot of',cn:'许多'},{en:'some',cn:'一些'},{en:'a little',cn:'一点'},{en:'a few',cn:'几个'},{en:'junk food',cn:'垃圾食品'}],sentences:['We should have a healthy diet.','Eat a lot of fruit and vegetables.','Don\'t eat too much sweet food.','Drink some water every day.']},
+      {unit:'Unit 4 Road safety',words:[{en:'road',cn:'道路'},{en:'safe',cn:'安全的'},{en:'cross',cn:'穿过'},{en:'traffic',cn:'交通'},{en:'pavement',cn:'人行道'},{en:'look out',cn:'当心'},{en:'follow',cn:'遵守'},{en:'rules',cn:'规则'},{en:'green man',cn:'绿灯'},{en:'red man',cn:'红灯'}],sentences:['You must look for cars first.','You must follow the traffic rules.','You can cross the road safely.','Always look at the traffic lights.']},
+      {unit:'Unit 5 A party',words:[{en:'party',cn:'聚会'},{en:'balloon',cn:'气球'},{en:'clown',cn:'小丑'},{en:'present',cn:'礼物'},{en:'concert',cn:'音乐会'},{en:'theatre',cn:'剧院'},{en:'plan',cn:'计划'},{en:'invite',cn:'邀请'},{en:'bring',cn:'带来'},{en:'share',cn:'分享'}],sentences:['What are you going to do?','I\'m going to have a party.','Let\'s bring some food.','Will you come to my party?']},
+      {unit:'Unit 6 Country life',words:[{en:'farmer',cn:'农民'},{en:'vegetable',cn:'蔬菜'},{en:'potato',cn:'土豆'},{en:'tomato',cn:'番茄'},{en:'chicken',cn:'鸡'},{en:'cow',cn:'奶牛'},{en:'sheep',cn:'羊'},{en:'fresh',cn:'新鲜的'},{en:'grow',cn:'种植'},{en:'field',cn:'田地'}],sentences:['I live on a farm.','We grow vegetables on the farm.','The farmer has many chickens.','I like the country life.']},
+      {unit:'Unit 7 Summer holiday plans',words:[{en:'summer holiday',cn:'暑假'},{en:'travel',cn:'旅行'},{en:'plan',cn:'计划'},{en:'go to',cn:'去'},{en:'stay',cn:'待在'},{en:'dream',cn:'梦想'},{en:'excited',cn:'兴奋的'},{en:'different',cn:'不同的'},{en:'famous',cn:'著名的'},{en:'beautiful',cn:'美丽的'}],sentences:['What\'s your plan for summer holiday?','I\'m going to travel to Beijing.','We will stay there for a week.','I\'m very excited!']},
+      {unit:'Unit 8 Our dreams',words:[{en:'dream',cn:'梦想'},{en:'astronaut',cn:'宇航员'},{en:'dancer',cn:'舞者'},{en:'singer',cn:'歌手'},{en:'writer',cn:'作家'},{en:'scientist',cn:'科学家'},{en:'football player',cn:'足球运动员'},{en:'pilot',cn:'飞行员'},{en:'artist',cn:'艺术家'},{en:'future',cn:'未来'}],sentences:['What do you want to be?','I want to be an astronaut.','I want to make the world more beautiful.','Study hard and your dream will come true.']}
     ]
   }
 };
-var currentGrade = parseInt(localStorage.getItem('app_grade') || '3');
-var GRADE_DATA = {
-  1: {
-    vocab: [
-      {lesson:'识字1',words:['一','二','三','四','五','六','七','八','九','十'],py:['yī','èr','sān','sì','wǔ','liù','qī','bā','jiǔ','shí']},
-      {lesson:'识字2',words:['上','下','大','小','多','少','天','地','人','口'],py:['shàng','xià','dà','xiǎo','duō','shǎo','tiān','dì','rén','kǒu']},
-      {lesson:'识字3',words:['日','月','水','火','山','石','田','土','目','耳'],py:['rì','yuè','shuǐ','huǒ','shān','shí','tián','tǔ','mù','ěr']},
-      {lesson:'课文1',words:['爸','妈','马','土','不','八','入','大','天','人'],py:['bà','mā','mǎ','tǔ','bù','bā','rù','dà','tiān','rén']},
-      {lesson:'课文2',words:['木','禾','竹','牙','尺','毛','卜','又','心','风'],py:['mù','hé','zhú','yá','chǐ','máo','bo','yòu','xīn','fēng']},
-      {lesson:'课文3',words:['花','鸟','虫','牛','羊','小','少','多','果','瓜'],py:['huā','niǎo','chóng','niú','yáng','xiǎo','shǎo','duō','guǒ','guā']}
-    ],
-    math: [
-      {unit:'数一数',formulas:['按顺序数数1-10'],practice:[{q:'3+2=?',a:'5'},{q:'7-3=?',a:'4'},{q:'2+6=?',a:'8'},{q:'9-4=?',a:'5'},{q:'4+4=?',a:'8'},{q:'10-6=?',a:'4'}]},
-      {unit:'比一比',formulas:['多的画多少的画少'],practice:[{q:'5和3哪个大？',a:'5'},{q:'8和8一样大吗？',a:'一样'},{q:'4和7哪个小？',a:'4'},{q:'10和6哪个大？',a:'10'}]},
-      {unit:'认识图形',formulas:['正方形四条边','三角形三条边','圆没有角'],practice:[{q:'正方形几条边？',a:'4'},{q:'三角形几条边？',a:'3'},{q:'长方形几条边？',a:'4'},{q:'圆有几个角？',a:'0'}]},
-      {unit:'10以内加减法',formulas:['凑十法','破十法'],practice:[{q:'1+2=?',a:'3'},{q:'3+4=?',a:'7'},{q:'5+3=?',a:'8'},{q:'6+2=?',a:'8'},{q:'9-3=?',a:'6'},{q:'7-4=?',a:'3'},{q:'10-6=?',a:'4'},{q:'8-5=?',a:'3'}]}
-    ]
-  },
-  2: {
-    vocab: [
-      {lesson:'识字1',words:['春','风','冬','雪','花','飞','入','姓','氏','李'],py:['chūn','fēng','dōng','xuě','huā','fēi','rù','xìng','shì','lǐ']},
-      {lesson:'识字2',words:['张','吴','赵','钱','孙','周','王','方','国','全'],py:['zhāng','wú','zhào','qián','sūn','zhōu','wáng','fāng','guó','quán']},
-      {lesson:'课文1',words:['清','晴','眼','睛','保','护','害','事','情','请'],py:['qīng','qíng','yǎn','jīng','bǎo','hù','hài','shì','qíng','qǐng']},
-      {lesson:'课文2',words:['吃','叫','主','江','住','没','以','会','走','北'],py:['chī','jiào','zhǔ','jiāng','zhù','méi','yǐ','huì','zǒu','běi']},
-      {lesson:'课文3',words:['会','走','北','京','门','广','公','厂'],py:['huì','zǒu','běi','jīng','mén','guǎng','gōng','chǎng']}
-    ],
-    math: [
-      {unit:'100以内加减法',formulas:['相同数位对齐','从个位算起'],practice:[{q:'34+25=?',a:'59'},{q:'67+18=?',a:'85'},{q:'92-45=?',a:'47'},{q:'80-36=?',a:'44'},{q:'56+27=?',a:'83'},{q:'100-58=?',a:'42'}]},
-      {unit:'乘法口诀',formulas:['一一得一到九九八十一'],practice:[{q:'3×4=?',a:'12'},{q:'5×6=?',a:'30'},{q:'7×8=?',a:'56'},{q:'9×9=?',a:'81'},{q:'4×7=?',a:'28'},{q:'6×6=?',a:'36'}]},
-      {unit:'认识时间',formulas:['1小时=60分钟'],practice:[{q:'1小时=?分钟',a:'60'},{q:'钟面几个大格？',a:'12'},{q:'分针走一圈是？',a:'1小时'}]},
-      {unit:'长度单位',formulas:['1米=100厘米'],practice:[{q:'1米=?厘米',a:'100'},{q:'3米=?厘米',a:'300'},{q:'500厘米=?米',a:'5'}]}
-    ]
-  },
-  4: {
-    vocab: [
-      {lesson:'第一单元',words:['坪坝','穿戴','鲜艳','服装','打扮','朝霞','欢唱','招呼','飘扬','敬礼'],py:['píng bà','chuān dài','xiān yàn','fú zhuāng','dǎ bàn','zhāo xiá','huān chàng','zhāo hu','piāo yáng','jìng lǐ']},
-      {lesson:'第二单元',words:['金色','石径','菊花','残阳','寒冷','盖','橙子','送别','挑水','萧萧'],py:['jīn sè','shí jìng','jú huā','cán yáng','hán lěng','gài','chéng zi','sòng bié','tiāo shuǐ','xiāo xiāo']},
-      {lesson:'第三单元',words:['准备','墙壁','蜘蛛','漂亮','饱满','非常','独自','尽量'],py:['zhǔn bèi','qiáng bì','zhī zhū','piào liang','bǎo mǎn','fēi cháng','dú zì','jǐn liàng']},
-      {lesson:'第四单元',words:['举世闻名','创举','冲毁','坚固','宝贵','遗产','设计','横跨'],py:['jǔ shì wén míng','chuàng jǔ','chōng huǐ','jiān gù','bǎo guì','yí chǎn','shè jì','héng kuà']}
-    ],
-    math: [
-      {unit:'大数的认识',formulas:['个十百千万十万百万千万亿','每相邻单位进率是十'],practice:[{q:'一亿=?个万',a:'10000'},{q:'10个一千=?',a:'一万'},{q:'百万位是5表示？',a:'5个百万'},{q:'456789读作？',a:'四十五万六千七百八十九'},{q:'最大的四位数是？',a:'9999'},{q:'最小的五位数是？',a:'10000'}]},
-      {unit:'三位数乘两位数',formulas:['先用个位乘再用十位乘最后相加'],practice:[{q:'123×45=?',a:'5535'},{q:'256×12=?',a:'3072'},{q:'345×20=?',a:'6900'},{q:'108×50=?',a:'5400'},{q:'234×11=?',a:'2574'},{q:'456×13=?',a:'5928'}]},
-      {unit:'平行与垂直',formulas:['不相交的两条线平行','相交成直角垂直'],practice:[{q:'正方形相邻两边？',a:'垂直'},{q:'正方形对边？',a:'平行'},{q:'长方形几个直角？',a:'4'},{q:'平行线间距离？',a:'相等'}]}
-    ]
-  },
-  5: {
-    vocab: [
-      {lesson:'第一单元',words:['精巧','色素','配合','身段','生硬','寻常','忘却','结构','镜匣','清晨'],py:['jīng qiǎo','sè sǔn','pèi hé','shēn duàn','shēng yìng','xún cháng','wàng què','jié gòu','jìng xiá','qīng chén']},
-      {lesson:'第二单元',words:['猎豹','陆地','俯冲','搭乘','火箭','发动机','手电筒','赤道','难以置信','呼啸'],py:['liè bào','lù dì','fǔ chōng','dā chéng','huǒ jiàn','fā dòng jī','shǒu diàn tǒng','chì dào','nán yǐ zhì xìn','hū xiào']},
-      {lesson:'第三单元',words:['汛期','谴责','懒惰','平稳','平衡','协调','山洪','暴发','间隔','联结'],py:['xùn qī','qiǎn zé','lǎn duò','píng wěn','píng héng','xié tiáo','shān hóng','bào fā','jiàn gé','lián jié']},
-      {lesson:'第四单元',words:['甚至','顽皮','极了','注视','静寂','站岗','理睬','无疑','歇息','偶尔'],py:['shèn zhì','wán pí','jí le','zhù shì','jìng jì','zhàn gǎng','lǐ cǎi','wú yí','xiē xī','ǒu ěr']}
-    ],
-    math: [
-      {unit:'小数乘法',formulas:['先按整数乘再点小数点'],practice:[{q:'2.5×4=?',a:'10'},{q:'1.2×3=?',a:'3.6'},{q:'0.8×0.5=?',a:'0.4'},{q:'3.6×0.2=?',a:'0.72'},{q:'1.5×0.6=?',a:'0.9'},{q:'4.5×0.4=?',a:'1.8'}]},
-      {unit:'简易方程',formulas:['含有未知数的等式叫方程','解方程用等式性质'],practice:[{q:'x+5=12,x=?',a:'7'},{q:'3x=18,x=?',a:'6'},{q:'x-7=3,x=?',a:'10'},{q:'2x+4=10,x=?',a:'3'},{q:'5x-3=12,x=?',a:'3'},{q:'x/4=5,x=?',a:'20'}]},
-      {unit:'多边形面积',formulas:['平行四边形=底×高','三角形=底×高÷2','梯形=(上底+下底)×高÷2'],practice:[{q:'底5高3平行四边形=?',a:'15'},{q:'底6高4三角形=?',a:'12'},{q:'上底3下底7高4梯形=?',a:'20'},{q:'底8高5平行四边形=?',a:'40'},{q:'底10高6三角形=?',a:'30'},{q:'上底2下底8高5梯形=?',a:'25'}]}
-    ]
-  },
-  6: {
-    vocab: [
-      {lesson:'第一单元',words:['绿毯','线条','柔美','惊叹','回味','乐趣','目的地','洒脱','衣裳','彩虹'],py:['lǜ tǎn','xiàn tiáo','róu měi','jīng tàn','huí wèi','lè qù','mù dì dì','sǎ tuō','yī shang','cǎi hóng']},
-      {lesson:'第二单元',words:['日寇','奋战','壮烈','豪迈','不屈','悬崖','斩钉截铁','热血沸腾','居高临下','粉身碎骨'],py:['rì kòu','fèn zhàn','zhuàng liè','háo mài','bù qū','xuán yá','zhǎn dīng jié tiě','rè xuè fèi téng','jū gāo lín xià','fěn shēn suì gǔ']},
-      {lesson:'第三单元',words:['竹节人','威风凛凛','疙瘩','疲倦','冰棍','别出心裁','技高一筹','大步流星','忘乎所以','心满意足'],py:['zhú jié rén','wēi fēng lǐn lǐn','gē da','pí juàn','bīng gùn','bié chū xīn cái','jì gāo yī chóu','dà bù liú xīng','wàng huū suǒ yǐ','xīn mǎn yì zú']},
-      {lesson:'第四单元',words:['咆哮','惊慌','拥戴','沙哑','呻吟','放肆','搀扶','势不可当','跌跌撞撞','你拥我挤'],py:['páo xiào','jīng huāng','yōng dài','shā yǎ','shēn yín','fàng sì','chān fú','shì bù kě dāng','diē diē zhuàng zhuàng','nǐ yōng wǒ jǐ']}
-    ],
-    math: [
-      {unit:'分数乘法',formulas:['分子×整数/分母','分子相乘/分母相乘','结果约分'],practice:[{q:'1/2×3=?',a:'3/2'},{q:'2/3×4=?',a:'8/3'},{q:'1/4×2/3=?',a:'2/12'},{q:'3/5×5/6=?',a:'1/2'},{q:'2/7×3=?',a:'6/7'},{q:'5/8×4/5=?',a:'1/2'}]},
-      {unit:'百分数',formulas:['小数→%: ×100加%','分数→%: 分子÷分母×100'],practice:[{q:'0.75=?%',a:'75%'},{q:'3/4=?%',a:'75%'},{q:'40%=?小数',a:'0.4'},{q:'60%=?分数',a:'3/5'},{q:'2/5=?%',a:'40%'},{q:'0.25=?%',a:'25%'}]},
-      {unit:'圆的面积',formulas:['面积=πr²','周长=2πr=πd','π≈3.14'],practice:[{q:'r=3cm面积=?',a:'28.26'},{q:'d=10cm周长=?',a:'31.4'},{q:'r=5cm面积=?',a:'78.5'},{q:'r=2cm面积=?',a:'12.56'},{q:'d=8cm周长=?',a:'25.12'},{q:'r=4cm面积=?',a:'50.24'}]}
-    ]
-  }
-};
-
 var currentGrade = parseInt(localStorage.getItem('app_grade') || '3');
 
 function switchGrade(grade) {
