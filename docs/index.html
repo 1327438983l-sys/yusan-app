@@ -1591,11 +1591,6 @@ function answerDueFill(safeId, unitNum, type) {
 // ==================== UTILITY ====================
 function scrollToTop() { window.scrollTo({top:0,behavior:'smooth'}); }
 
-// ==================== INIT ====================
-updateStreak();
-renderGameStats();
-renderModeTabs();
-switchGrade(currentGrade);
 
 // ==================== RECITATION MODE ====================
 function renderRecite() {
@@ -2719,6 +2714,12 @@ function finishEngGame() {
   html += '</div></div></div>';
   document.getElementById('app').innerHTML = html;
 }
+
+// ==================== INIT ====================
+updateStreak();
+renderGameStats();
+renderModeTabs();
+switchGrade(currentGrade);
 </script>
 </body>
 </html>
