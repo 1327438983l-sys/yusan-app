@@ -295,43 +295,35 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
 // ==================== DATA ====================
 // Textbook vocabulary (课本词语表)
 var TEXTBOOK_VOCAB = [
-  // 第一单元
-  {lesson:'第1课 古诗三首', words:['迟日','江山','泥融','燕子','鸳鸯','蒌蒿','芦芽','河豚','梅子','泛尽','绿阴','黄鹂'], py:['chí rì','jiāng shān','ní róng','yàn zi','yuān yāng','lóu hāo','lú yá','hé tún','méi zi','fàn jìn','lǜ yīn','huáng lí']},
+  // ===== 第一单元 =====
   {lesson:'第2课 燕子', words:['燕子','乌黑','剪刀','活泼','轻风','洒落','赶集','光彩夺目','春光','偶尔','闲散','纤细','电线'], py:['yàn zi','wū hēi','jiǎn dāo','huó pō','qīng fēng','sǎ luò','gǎn jí','guāng cǎi duó mù','chūn guāng','ǒu ěr','xián sàn','xiān xì','diàn xiàn']},
   {lesson:'第3课 荷花', words:['荷花','公园','清香','赶紧','荷叶','莲蓬','破裂','姿势','画家','本领','了不起','微风','停止'], py:['hé huā','gōng yuán','qīng xiāng','gǎn jǐn','hé yè','lián péng','pò liè','zī shì','huà jiā','běn lǐng','liǎo bu qǐ','wēi fēng','tíng zhǐ']},
-  {lesson:'第4课 昆虫备忘录', words:['复眼','琢磨','凡是','距离','款款','黑绸','膜翅','益虫','形态','严丝合缝'], py:['fù yǎn','zuó mo','fán shì','jù lí','kuǎn kuǎn','hēi chóu','mó chì','yì chóng','xíng tài','yán sī hé fèng']},
-  // 第二单元
-  {lesson:'第5课 守株待兔', words:['宋国','耕田','释其耒','颈','折颈','守株待兔','冀','身为宋国笑'], py:['sòng guó','gēng tián','shì qí lěi','jǐng','zhé jǐng','shǒu zhū dài tù','jì','shēn wéi sòng guó xiào']},
-  {lesson:'第6课 会摇尾巴的狼', words:['陷阱','哀求','善良','驯良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','猎人','收拾','忠实'], py:['xiàn jǐng','āi qiú','shàn liáng','xùn liáng','wēn hé','dá xiè','huā yán qiǎo yǔ','zháo jí','xiāng xìn','chén tǔ','xiōng è','liè rén','shōu shi','zhōng shí']},
-  {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生','挣脱'], py:['tòng kuài','yún chèn','jīng měi','bié zhì','méi tóu','méi jīng dǎ cǎi','jī ling','huī xīn sàng qì','jī huì','tàn qì','táo shēng','zhèng tuō']},
-  {lesson:'第8课 池子与河流', words:['池子','河流','安逸','源源不断','遵循','安闲','淤塞','衰退','滔滔','清洁','豌豆','任凭'], py:['chí zi','hé liú','ān yì','yuán yuán bù duàn','zūn xún','ān xián','yū sè','shuāi tuì','tāo tāo','qīng jié','wān dòu','rèn píng']},
-  // 第三单元
-  {lesson:'第9课 花钟', words:['花钟','争奇斗艳','芬芳','迷人','醒来','凌晨','苏醒','娇嫩','灼伤','适宜','淡雅','昆虫','传播','大致'], py:['huā zhōng','zhēng qí dòu yàn','fēn fāng','mí rén','xǐng lái','líng chén','sū xǐng','jiāo nèn','zhuó shāng','shì yí','dàn yǎ','kūn chóng','chuán bō','dà zhì']},
+  // ===== 第二单元 =====
+  {lesson:'第6课 会摇尾巴的狼', words:['友情','认识','忠诚','驯良','善良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','恶狠狠','猎人','收拾'], py:['yǒu qíng','rèn shi','zhōng chéng','xùn liáng','shàn liáng','wēn hé','dá xiè','huā yán qiǎo yǔ','zháo jí','xiāng xìn','chén tǔ','xiōng è','è hěn hěn','liè rén','shōu shi']},
+  {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生'], py:['tòng kuài','yún chèn','jīng měi','bié zhì','méi tóu','méi jīng dǎ cǎi','jī ling','huī xīn sàng qì','jī huì','tàn qì','táo shēng']},
+  // ===== 第三单元 =====
+  {lesson:'第9课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异'], py:['níng jìng','qì guān','shì fǒu','qiè qiè sī yǔ','wēi xiǎn','fāng fǎ','jī ròu','gōng jī','lì yòng','hòu tuì','miǎn fèi','chā yì','qīng chu','qí yì']},
   {lesson:'第10课 蜜蜂', words:['实验','验证','记号','减少','阻力','大约','包括','检查','至少','迷失','无误','逆风','陌生','景物','能力'], py:['shí yàn','yàn zhèng','jì hào','jiǎn shǎo','zǔ lì','dà yuē','bāo kuò','jiǎn chá','zhì shǎo','mí shī','wú wù','nì fēng','mò shēng','jǐng wù','néng lì']},
-  {lesson:'第11课 小虾', words:['小虾','缸里','空隙','掀起','通体','追逐','搏斗','猛烈','蹦出','安静','自在','积聚'], py:['xiǎo xiā','gāng lǐ','kòng xì','xiān qǐ','tōng tǐ','zhuī zhú','bó dòu','měng liè','bèng chū','ān jìng','zì zài','jī jù']},
-  // 第四单元
-  {lesson:'第12课 古诗三首', words:['元日','爆竹','屠苏','曈曈','桃符','清明','纷纷','断魂','牧童','杏花村','茱萸','佳节'], py:['yuán rì','bào zhú','tú sū','tóng tóng','táo fú','qīng míng','fēn fēn','duàn hún','mù tóng','xìng huā cūn','zhū yú','jiā jié']},
-  {lesson:'第13课 纸的发明', words:['造纸术','发明','保存','记录','大约','吸收','经验','原料','朝鲜','欧洲','社会','促进'], py:['zào zhǐ shù','fā míng','bǎo cún','jì lù','dà yuē','xī shōu','jīng yàn','yuán liào','cháo xiǎn','ōu zhōu','shè huì','cù jìn']},
-  {lesson:'第14课 赵州桥', words:['赵州桥','雄伟','桥墩','横跨','创举','冲击力','坚固','美观','石栏','雕刻','缠绕','智慧'], py:['zhào zhōu qiáo','xióng wěi','qiáo dūn','héng kuà','chuàng jǔ','chōng jī lì','jiān gù','měi guān','shí lán','diāo kè','chán rào','zhì huì']},
-  {lesson:'第15课 一幅名扬中外的画', words:['名扬中外','汴京','北宋','张择端','风俗','街市','店铺','酒楼','毛驴','乘轿','纤夫','栏杆'], py:['míng yáng zhōng wài','biàn jīng','běi sòng','zhāng zé duān','fēng sú','jiē shì','diàn pù','jiǔ lóu','máo lǘ','chéng qiào','qiàn fū','lán gān']},
-  // 第五单元
-  {lesson:'第16课 小真的长头发', words:['长头发','套住','牧场','碍事','栅栏','晾晒','套牛','卷起','麻烦','悠闲','揉一揉','拉直'], py:['cháng tóu fa','tào zhù','mù chǎng','ài shì','zhà lán','liàng shài','tào niú','juǎn qǐ','má fan','yōu xián','róu yī róu','lā zhí']},
-  {lesson:'第17课 我变成了一棵树', words:['变成','树','鸟窝','三角形','正方形','圆形','椭圆形','菱形','叮咚','外婆','希望','想念'], py:['biàn chéng','shù','niǎo wō','sān jiǎo xíng','zhèng fāng xíng','yuán xíng','tuǒ yuán xíng','líng xíng','dīng dōng','wài pó','xī wàng','xiǎng niàn']},
-  // 第六单元
-  {lesson:'第18课 童年的水墨画', words:['水墨','染绿','钓竿','蜻蜓','扑腾','碎了','蹦跳','浪花','蘑菇','清爽','松树','松针'], py:['shuǐ mò','rǎn lǜ','diào gān','qīng tíng','pū téng','suì le','bèng tiào','làng huā','mó gū','qīng shuǎng','sōng shù','sōng zhēn']},
-  {lesson:'第19课 剃头大师', words:['剃头','大师','表弟','胆小','姑父','押进','理发','夺门而逃','骂','仇人','差生','付钱'], py:['tì tóu','dà shī','biǎo dì','dǎn xiǎo','gū fù','yā jìn','lǐ fà','duó mén ér táo','mà','chóu rén','chā shēng','fù qián']},
-  {lesson:'第20课 肥皂泡', words:['肥皂','泡','吹','串','婴儿','希望','透明','娇软','扯','仰','轻清透明','玲珑娇软'], py:['féi zào','pào','chuī','chuàn','yīng ér','xī wàng','tòu míng','jiāo ruǎn','chě','yǎng','qīng qīng tòu míng','líng lóng jiāo ruǎn']},
-  {lesson:'第21课 我不能失信', words:['宋庆龄','失信','伯伯','鸽子','叠花篮','解释','歉意','守信','等待','忘记'], py:['sòng qìng líng','shī xìn','bó bo','gē zi','dié huā lán','jiě shì','qiàn yì','shǒu xìn','děng dài','wàng jì']},
-  // 第七单元
-  {lesson:'第22课 我们的奇妙世界', words:['奇妙','呈现','变幻','蜡烛','诱人','圆润','乘凉','光芒','刀剑','普通','模型','宁静'], py:['qí miào','chéng xiàn','biàn huàn','là zhú','yòu rén','yuán rùn','chéng liáng','guāng máng','dāo jiàn','pǔ tōng','mó xíng','níng jìng']},
-  {lesson:'第23课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异'], py:['níng jìng','qì guān','shì fǒu','qiè qiè sī yǔ','wēi xiǎn','fāng fǎ','jī ròu','gōng jī','lì yòng','hòu tuì','miǎn fèi','chā yì','qīng chu','qí yì']},
-  {lesson:'第24课 火烧云', words:['火烧云','喂猪','笑盈盈','红彤彤','金灿灿','半紫半黄','半灰半百合色','葡萄灰','梨黄','茄子紫','凶猛','镇静'], py:['huǒ shāo yún','wèi zhū','xiào yíng yíng','hóng tóng tóng','jīn càn càn','bàn zǐ bàn huáng','bàn huī bàn bǎi hé sè','pú táo huī','lí huáng','qié zi zǐ','xiōng měng','zhèn jìng']},
-  // 第八单元
-  {lesson:'第25课 慢性子裁缝和急性子顾客', words:['裁缝','顾客','春装','夏装','秋装','冬装','性子','夸奖','衬衫','负责','手艺','布料'], py:['cái feng','gù kè','chūn zhuāng','xià zhuāng','qiū zhuāng','dōng zhuāng','xìng zi','kuā jiǎng','chèn shān','fù zé','shǒu yì','bù liào']},
-  {lesson:'第26课 方帽子店', words:['方帽子','圆帽子','舒服','奇怪','橱窗','各式各样','香扣','古董','小孩子','改变'], py:['fāng mào zi','yuán mào zi','shū fu','qí guài','chu chuāng','gè shì gè yàng','xiāng kòu','gǔ dǒng','xiǎo hái zi','gǎi biàn']},
-  {lesson:'第27课 漏', words:['漏','老虎','贼','莫非','厉害','翻山越岭','抱住','骨架','粘住','胶','偏','漏雨'], py:['lòu','lǎo hǔ','zéi','mò fēi','lì hài','fān shān yuè lǐng','bào zhù','gǔ jià','zhān zhù','jiāo','piān','lòu yǔ']},
-  {lesson:'第28课 枣核', words:['枣核','夫妻','犁','扶犁','勤快','牲口','折腾','大摇大摆','官府','善罢甘休','争辩','钱'], py:['zǎo hé','fū qī','lí','fú lí','qín kuai','shēng kou','zhē teng','dà yáo dà bǎi','guān fǔ','shàn bà gān xiū','zhēng biàn','qián']}
+  // ===== 第四单元 =====
+  {lesson:'第13课 纸的发明', words:['文明','伟大','贡献','祖先','创造','材料','尤其','保存','吸收','积累','经验','改进','价格','便宜','满足','促进','社会'], py:['wén míng','wěi dà','gòng xiàn','zǔ xiān','chuàng zào','cái liào','yóu qí','bǎo cún','xī shōu','jī lěi','jīng yàn','gǎi jìn','jià gé','pián yi','mǎn zú','cù jìn','shè huì']},
+  {lesson:'第14课 赵州桥', words:['闻名','设计','创举','减轻','不但','坚固','而且','美观','体现','才干','宝贵','历史','文化'], py:['wén míng','shè jì','chuàng jǔ','jiǎn qīng','bù dàn','jiān gù','ér qiě','měi guān','tǐ xiàn','cái gàn','bǎo guì','lì shǐ','wén huà']},
+  // ===== 第五单元 =====
+  {lesson:'第16课 胡萝卜先生的长胡子', words:['胡萝卜','胡子','发愁','浓密','面包','完全','结实','确定','足够','确实'], py:['hú luó bo','hú zi','fā chóu','nóng mì','miàn bāo','wán quán','jiē shi','què dìng','zú gòu','què shí']},
+  {lesson:'第17课 我变成了一棵树', words:['希望','形状','喜欢','担心','容易','丁零','失望','巧克力','香肠','花生','牛奶','互相','想念','饭菜','可能','麻烦','眼睛','秘密'], py:['xī wàng','xíng zhuàng','xǐ huān','dān xīn','róng yì','dīng líng','shī wàng','qiǎo kè lì','xiāng cháng','huā shēng','niú nǎi','hù xiāng','xiǎng niàn','fàn cài','kě néng','má fan','yǎn jīng','mì mì']},
+  // ===== 第六单元 =====
+  {lesson:'第18课 童年的水墨画', words:['童年','垂柳','平静','梳妆','戏耍','拨动','浪花','葫芦','松树','清爽','松针','蘑菇'], py:['tóng nián','chuí liǔ','píng jìng','shū zhuāng','xì shuǎ','bō dòng','làng huā','hú lu','sōng shù','qīng shuǎng','sōng zhēn','mó gu']},
+  {lesson:'第19课 剃头大师', words:['表弟','胆小','姑父','理发','害人精','摆布','痛骂','差事','双倍','随时','折磨','过年','央求','虽然','天分'], py:['biǎo dì','dǎn xiǎo','gū fu','lǐ fà','hài rén jīng','bǎi bù','tòng mà','chāi shì','shuāng bèi','suí shí','zhé mó','guò nián','yāng qiú','suī rán','tiān fèn']},
+  {lesson:'第20课 肥皂泡', words:['肥皂','透明','娇软','拉扯','仰头','串珠','婴儿','希望','廊子','木碗','若是','娇脆','颤巍巍','山巅'], py:['féi zào','tòu míng','jiāo ruǎn','lā chě','yǎng tóu','chuàn zhū','yīng ér','xī wàng','láng zi','mù wǎn','ruò shì','jiāo cuì','chàn wēi wēi','shān diān']},
+  {lesson:'第21课 我不能失信', words:['耀','庆','盼','叠','歉'], py:['yào','qìng','pàn','dié','qiàn']},
+  // ===== 第七单元 =====
+  {lesson:'第22课 我们奇妙的世界', words:['奇妙','生命','呈现','变幻','圆润','李子','夏日','感叹','光辉','神奇','光芒','建造','冰柱','锋利','刀剑','融化'], py:['qí miào','shēng mìng','chéng xiàn','biàn huàn','yuán rùn','lǐ zi','xià rì','gǎn tàn','guāng huī','shén qí','guāng máng','jiàn zào','bīng zhù','fēng lì','dāo jiàn','róng huà']},
+  {lesson:'第24课 火烧云', words:['火烧云','笑盈盈','乘凉','高寿','红彤彤','变化','金灿灿','颜色','似乎','威武','镇静','其实','沉静','偏偏','等待','爱好'], py:['huǒ shāo yún','xiào yíng yíng','chéng liáng','gāo shòu','hóng tōng tōng','biàn huà','jīn càn càn','yán sè','sì hū','wēi wǔ','zhèn jìng','qí shí','chén jìng','piān piān','děng dài','ài hào']},
+  // ===== 第八单元 =====
+  {lesson:'第25课 慢性子裁缝和急性子顾客', words:['性子','顾客','笑话','大方','夸奖','承认','提前','服务','满意','袖子','衬衫','负责','名声','泄气','放心','手艺','感动','恼怒'], py:['xìng zi','gù kè','xiào huà','dà fāng','kuā jiǎng','chéng rèn','tí qián','fú wù','mǎn yì','xiù zi','chèn shān','fù zé','míng shēng','xiè qì','fàng xīn','shǒu yì','gǎn dòng','nǎo nù']},
+  {lesson:'第27课 漏', words:['来临','沉闷','奇形怪状','昏暗','轻微','情况','动静','赶路','抖动','树梢','乱蓬蓬','轰隆隆'], py:['lái lín','chén mèn','qí xíng guài zhuàng','hūn àn','qīng wēi','qíng kuàng','dòng jing','gǎn lù','dǒu dòng','shù shāo','luàn péng peng','hōng lōng lōng']},
+  {lesson:'第28课 枣核', words:['莫非','厉害','走南闯北','听说','发抖','害怕','松手','骨头','逃命','甘心','逃跑'], py:['mò fēi','lì hai','zǒu nán chuǎng běi','tīng shuō','fā dǒu','hài pà','sōng shǒu','gǔ tou','táo mìng','gān xīn','táo pǎo']}
 ];
+
 
 // ==================== MATH (苏教版三年级下册) ====================
 var MATH_UNITS = [
