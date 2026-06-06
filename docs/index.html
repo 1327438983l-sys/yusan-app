@@ -2362,6 +2362,17 @@ function switchGrade(grade) {
     if (d.math) MATH_UNITS = d.math;
     if (d.english) ENGLISH_UNITS = d.english;
   }
+  // Auto-generate UNITS from TEXTBOOK_VOCAB if no grade-specific units
+  if (TEXTBOOK_VOCAB && TEXTBOOK_VOCAB.length > 0) {
+    UNITS = TEXTBOOK_VOCAB.map(function(sec, i) {
+      return {
+        num: i + 1, title: sec.lesson, theme: sec.lesson, subtitle: '词语默写',
+        review: { poems: [], words: sec.words.map(function(w, wi) { return {char: w, pinyin: sec.py ? sec.py[wi] : '', words: w}; }),
+          keySentences: [], tips: ['默写本课词语'] },
+        quiz: { choose: [], fill: [], read: null }
+      };
+    });
+  }
   currentUnit = 1;
   renderModeTabs();
   renderUnitTabs();
