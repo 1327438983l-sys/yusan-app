@@ -1,346 +1,213 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>三年级下册语文复习</title>
-<style>
-:root{--primary:#e67e22;--primary-light:#f39c12;--green:#27ae60;--red:#e74c3c;--blue:#3498db;--bg:#fdf6ec;--card:#fff;--text:#333;--gray:#999;--shadow:0 2px 12px rgba(0,0,0,0.08);--shadow-lg:0 4px 24px rgba(0,0,0,0.12)}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}
-/* Header */
-.header{background:linear-gradient(135deg,#2c3e50,#34495e);color:#fff;padding:16px 20px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,0.2)}
-.header h1{font-size:1.3em;margin-bottom:6px;letter-spacing:1px}
-.game-stats{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;font-size:0.82em;margin-top:4px;opacity:0.95}
-.game-stat{background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:12px;white-space:nowrap}
-.badge-display{display:flex;gap:4px;align-items:center}
-.badge-icon{font-size:1em;opacity:0.3;transition:all .3s}
-.badge-icon.earned{opacity:1;animation:badgePulse .6s ease}
 
-
-.grade-bar{display:flex;background:#fff;padding:6px 8px;gap:4px;border-bottom:1px solid #eee;position:sticky;top:52px;z-index:100;overflow-x:auto}
-.grade-bar::-webkit-scrollbar{display:none}
-.grade-btn{flex-shrink:0;padding:6px 14px;border:none;border-radius:16px;font-size:0.82em;cursor:pointer;background:#f0f0f0;color:#666;transition:all .2s;white-space:nowrap}
-.grade-btn.active{background:var(--primary);color:#fff;font-weight:600}
-
-/* Subject Switcher */
-.subject-bar{display:flex;background:linear-gradient(135deg,#2c3e50,#34495e);padding:6px 12px;gap:6px;position:sticky;top:0;z-index:101}
-.subject-btn{flex:1;padding:10px;border:none;border-radius:8px;font-size:0.95em;font-weight:600;cursor:pointer;transition:all .2s;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)}
-.subject-btn:hover{background:rgba(255,255,255,0.2)}
-.subject-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(230,126,34,0.4)}
-/* Math */
-.math-q{font-size:2em;font-weight:700;color:var(--primary);text-align:center;margin:16px 0;letter-spacing:2px}
-.math-input{border:3px solid #ddd;border-radius:12px;padding:14px;font-size:1.8em;width:200px;text-align:center;outline:none;transition:all .3s}
-.math-input:focus{border-color:var(--primary)}
-.math-input.correct{border-color:var(--green);background:#d4edda}
-.math-input.wrong{border-color:var(--red);background:#f8d7da}
-.formula-card{background:var(--card);border-radius:16px;padding:24px;box-shadow:var(--shadow);max-width:400px;margin:0 auto;text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;transition:transform .3s}
-.formula-card:active{transform:scale(0.98)}
-/* English */
-.eng-cn{font-size:1.8em;font-weight:700;color:var(--primary);text-align:center;margin:16px 0}
-.eng-input{border:3px solid #ddd;border-radius:12px;padding:14px;font-size:1.4em;width:250px;text-align:center;outline:none;font-family:monospace}
-.eng-input:focus{border-color:var(--blue)}
-.eng-input.correct{border-color:var(--green);background:#d4edda}
-.eng-input.wrong{border-color:var(--red);background:#f8d7da}
-.eng-sentence{font-size:1.1em;line-height:1.8;text-align:center;color:#555;margin:12px 0;padding:12px;background:#f8f9fa;border-radius:8px}
-
-/* Mode Tabs */
-.mode-tabs{display:flex;background:#fff;border-bottom:2px solid #eee;position:sticky;top:52px;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.mode-tabs::-webkit-scrollbar{display:none}
-.mode-tab{flex-shrink:0;padding:8px 6px;cursor:pointer;font-size:0.72em;text-align:center;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;font-weight:500}
-.mode-tab:hover{background:#fff5e6}
-.mode-tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:700;background:#fffbf0}
-/* Unit Tabs */
-.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid #eee;position:sticky;top:102px;z-index:98;-webkit-overflow-scrolling:touch}
-.tabs::-webkit-scrollbar{display:none}
-.tabs.hidden{display:none}
-.tab{flex-shrink:0;padding:10px 16px;cursor:pointer;font-size:0.85em;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;position:relative}
-.tab:hover{background:#fff5e6}
-.tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
-.tab .progress-dot{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--green)}
-/* Container */
-.container{max-width:800px;margin:0 auto;padding:16px}
-.unit{display:none}.unit.active{display:block}
-.section{background:var(--card);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
-.section h2{color:var(--primary);font-size:1.15em;margin-bottom:12px;padding-bottom:8px;border-bottom:2px dashed #f0e0c0}
-.section h3{color:var(--green);font-size:1em;margin:12px 0 8px}
-.section h4{color:#555;font-size:0.95em;margin:8px 0 4px}
-/* Poem */
-.poem{background:#fffbf0;border-left:4px solid var(--primary);padding:12px 16px;margin:8px 0;border-radius:0 8px 8px 0;font-size:0.95em}
-.poem .title{font-weight:700;color:var(--primary)}
-.poem .author{text-align:right;color:var(--gray);font-size:0.85em}
-/* Words */
-.word-list{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-.word-tag{background:#f0f9ff;border:1px solid #d0e8ff;border-radius:6px;padding:4px 10px;font-size:0.9em}
-.word-tag .pinyin{color:var(--blue);font-size:0.8em}
-/* Key sentences */
-.key-sentence{background:#f8f8f8;padding:10px 14px;border-radius:8px;margin:6px 0;font-size:0.9em;line-height:1.8}
-.key-sentence em{color:var(--red);font-style:normal;font-weight:600}
-/* Tips */
-.tip{background:#fff3cd;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:0.88em;color:#856404}
-.tip::before{content:"💡 ";font-size:1.1em}
-/* Progress Bar */
-.progress-bar{background:#eee;border-radius:10px;height:8px;margin:8px 0;overflow:hidden}
-.progress-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--primary),var(--primary-light));transition:width .6s ease}
-.progress-text{font-size:0.8em;color:var(--gray);margin-bottom:4px}
-/* Quiz */
-.quiz-section{background:#f0f7ff;border-radius:12px;padding:20px;margin:16px 0}
-.quiz-section h2{color:var(--blue)}
-.quiz-q{margin:14px 0;padding:12px;background:#fff;border-radius:8px;border:1px solid #e0e0e0;transition:border-color .3s}
-.quiz-q.answered-correct{border-color:var(--green);background:#f0fff4}
-.quiz-q.answered-wrong{border-color:var(--red);background:#fff5f5}
-.quiz-q .q-title{font-weight:600;margin-bottom:8px}
-.quiz-q .q-title .q-num{color:var(--blue);margin-right:6px}
-.quiz-options{display:flex;flex-direction:column;gap:6px}
-.quiz-opt{padding:8px 12px;border:1px solid #ddd;border-radius:6px;cursor:pointer;transition:all .2s;font-size:0.9em;user-select:none}
-.quiz-opt:hover{background:#e8f4fd;border-color:var(--blue)}
-.quiz-opt.selected{background:#d4edff;border-color:var(--blue)}
-.quiz-opt.correct{background:#d4edda;border-color:var(--green);color:#155724;font-weight:600}
-.quiz-opt.wrong{background:#f8d7da;border-color:var(--red);color:#721c24}
-.quiz-opt.disabled{pointer-events:none;opacity:0.7}
-.quiz-opt.show-correct{background:#d4edda;border-color:var(--green);color:#155724}
-/* Fill blank */
-.fill-blank{display:inline-block;border-bottom:2px solid var(--primary);min-width:80px;padding:2px 4px;margin:2px 4px}
-.fill-input{border:none;border-bottom:2px solid var(--blue);outline:none;width:100px;padding:2px 4px;font-size:0.95em;text-align:center;font-family:inherit;transition:all .3s}
-.fill-input.correct{border-color:var(--green);background:#d4edda}
-.fill-input.wrong{border-color:var(--red);background:#f8d7da}
-/* Feedback */
-.feedback{margin-top:8px;padding:8px 12px;border-radius:6px;font-size:0.9em;animation:feedbackIn .3s ease;display:none}
-.feedback.show{display:block}
-.feedback.correct{background:#d4edda;color:#155724;border:1px solid #c3e6cb}
-.feedback.wrong{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb}
-/* Buttons */
-.btn{display:inline-block;padding:10px 24px;border:none;border-radius:8px;font-size:0.95em;cursor:pointer;transition:all .2s;font-family:inherit;font-weight:500}
-.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:#d35400}
-.btn-green{background:var(--green);color:#fff}.btn-green:hover{background:#219a52}
-.btn-blue{background:var(--blue);color:#fff}.btn-blue:hover{background:#2980b9}
-.btn-sm{padding:6px 14px;font-size:0.85em}
-.btn-group{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
-/* Score Box */
-.score-box{background:linear-gradient(135deg,var(--green),#2ecc71);color:#fff;border-radius:12px;padding:20px;text-align:center;margin:16px 0;display:none;animation:scoreReveal .5s ease}
-.score-box .score-num{font-size:2.5em;font-weight:700}
-.score-box .score-text{font-size:0.9em;opacity:0.9;margin-top:4px}
-/* Unit title */
-.unit-title{font-size:1.3em;color:var(--primary);font-weight:700;margin-bottom:8px;text-align:center}
-.unit-subtitle{font-size:0.9em;color:var(--gray);text-align:center;margin-top:-8px;margin-bottom:16px}
-/* Flashcard */
-.flashcard-scene{perspective:1000px;width:100%;max-width:420px;margin:0 auto}
-.flashcard-container{width:100%;height:300px;position:relative;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,0,.2,1);cursor:pointer}
-.flashcard-container.flipped{transform:rotateY(180deg)}
-.flashcard-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:16px;padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:var(--shadow-lg);overflow:auto}
-.flashcard-front{background:linear-gradient(135deg,#fff8f0,#fff);border:2px solid var(--primary)}
-.flashcard-back{background:linear-gradient(135deg,#f0fff4,#fff);border:2px solid var(--green);transform:rotateY(180deg)}
-.card-type{font-size:0.8em;color:var(--primary);margin-bottom:12px;font-weight:600;background:rgba(230,126,34,0.1);padding:2px 12px;border-radius:10px}
-.card-front-content{font-size:1.1em;line-height:1.8;font-weight:500}
-.card-front-content .card-char{font-size:2em;font-weight:700;color:var(--primary)}
-.card-front-content .card-pinyin{color:var(--blue);font-size:0.9em}
-.card-back-content{font-size:0.95em;line-height:1.8;text-align:left;width:100%}
-.card-back-content .card-poem{white-space:pre-line;font-size:1em;margin-bottom:8px}
-.card-back-content .card-notes{color:#666;font-size:0.85em;border-top:1px dashed #ddd;padding-top:8px;margin-top:8px}
-.card-hint{position:absolute;bottom:12px;font-size:0.75em;color:var(--gray)}
-.flashcard-nav{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:20px}
-.flashcard-counter{font-size:0.9em;color:var(--gray);min-width:60px;text-align:center}
-.flashcard-actions{display:flex;gap:10px;margin-top:16px;justify-content:center}
-/* Due section */
-.due-empty{text-align:center;padding:40px 20px;color:var(--gray)}
-.due-empty .due-icon{font-size:3em;margin-bottom:12px}
-.due-empty p{font-size:1.1em;margin-top:8px}
-/* Badge */
-.badge-earned-toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#f39c12,#e67e22);color:#fff;padding:12px 24px;border-radius:24px;font-size:0.95em;font-weight:600;z-index:200;animation:toastIn .5s ease,toastOut .5s ease 2.5s forwards;box-shadow:var(--shadow-lg);pointer-events:none}
-/* Nav btn */
-.nav-btn{position:fixed;bottom:20px;right:20px;z-index:100;display:flex;gap:8px}
-.nav-btn .btn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2em;box-shadow:var(--shadow);padding:0}
-/* Animations */
-@keyframes feedbackIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-@keyframes scoreReveal{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
-@keyframes badgePulse{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
-@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-@keyframes toastOut{from{opacity:1}to{opacity:0;pointer-events:none}}
-@keyframes cardShine{0%{background-position:200% 0}100%{background-position:-200% 0}}
-/* Print */
-@media print{.header,.mode-tabs,.tabs,.btn-group,.score-box,.nav-btn,.flashcard-nav,.flashcard-actions{display:none!important}.unit{display:block!important}.section{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
-/* Dictation Mode */
-.dictation-card{background:var(--card);border-radius:12px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow);border-left:4px solid var(--blue)}
-.dictation-pinyin{font-size:1.8em;color:var(--blue);font-weight:700;margin-bottom:8px;letter-spacing:2px}
-.dictation-input{border:2px solid #ddd;border-radius:8px;padding:12px 16px;font-size:1.6em;width:100%;max-width:300px;text-align:center;font-family:"KaiTi","STKaiti","SimSun",serif;transition:all .2s;outline:none}
-.dictation-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(52,152,219,0.15)}
-.dictation-input.correct{border-color:var(--green);background:#d4edda}
-.dictation-input.wrong{border-color:var(--red);background:#f8d7da}
-.dictation-answer{margin-top:10px;font-size:1.1em;color:#666;display:none}
-.dictation-answer.show{display:block}
-.dictation-answer .correct-text{color:var(--green);font-weight:700;font-size:1.3em}
-.dictation-stats{display:flex;gap:12px;margin:12px 0;font-size:0.9em}
-.dictation-stats span{padding:4px 12px;border-radius:6px}
-.dictation-correct{background:#d4edda;color:#155724}
-.dictation-wrong{background:#f8d7da;color:#721c24}
-.dictation-progress{margin:12px 0}
-@media print{.header,.mode-tabs,.tabs,.btn-group,.score-box,.nav-btn,.flashcard-nav,.flashcard-actions,.dictation-input{display:none!important}.dictation-answer{display:block!important}.unit{display:block!important}.section{break-inside:avoid;box-shadow:none;border:1px solid #ddd}}
-
-/* Game Dictation */
-/* Speech Recognition */
-.recite-result{background:#f8f9fa;border-radius:12px;padding:16px;margin:12px 0;text-align:center}
-.recite-score{font-size:2em;font-weight:700;margin:8px 0}
-.recite-score.perfect{color:var(--green)}
-.recite-score.good{color:var(--primary)}
-.recite-score.bad{color:var(--red)}
-.recite-transcript{font-size:1.05em;line-height:1.8;margin:12px 0;text-align:left;background:#fff;padding:12px;border-radius:8px;border:1px solid #eee;min-height:60px;white-space:pre-wrap}
-.recite-transcript .correct-char{color:var(--green);font-weight:600}
-.recite-transcript .wrong-char{color:var(--red);text-decoration:line-through;font-weight:600}
-.recite-transcript .miss-char{color:var(--gray);background:#fff3cd;padding:0 2px;border-radius:2px}
-.mic-btn{width:72px;height:72px;border-radius:50%;border:3px solid var(--red);background:#fff;color:var(--red);font-size:1.8em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;margin:12px auto}
-.mic-btn:hover{background:var(--red);color:#fff}
-.mic-btn.listening{background:var(--red);color:#fff;animation:pulse 1s infinite}
-/* Vocab Dictation */
-.vocab-lesson{font-size:1em;font-weight:600;color:var(--primary);margin:12px 0 6px;padding:6px 12px;background:rgba(230,126,34,0.08);border-radius:6px}
-.vocab-words{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
-.vocab-tag{background:#f0f9ff;border:1px solid #d0e8ff;border-radius:6px;padding:4px 10px;font-size:0.9em}
-.vocab-game-word{font-size:1.4em;font-weight:700;color:var(--primary);margin:8px 0}
-.level-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:400px;margin:20px auto}
-.level-btn{padding:16px;border-radius:12px;border:2px solid #ddd;background:#fff;cursor:pointer;text-align:center;transition:all .2s;position:relative}
-.level-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
-.level-btn.locked{opacity:0.4;cursor:not-allowed}
-.level-btn.locked::after{content:'🔒';position:absolute;top:8px;right:8px;font-size:0.8em}
-.level-btn .level-num{font-size:1.5em;font-weight:700;color:var(--primary)}
-.level-btn .level-stars{margin-top:4px;font-size:0.9em}
-.level-btn.completed{border-color:var(--green);background:#f0fff4}
-.hearts{display:flex;justify-content:center;gap:6px;font-size:1.8em;margin:12px 0}
-.heart{transition:all .3s}
-.heart.lost{opacity:0.2;transform:scale(0.8)}
-.game-question{background:var(--card);border-radius:16px;padding:24px;text-align:center;box-shadow:var(--shadow-lg);max-width:400px;margin:0 auto}
-.game-pinyin{font-size:2.5em;color:var(--primary);font-weight:700;margin-bottom:16px;letter-spacing:3px}
-.game-input{border:3px solid #ddd;border-radius:12px;padding:16px;font-size:2em;width:200px;text-align:center;font-family:'KaiTi','STKaiti',serif;outline:none;transition:all .3s}
-.game-input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(230,126,34,0.15)}
-.game-input.correct{border-color:var(--green);background:#d4edda;animation:correctBounce .4s ease}
-.game-input.wrong{border-color:var(--red);background:#f8d7da;animation:wrongShake .4s ease}
-.game-answer{margin-top:12px;font-size:1.1em;color:#666}
-.game-answer .correct-text{color:var(--green);font-weight:700;font-size:1.4em}
-.result-card{background:var(--card);border-radius:16px;padding:32px;text-align:center;box-shadow:var(--shadow-lg);max-width:400px;margin:20px auto}
-.result-stars{font-size:3em;margin:16px 0}
-.result-text{font-size:1.2em;color:#555;margin:8px 0}
-@keyframes correctBounce{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
-@keyframes wrongShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-/* Daily Story */
-.story-card{background:var(--card);border-radius:16px;padding:24px;box-shadow:var(--shadow-lg);max-width:600px;margin:0 auto}
-.story-title{font-size:1.3em;font-weight:700;color:var(--primary);margin-bottom:12px;text-align:center}
-.story-body{font-size:1.05em;line-height:2;margin-bottom:16px;text-indent:2em}
-.story-streak{display:flex;align-items:center;justify-content:center;gap:8px;margin:12px 0;font-size:0.9em}
-.story-streak .streak-num{font-size:1.5em;font-weight:700;color:var(--primary)}
-/* Recitation */
-.recite-card{background:var(--card);border-radius:16px;padding:24px;box-shadow:var(--shadow);max-width:500px;margin:0 auto 16px}
-.recite-poem{font-size:1.3em;line-height:2.2;text-align:center;margin:16px 0;letter-spacing:1px}
-.recite-controls{display:flex;justify-content:center;gap:12px;margin-top:16px}
-.play-btn{width:60px;height:60px;border-radius:50%;border:none;font-size:1.5em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
-.play-btn:hover{transform:scale(1.1)}
-.play-btn.playing{animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(230,126,34,0.4)}50%{box-shadow:0 0 0 12px rgba(230,126,34,0)}}
-.speed-btn{padding:6px 14px;border:2px solid #ddd;border-radius:20px;background:#fff;cursor:pointer;font-size:0.85em;transition:all .2s}
-.speed-btn.active{border-color:var(--primary);background:var(--primary);color:#fff}
-/* Mobile */
-@media(max-width:600px){.container{padding:10px}.section{padding:14px}.tab{padding:8px 10px;font-size:0.8em}.mode-tab{padding:10px 4px;font-size:0.82em}.header h1{font-size:1.1em}.game-stats{font-size:0.75em;gap:6px}.game-stat{padding:2px 8px}.flashcard-container{height:260px}.flashcard-face{padding:16px}}
-/* Tab colors */
-.tab[data-unit="1"]{border-bottom-color:#e67e22}.tab[data-unit="2"]{border-bottom-color:#e74c3c}
-.tab[data-unit="3"]{border-bottom-color:#3498db}.tab[data-unit="4"]{border-bottom-color:#9b59b6}
-.tab[data-unit="5"]{border-bottom-color:#1abc9c}.tab[data-unit="6"]{border-bottom-color:#e91e63}
-.tab[data-unit="7"]{border-bottom-color:#ff9800}.tab[data-unit="8"]{border-bottom-color:#607d8b}
-</style>
-</head>
-<body>
-
-<div class="grade-bar" id="gradeBar">
-  <button class="grade-btn" onclick="switchGrade(1)">一年级</button>
-  <button class="grade-btn" onclick="switchGrade(2)">二年级</button>
-  <button class="grade-btn active" onclick="switchGrade(3)">三年级</button>
-  <button class="grade-btn" onclick="switchGrade(4)">四年级</button>
-  <button class="grade-btn" onclick="switchGrade(5)">五年级</button>
-  <button class="grade-btn" onclick="switchGrade(6)">六年级</button>
-</div>
-<div class="subject-bar"  id="subjectBar">
-  <button class="subject-btn active" data-subj="chinese" onclick="switchSubject('chinese')">📖 语文</button>
-  <button class="subject-btn" data-subj="math" onclick="switchSubject('math')">🔢 数学</button>
-  <button class="subject-btn" data-subj="english" onclick="switchSubject('english')">🔤 英语</button>
-</div>
-<div class="header">
-  <h1>📚 三年级下册·语文复习</h1>
-  <div class="game-stats" id="gameStats"></div>
-</div>
-
-<div class="mode-tabs" id="modeTabs">
-  <div class="mode-tab active" data-mode="review" onclick="switchMode('review')">📚复习清单</div>
-  <div class="mode-tab" data-mode="recite" onclick="switchMode('recite')">🎤背诵朗读</div>
-  <div class="mode-tab" data-mode="quiz" onclick="switchMode('quiz')">📝单元测试</div>
-  <div class="mode-tab" data-mode="flashcard" onclick="switchMode('flashcard')">🃏闪卡记忆</div>
-  <div class="mode-tab" data-mode="dictation" onclick="switchMode('dictation')">✍️闯关默写</div>
-  <div class="mode-tab" data-mode="story" onclick="switchMode('story')">📖每日故事</div>
-  <div class="mode-tab" data-mode="review-due" onclick="switchMode('review-due')">📊今日复习</div>
-</div>
-
-<div class="tabs" id="unitTabs"></div>
-
-<div class="container" id="app"></div>
-
-<div class="nav-btn">
-  <button class="btn btn-primary" onclick="scrollToTop()" title="回到顶部">↑</button>
-</div>
-
-<script>
 // ==================== DATA ====================
 // Textbook vocabulary (课本词语表)
-var TEXTBOOK_VOCAB = [
-  {lesson:'第2课 燕子', words:['燕子','乌黑','剪刀','活泼','轻风','洒落','赶集','光彩夺目','春光','偶尔','闲散','纤细','电线'], py:['yàn zi','wū hēi','jiǎn dāo','huó pō','qīng fēng','sǎ luò','gǎn jí','guāng cǎi duó mù','chūn guāng','ǒu ěr','xián sàn','xiān xì','diàn xiàn']},
-  {lesson:'第3课 荷花', words:['荷花','公园','清香','赶紧','荷叶','莲蓬','破裂','姿势','画家','本领','了不起','微风','停止'], py:['hé huā','gōng yuán','qīng xiāng','gǎn jǐn','hé yè','lián péng','pò liè','zī shì','huà jiā','běn lǐng','liǎo bu qǐ','wēi fēng','tíng zhǐ']},
-  {lesson:'第6课 灰雀', words:['友情','认识','忠诚','驯良','善良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','恶狠狠','猎人','收拾'], py:['yǒu qíng','rèn shi','zhōng chéng','xùn liáng','shàn liáng','wēn hé','dá xiè','huā yán qiǎo yǔ','zháo jí','xiāng xìn','chén tǔ','xiōng è','è hěn hěn','liè rén','shōu shi']},
-  {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生'], py:['tòng kuài','yún chèn','jīng měi','bié zhì','méi tóu','méi jīng dǎ cǎi','jī ling','huī xīn sàng qì','jī huì','tàn qì','táo shēng']},
-  {lesson:'第9课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异'], py:['níng jìng','qì guān','shì fǒu','qiè qiè sī yǔ','wēi xiǎn','fāng fǎ','jī ròu','gōng jī','lì yòng','hòu tuì','miǎn fèi','chā yì','qīng chu','qí yì']},
-  {lesson:'第10课 蜜蜂', words:['实验','验证','记号','减少','阻力','大约','包括','检查','至少','迷失','无误','逆风','陌生','景物','能力'], py:['shí yàn','yàn zhèng','jì hào','jiǎn shǎo','zǔ lì','dà yuē','bāo kuò','jiǎn chá','zhì shǎo','mí shī','wú wù','nì fēng','mò shēng','jǐng wù','néng lì']}
-];
+var ALL_VOCAB = {
+  1: [
+    {lesson:'识字1', words:['一','二','三','四','五','六','七','八','九','十'], py:['yī','èr','sān','sì','wǔ','liù','qī','bā','jiǔ','shí']},
+    {lesson:'识字2', words:['上','下','大','小','天','地','人','口','耳','目'], py:['shàng','xià','dà','xiǎo','tiān','dì','rén','kǒu','ěr','mù']},
+    {lesson:'识字3', words:['日','月','水','火','山','石','田','土'], py:['rì','yuè','shuǐ','huǒ','shān','shí','tián','tǔ']},
+    {lesson:'课文1', words:['木','禾','竹','马','鸟','鱼','虫','牛'], py:['mù','hé','zhú','mǎ','niǎo','yú','chóng','niú']},
+    {lesson:'课文2', words:['爸','妈','哥','弟','姐','妹','爷','奶'], py:['bà','mā','gē','dì','jiě','mèi','yé','nǎi']}
+  ],
+  2: [
+    {lesson:'第1课', words:['莺','拂','堤','柳','醉','咏','妆','丝','剪'], py:['yīng','fú','dī','liǔ','zuì','yǒng','zhuāng','sī','jiǎn']},
+    {lesson:'第2课', words:['脱','袄','寻','姑','娘','遮','探','嫩','符','解'], py:['tuō','ǎo','xún','gū','niáng','zhē','tàn','nèn','fú','jiě']},
+    {lesson:'第3课', words:['邮','递','堆','礼','邓','植','格','引','注','满'], py:['yóu','dì','duī','lǐ','dèng','zhí','gé','yǐn','zhù','mǎn']},
+    {lesson:'第4课', words:['糖','蔗','汁','菜','劳','的','确','味','道','买'], py:['táng','zhè','zhī','cài','láo','de','què','wèi','dào','mǎi']},
+    {lesson:'课文', words:['碧','妆','裁','咏','村','童','散','趁','鸢','堤'], py:['bì','zhuāng','cái','yǒng','cūn','tóng','sàn','chèn','yuān','dī']}
+  ],
+  3: [
+    {lesson:'第2课 燕子', words:['燕子','乌黑','剪刀','活泼','轻风','洒落','赶集','光彩夺目','春光','偶尔','闲散','纤细','电线'], py:['yàn zi','wū hēi','jiǎn dāo','huó pō','qīng fēng','sǎ luò','gǎn jí','guāng cǎi duó mù','chūn guāng','ǒu ěr','xián sàn','xiān xì','diàn xiàn']},
+    {lesson:'第3课 荷花', words:['荷花','公园','清香','赶紧','荷叶','莲蓬','破裂','姿势','画家','本领','了不起','微风','停止'], py:['hé huā','gōng yuán','qīng xiāng','gǎn jǐn','hé yè','lián péng','pò liè','zī shì','huà jiā','běn lǐng','liǎo bu qǐ','wēi fēng','tíng zhǐ']},
+    {lesson:'第6课 灰雀', words:['友情','认识','忠诚','驯良','善良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','恶狠狠','猎人','收拾'], py:['yǒu qíng','rèn shi','zhōng chéng','xùn liáng','shàn liáng','wēn hé','dá xiè','huā yán qiǎo yǔ','zháo jí','xiāng xìn','chén tǔ','xiōng è','è hěn hěn','liè rén','shōu shi']},
+    {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生'], py:['tòng kuài','yún chèn','jīng měi','bié zhì','méi tóu','méi jīng dǎ cǎi','jī ling','huī xīn sàng qì','jī huì','tàn qì','táo shēng']},
+    {lesson:'第9课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异'], py:['níng jìng','qì guān','shì fǒu','qiè qiè sī yǔ','wēi xiǎn','fāng fǎ','jī ròu','gōng jī','lì yòng','hòu tuì','miǎn fèi','chā yì','qīng chu','qí yì']},
+    {lesson:'第10课 蜜蜂', words:['实验','验证','记号','减少','阻力','大约','包括','检查','至少','迷失','无误','逆风','陌生','景物','能力'], py:['shí yàn','yàn zhèng','jì hào','jiǎn shǎo','zǔ lì','dà yuē','bāo kuò','jiǎn chá','zhì shǎo','mí shī','wú wù','nì fēng','mò shēng','jǐng wù','néng lì']}
+  ],
+  4: [
+    {lesson:'第1课 潮', words:['潮','据','堤','阔','盼','滚','顿','逐','渐','犹','崩','震','余'], py:['cháo','jù','dī','kuò','pàn','gǔn','dùn','zhú','jiàn','yóu','bēng','zhèn','yú']},
+    {lesson:'第5课 一个豆荚', words:['豌','按','僵','苔','囚','框','溢'], py:['wān','àn','jiāng','tái','qiú','kuāng','yì']},
+    {lesson:'第6课 蝙蝠和雷达', words:['蚊','即','科','横','竖','绳','系','蝇','证','研','究','驾','驶'], py:['wén','jí','kē','héng','shù','shéng','jì','yíng','zhèng','yán','jiū','jià','shǐ']},
+    {lesson:'第9课 古诗三首', words:['暮','吟','题','侧','峰','庐','缘','降','阁','费','须','逊','输'], py:['mù','yín','tí','cè','fēng','lú','yuán','jiàng','gé','fèi','xū','xùn','shū']},
+    {lesson:'第13课 精卫填海', words:['帝','曰','溺','返','衔'], py:['dì','yuē','nì','fǎn','xián']}
+  ],
+  5: [
+    {lesson:'第1课 白鹭', words:['精','巧','配','色','素','望','哨','恩','鹤','嫌','朱','嵌','框','匣','哨','韵'], py:['jīng','qiǎo','pèi','sè','sù','wàng','shào','ēn','hè','xián','zhū','qiàn','kuàng','xiá','shào','yùn']},
+    {lesson:'第3课 搭石', words:['汛','挽','协','绰','隔','懒','惰','稳','衡','伏','责'], py:['xùn','wǎn','xié','chuò','gé','lǎn','duò','wěn','héng','fú','zé']},
+    {lesson:'第5课 搭石', words:['亩','播','浇','吩','咐','亭','慕','矮','侵','略','腔','调','协'], py:['mǔ','bō','jiāo','fēn','fù','tíng','mù','ǎi','qīn','lüè','qiāng','diào','xié']},
+    {lesson:'第12课 古诗', words:['祭','乃','熏','杭','亥','恃','喑','擞','拘'], py:['jì','nǎi','xūn','háng','hài','shì','yīn','sǒu','jū']},
+    {lesson:'第15课 自相矛盾', words:['矛','誉','吾','弗','夫'], py:['máo','yù','wú','fú','fū']}
+  ],
+  6: [
+    {lesson:'第1课 北京的春节', words:['蒜','醋','饺','摊','拌','眨','宵','燃','贩','彼','贺','骆','驼','恰'], py:['suàn','cù','jiǎo','tān','bàn','zhǎ','xiāo','rán','fàn','bǐ','hè','luò','tuó','qià']},
+    {lesson:'第3课 古诗三首', words:['侯','章','泣','盈','脉','栖','鸦'], py:['hóu','zhāng','qì','yíng','mò','qī','yā']},
+    {lesson:'第6课 骑鹅旅行记', words:['籍','聊','蓄','囚','覆','械','诞','瞪','瞅'], py:['jí','liáo','xù','qiú','fù','xiè','dàn','dèng','chǒu']},
+    {lesson:'第8课 匆匆', words:['藏','挪','徘','徊','蒸','裸','赤','裸','徘','徊'], py:['cáng','nuó','pái','huái','zhēng','luǒ','chì','luǒ','pái','huái']},
+    {lesson:'第12课 为人民服务', words:['彻','迁','泰','牺','牲','炊','鼎','铭','志'], py:['chè','qiān','tài','xī','shēng','chuī','dǐng','míng','zhì']}
+  ]
+};
+var TEXTBOOK_VOCAB = ALL_VOCAB[currentGrade] || [];
 
-// ==================== MATH (苏教版三年级下册) ====================
-var MATH_UNITS = [
-  {unit:'第一单元 两位数乘两位数', formulas:['两位数×整十数','两位数×两位数：先用个位乘再用十位乘'], practice:[
-    {q:'23 × 14 = ?', a:'322'},{q:'36 × 20 = ?', a:'720'},{q:'45 × 12 = ?', a:'540'},
-    {q:'52 × 30 = ?', a:'1560'},{q:'67 × 11 = ?', a:'737'},{q:'28 × 25 = ?', a:'700'},
-    {q:'34 × 15 = ?', a:'510'},{q:'41 × 23 = ?', a:'943'},{q:'56 × 18 = ?', a:'1008'},
-    {q:'72 × 13 = ?', a:'936'},{q:'85 × 12 = ?', a:'1020'},{q:'39 × 40 = ?', a:'1560'}
-  ]},
-  {unit:'第二单元 千米和吨', formulas:['1千米=1000米','1吨=1000千克','1千克=1000克'], practice:[
-    {q:'5千米=?米', a:'5000'},{q:'3000米=?千米', a:'3'},{q:'2吨=?千克', a:'2000'},
-    {q:'4000千克=?吨', a:'4'},{q:'6千米=?米', a:'6000'},{q:'8000克=?千克', a:'8'}
-  ]},
-  {unit:'第三单元 混合运算', formulas:['先乘除后加减','有括号先算括号里','同级运算从左到右'], practice:[
-    {q:'24 + 36 / 6 = ?', a:'30'},{q:'(24 + 36) / 6 = ?', a:'10'},
-    {q:'80 - 45 / 5 = ?', a:'71'},{q:'12 × 3 + 28 = ?', a:'64'},
-    {q:'56 / 7 × 3 = ?', a:'24'},{q:'(120 - 80) / 5 = ?', a:'8'}
-  ]},
-  {unit:'第四单元 年月日', formulas:['一年12个月','大月31天:1,3,5,7,8,10,12','小月30天:4,6,9,11','平年28天闰年29天(二月)'], practice:[
-    {q:'一年有几个月？', a:'12'},{q:'大月有几天？', a:'31'},
-    {q:'2024年是闰年还是平年？', a:'闰年'},{q:'平年全年多少天？', a:'365'},
-    {q:'闰年全年多少天？', a:'366'},{q:'5月有几天？', a:'31'}
-  ]},
-  {unit:'第五单元 长方形和正方形', formulas:['长方形周长=(长+宽)×2','正方形周长=边长×4','长方形面积=长×宽','正方形面积=边长×边长'], practice:[
-    {q:'长5宽3周长=?cm', a:'16'},{q:'正方形边长4周长=?cm', a:'16'},
-    {q:'长8宽6面积=?m2', a:'48'},{q:'正方形边长5面积=?cm2', a:'25'}
-  ]},
-  {unit:'第六单元 分数的初步认识', formulas:['把物体平均分成几份取几份就是几分之几','分子取了几份分母分成几份'], practice:[
-    {q:'蛋糕分4份取1份是？', a:'1/4'},{q:'绳子分5份取3份是？', a:'3/5'},
-    {q:'1/2等于几分之几(分母4)？', a:'2/4'},{q:'2/3里有几个1/3？', a:'2'}
-  ]},
-  {unit:'第七单元 小数的初步认识', formulas:['小数=整数部分+小数点+小数部分','0.1=1/10'], practice:[
-    {q:'3元5角=?元', a:'3.50'},{q:'8角=?元', a:'0.80'},
-    {q:'1米2分米=?米', a:'1.20'},{q:'0.5等于几分之几(分母10)？', a:'5/10'}
-  ]}
-];
-// ==================== ENGLISH (译林版三年级下册) ====================
-var ENGLISH_UNITS = [
-  {unit:'Unit 1 Welcome back', words:[{en:'welcome',cn:'欢迎'},{en:'school',cn:'学校'},{en:'boy',cn:'男孩'},{en:'girl',cn:'女孩'},{en:'teacher',cn:'老师'},{en:'student',cn:'学生'},{en:'friend',cn:'朋友'},{en:'new',cn:'新的'},{en:'class',cn:'班级'}], sentences:['Welcome back to school!','Nice to meet you.','This is my friend.','I\'m a student.']},
-  {unit:'Unit 2 In the library', words:[{en:'library',cn:'图书馆'},{en:'shout',cn:'大叫'},{en:'eat',cn:'吃'},{en:'run',cn:'跑'},{en:'talk',cn:'说话'},{en:'sleep',cn:'睡觉'},{en:'drink',cn:'喝'},{en:'open',cn:'打开'},{en:'close',cn:'关闭'},{en:'book',cn:'书'}], sentences:['Don\'t shout in the library.','Don\'t eat here.','Be quiet, please.','Open your books.']},
-  {unit:'Unit 3 Pencil?', words:[{en:'pencil',cn:'铅笔'},{en:'pen',cn:'钢笔'},{en:'ruler',cn:'尺子'},{en:'rubber',cn:'橡皮'},{en:'crayon',cn:'蜡笔'},{en:'bag',cn:'书包'},{en:'mine',cn:'我的'},{en:'yours',cn:'你的'},{en:'his',cn:'他的'},{en:'hers',cn:'她的'}], sentences:['Is this your pencil?','Yes, it is.','No, it isn\'t.','That\'s my rubber.']},
-  {unit:'Unit 4 Where bird?', words:[{en:'bird',cn:'鸟'},{en:'on',cn:'在…上面'},{en:'in',cn:'在…里面'},{en:'under',cn:'在…下面'},{en:'behind',cn:'在…后面'},{en:'beside',cn:'在…旁边'},{en:'tree',cn:'树'},{en:'desk',cn:'课桌'},{en:'chair',cn:'椅子'}], sentences:['Where\'s the bird?','It\'s on your desk.','It\'s in the tree.','It\'s under the desk.']},
-  {unit:'Unit 5 How old?', words:[{en:'one',cn:'一'},{en:'two',cn:'二'},{en:'three',cn:'三'},{en:'four',cn:'四'},{en:'five',cn:'五'},{en:'six',cn:'六'},{en:'seven',cn:'七'},{en:'eight',cn:'八'},{en:'nine',cn:'九'},{en:'ten',cn:'十'},{en:'eleven',cn:'十一'},{en:'twelve',cn:'十二'},{en:'thirteen',cn:'十三'},{en:'fourteen',cn:'十四'},{en:'fifteen',cn:'十五'},{en:'twenty',cn:'二十'}], sentences:['How old are you?','I\'m nine.','Happy birthday!','What about you?']},
-  {unit:'Unit 6 What time?', words:[{en:'time',cn:'时间'},{en:'breakfast',cn:'早餐'},{en:'lunch',cn:'午餐'},{en:'dinner',cn:'晚餐'},{en:'bed',cn:'床'},{en:'morning',cn:'早上'},{en:'afternoon',cn:'下午'},{en:'evening',cn:'晚上'},{en:'o\'clock',cn:'点钟'},{en:'milk',cn:'牛奶'}], sentences:['What time is it?','It\'s seven o\'clock.','It\'s time for breakfast.','It\'s time to go to bed.']},
-  {unit:'Unit 7 On the farm', words:[{en:'farm',cn:'农场'},{en:'pig',cn:'猪'},{en:'cow',cn:'牛'},{en:'chicken',cn:'鸡'},{en:'duck',cn:'鸭'},{en:'apple',cn:'苹果'},{en:'orange',cn:'橙子'},{en:'pear',cn:'梨'},{en:'banana',cn:'香蕉'}], sentences:['Welcome to my farm!','Are these apples?','Yes, they are.','What are these?']},
-  {unit:'Unit 8 Twins!', words:[{en:'twin',cn:'双胞胎'},{en:'brother',cn:'兄弟'},{en:'sister',cn:'姐妹'},{en:'father',cn:'父亲'},{en:'mother',cn:'母亲'},{en:'grandpa',cn:'爷爷'},{en:'grandma',cn:'奶奶'},{en:'man',cn:'男人'},{en:'woman',cn:'女人'}], sentences:['We\'re twins!','This is my brother.','Who\'s he?','He\'s my father.']}
-];
+// ==================== MATH (苏教版) ====================
+var ALL_MATH = {
+  1: [
+    {unit:'第一单元 数数', formulas:['1-10的数的认识','数的顺序'], practice:[
+      {q:'5+3=?', a:'8'},{q:'7-2=?', a:'5'},{q:'4+6=?', a:'10'},
+      {q:'9-3=?', a:'6'},{q:'2+8=?', a:'10'},{q:'10-5=?', a:'5'}
+    ]},
+    {unit:'第二单元 比多少', formulas:['多得多/少得多','多一些/少一些','差不多'], practice:[
+      {q:'15比10多几？', a:'5'},{q:'8比12少几？', a:'4'},
+      {q:'20比18大多少？', a:'2'},{q:'7比9少几？', a:'2'}
+    ]},
+    {unit:'第三单元 认识图形', formulas:['长方形','正方形','三角形','圆'], practice:[
+      {q:'长方形有几条边？', a:'4'},{q:'正方形有几条边？', a:'4'},
+      {q:'三角形有几条边？', a:'3'},{q:'圆有几条边？', a:'0'}
+    ]},
+    {unit:'第四单元 位置', formulas:['上/下','前/后','左/右'], practice:[
+      {q:'太阳从哪边升起？', a:'东'},{q:'面向北，左边是哪？', a:'西'},
+      {q:'书在桌上用什么表示？', a:'上'},{q:'手有几只？', a:'2'}
+    ]},
+    {unit:'第五单元 20以内加减法', formulas:['凑十法','破十法','加法交换律'], practice:[
+      {q:'9+5=?', a:'14'},{q:'13-7=?', a:'6'},{q:'8+7=?', a:'15'},
+      {q:'16-8=?', a:'8'},{q:'6+9=?', a:'15'},{q:'11-4=?', a:'7'}
+    ]}
+  ],
+  2: [
+    {unit:'第一单元 100以内加法', formulas:['两位数加一位数','两位数加整十数','进位加法'], practice:[
+      {q:'34+5=?', a:'39'},{q:'28+30=?', a:'58'},{q:'46+7=?', a:'53'},
+      {q:'52+8=?', a:'60'},{q:'19+6=?', a:'25'},{q:'37+4=?', a:'41'}
+    ]},
+    {unit:'第二单元 100以内减法', formulas:['两位数减一位数','两位数减整十数','退位减法'], practice:[
+      {q:'56-3=?', a:'53'},{q:'80-25=?', a:'55'},{q:'42-8=?', a:'34'},
+      {q:'63-9=?', a:'54'},{q:'71-6=?', a:'65'},{q:'50-30=?', a:'20'}
+    ]},
+    {unit:'第三单元 乘法口诀', formulas:['1的口诀: 1×1=1','5的口诀: 五五二十五','2的口诀: 二二得四'], practice:[
+      {q:'3×4=?', a:'12'},{q:'5×6=?', a:'30'},{q:'2×7=?', a:'14'},
+      {q:'4×5=?', a:'20'},{q:'6×3=?', a:'18'},{q:'8×2=?', a:'16'}
+    ]},
+    {unit:'第四单元 认识时间', formulas:['时针走一大格是1小时','分针走一小格是1分钟','1时=60分'], practice:[
+      {q:'1时=?分', a:'60'},{q:'半时=?分', a:'30'},
+      {q:'钟面有几大格？', a:'12'},{q:'分针走一圈是？', a:'60分'}
+    ]}
+  ],
+  3: [
+    {unit:'第一单元 两位数乘两位数', formulas:['两位数×整十数','两位数×两位数：先用个位乘再用十位乘'], practice:[
+      {q:'23 × 14 = ?', a:'322'},{q:'36 × 20 = ?', a:'720'},{q:'45 × 12 = ?', a:'540'},
+      {q:'52 × 30 = ?', a:'1560'},{q:'67 × 11 = ?', a:'737'},{q:'28 × 25 = ?', a:'700'},
+      {q:'34 × 15 = ?', a:'510'},{q:'41 × 23 = ?', a:'943'},{q:'56 × 18 = ?', a:'1008'},
+      {q:'72 × 13 = ?', a:'936'},{q:'85 × 12 = ?', a:'1020'},{q:'39 × 40 = ?', a:'1560'}
+    ]},
+    {unit:'第二单元 千米和吨', formulas:['1千米=1000米','1吨=1000千克','1千克=1000克'], practice:[
+      {q:'5千米=?米', a:'5000'},{q:'3000米=?千米', a:'3'},{q:'2吨=?千克', a:'2000'},
+      {q:'4000千克=?吨', a:'4'},{q:'6千米=?米', a:'6000'},{q:'8000克=?千克', a:'8'}
+    ]},
+    {unit:'第三单元 混合运算', formulas:['先乘除后加减','有括号先算括号里','同级运算从左到右'], practice:[
+      {q:'24 + 36 / 6 = ?', a:'30'},{q:'(24 + 36) / 6 = ?', a:'10'},
+      {q:'80 - 45 / 5 = ?', a:'71'},{q:'12 × 3 + 28 = ?', a:'64'},
+      {q:'56 / 7 × 3 = ?', a:'24'},{q:'(120 - 80) / 5 = ?', a:'8'}
+    ]},
+    {unit:'第四单元 年月日', formulas:['一年12个月','大月31天:1,3,5,7,8,10,12','小月30天:4,6,9,11','平年28天闰年29天(二月)'], practice:[
+      {q:'一年有几个月？', a:'12'},{q:'大月有几天？', a:'31'},
+      {q:'2024年是闰年还是平年？', a:'闰年'},{q:'平年全年多少天？', a:'365'},
+      {q:'闰年全年多少天？', a:'366'},{q:'5月有几天？', a:'31'}
+    ]},
+    {unit:'第五单元 长方形和正方形', formulas:['长方形周长=(长+宽)×2','正方形周长=边长×4','长方形面积=长×宽','正方形面积=边长×边长'], practice:[
+      {q:'长5宽3周长=?cm', a:'16'},{q:'正方形边长4周长=?cm', a:'16'},
+      {q:'长8宽6面积=?m2', a:'48'},{q:'正方形边长5面积=?cm2', a:'25'}
+    ]},
+    {unit:'第六单元 分数的初步认识', formulas:['把物体平均分成几份取几份就是几分之几','分子取了几份分母分成几份'], practice:[
+      {q:'蛋糕分4份取1份是？', a:'1/4'},{q:'绳子分5份取3份是？', a:'3/5'},
+      {q:'1/2等于几分之几(分母4)？', a:'2/4'},{q:'2/3里有几个1/3？', a:'2'}
+    ]},
+    {unit:'第七单元 小数的初步认识', formulas:['小数=整数部分+小数点+小数部分','0.1=1/10'], practice:[
+      {q:'3元5角=?元', a:'3.50'},{q:'8角=?元', a:'0.80'},
+      {q:'1米2分米=?米', a:'1.20'},{q:'0.5等于几分之几(分母10)？', a:'5/10'}
+    ]}
+  ],
+  4: [
+    {unit:'第一单元 大数的认识', formulas:['万级: 个十百千万','亿级: 个十百千万亿','读数从高位到低位'], practice:[
+      {q:'一万写作？', a:'10000'},{q:'100000=？万', a:'10'},
+      {q:'3050000读作？', a:'三百零五万'},{q:'九亿写作？', a:'900000000'},
+      {q:'10个一万是？', a:'十万'},{q:'680000000改写成万？', a:'68000万'}
+    ]},
+    {unit:'第二单元 三位数乘两位数', formulas:['三位数×整十数','三位数×两位数'], practice:[
+      {q:'125 × 8 = ?', a:'1000'},{q:'250 × 40 = ?', a:'10000'},
+      {q:'324 × 12 = ?', a:'3888'},{q:'156 × 25 = ?', a:'3900'},
+      {q:'408 × 30 = ?', a:'12240'},{q:'270 × 15 = ?', a:'4050'}
+    ]},
+    {unit:'第三单元 平行与垂直', formulas:['平行线永不相交','垂直线相交成90°','过直线外一点有且只有一条平行线'], practice:[
+      {q:'正方形对边是什么关系？', a:'平行'},{q:'长方形邻边是什么关系？', a:'垂直'},
+      {q:'平行四边形有几组平行线？', a:'2'},{q:'直角是多少度？', a:'90'}
+    ]}
+  ],
+  5: [
+    {unit:'第一单元 小数乘法', formulas:['小数×整数: 按整数乘，点小数点','小数×小数: 先按整数乘，数小数位数点小数点'], practice:[
+      {q:'0.5 × 4 = ?', a:'2'},{q:'1.2 × 3 = ?', a:'3.6'},
+      {q:'2.5 × 0.4 = ?', a:'1'},{q:'0.25 × 8 = ?', a:'2'},
+      {q:'1.5 × 0.6 = ?', a:'0.9'},{q:'3.2 × 0.5 = ?', a:'1.6'}
+    ]},
+    {unit:'第二单元 简易方程', formulas:['等式两边同时加减乘除同一个数仍相等','含有未知数的等式叫方程','解方程: 用逆运算'], practice:[
+      {q:'x+5=12, x=?', a:'7'},{q:'3x=15, x=?', a:'5'},
+      {q:'x-8=4, x=?', a:'12'},{q:'2x+3=11, x=?', a:'4'},
+      {q:'x÷6=7, x=?', a:'42'},{q:'5x-2=18, x=?', a:'4'}
+    ]},
+    {unit:'第三单元 多边形面积', formulas:['平行四边形面积=底×高','三角形面积=底×高÷2','梯形面积=(上底+下底)×高÷2'], practice:[
+      {q:'底6高4平行四边形面积=?', a:'24'},{q:'底8高3三角形面积=?', a:'12'},
+      {q:'上底3下底5高4梯形面积=?', a:'16'},{q:'底10高5平行四边形面积=?', a:'50'},
+      {q:'底12高6三角形面积=?', a:'36'},{q:'底2上底1下底3高4梯形面积=?', a:'8'}
+    ]}
+  ],
+  6: [
+    {unit:'第一单元 分数乘法', formulas:['分数×整数: 分子乘整数做分子','分数×分数: 分子乘分子,分母乘分母','约分后再乘更简便'], practice:[
+      {q:'1/2 × 4 = ?', a:'2'},{q:'2/3 × 9 = ?', a:'6'},
+      {q:'3/5 × 10 = ?', a:'6'},{q:'5/6 × 12 = ?', a:'10'},
+      {q:'2/7 × 14 = ?', a:'4'},{q:'4/9 × 3 = ?', a:'4/3'}
+    ]},
+    {unit:'第二单元 百分数', formulas:['百分数=分母是100的分数','小数化百分数: 小数点右移两位加%','百分数化小数: 去%小数点左移两位'], practice:[
+      {q:'0.25=?%', a:'25%'},{q:'3/4=?%', a:'75%'},
+      {q:'40%=?小数', a:'0.4'},{q:'1/5=?%', a:'20%'},
+      {q:'0.6=?%', a:'60%'},{q:'80%=?小数', a:'0.8'}
+    ]},
+    {unit:'第三单元 圆的面积', formulas:['圆的周长=π×直径=2π×半径','圆的面积=π×半径²','1/4圆面积=πr²÷4'], practice:[
+      {q:'半径3圆面积=?π', a:'9π'},{q:'直径10圆面积=?π', a:'25π'},
+      {q:'半径5圆周长=?π', a:'10π'},{q:'半径2圆面积=?π', a:'4π'},
+      {q:'直径8圆半径=?', a:'4'},{q:'半径6圆面积=?π', a:'36π'}
+    ]}
+  ]
+};
+var MATH_UNITS = ALL_MATH[currentGrade] || [];
+// ==================== ENGLISH (译林版) ====================
+var ALL_ENGLISH = {
+  3: [
+    {unit:'Unit 1 Welcome back', words:[{en:'welcome',cn:'欢迎'},{en:'school',cn:'学校'},{en:'boy',cn:'男孩'},{en:'girl',cn:'女孩'},{en:'teacher',cn:'老师'},{en:'student',cn:'学生'},{en:'friend',cn:'朋友'},{en:'new',cn:'新的'},{en:'class',cn:'班级'}], sentences:['Welcome back to school!','Nice to meet you.','This is my friend.','I\'m a student.']},
+    {unit:'Unit 2 In the library', words:[{en:'library',cn:'图书馆'},{en:'shout',cn:'大叫'},{en:'eat',cn:'吃'},{en:'run',cn:'跑'},{en:'talk',cn:'说话'},{en:'sleep',cn:'睡觉'},{en:'drink',cn:'喝'},{en:'open',cn:'打开'},{en:'close',cn:'关闭'},{en:'book',cn:'书'}], sentences:['Don\'t shout in the library.','Don\'t eat here.','Be quiet, please.','Open your books.']},
+    {unit:'Unit 3 Pencil?', words:[{en:'pencil',cn:'铅笔'},{en:'pen',cn:'钢笔'},{en:'ruler',cn:'尺子'},{en:'rubber',cn:'橡皮'},{en:'crayon',cn:'蜡笔'},{en:'bag',cn:'书包'},{en:'mine',cn:'我的'},{en:'yours',cn:'你的'},{en:'his',cn:'他的'},{en:'hers',cn:'她的'}], sentences:['Is this your pencil?','Yes, it is.','No, it isn\'t.','That\'s my rubber.']},
+    {unit:'Unit 4 Where bird?', words:[{en:'bird',cn:'鸟'},{en:'on',cn:'在…上面'},{en:'in',cn:'在…里面'},{en:'under',cn:'在…下面'},{en:'behind',cn:'在…后面'},{en:'beside',cn:'在…旁边'},{en:'tree',cn:'树'},{en:'desk',cn:'课桌'},{en:'chair',cn:'椅子'}], sentences:['Where\'s the bird?','It\'s on your desk.','It\'s in the tree.','It\'s under the desk.']},
+    {unit:'Unit 5 How old?', words:[{en:'one',cn:'一'},{en:'two',cn:'二'},{en:'three',cn:'三'},{en:'four',cn:'四'},{en:'five',cn:'五'},{en:'six',cn:'六'},{en:'seven',cn:'七'},{en:'eight',cn:'八'},{en:'nine',cn:'九'},{en:'ten',cn:'十'},{en:'eleven',cn:'十一'},{en:'twelve',cn:'十二'},{en:'thirteen',cn:'十三'},{en:'fourteen',cn:'十四'},{en:'fifteen',cn:'十五'},{en:'twenty',cn:'二十'}], sentences:['How old are you?','I\'m nine.','Happy birthday!','What about you?']},
+    {unit:'Unit 6 What time?', words:[{en:'time',cn:'时间'},{en:'breakfast',cn:'早餐'},{en:'lunch',cn:'午餐'},{en:'dinner',cn:'晚餐'},{en:'bed',cn:'床'},{en:'morning',cn:'早上'},{en:'afternoon',cn:'下午'},{en:'evening',cn:'晚上'},{en:'o\'clock',cn:'点钟'},{en:'milk',cn:'牛奶'}], sentences:['What time is it?','It\'s seven o\'clock.','It\'s time for breakfast.','It\'s time to go to bed.']},
+    {unit:'Unit 7 On the farm', words:[{en:'farm',cn:'农场'},{en:'pig',cn:'猪'},{en:'cow',cn:'牛'},{en:'chicken',cn:'鸡'},{en:'duck',cn:'鸭'},{en:'apple',cn:'苹果'},{en:'orange',cn:'橙子'},{en:'pear',cn:'梨'},{en:'banana',cn:'香蕉'}], sentences:['Welcome to my farm!','Are these apples?','Yes, they are.','What are these?']},
+    {unit:'Unit 8 Twins!', words:[{en:'twin',cn:'双胞胎'},{en:'brother',cn:'兄弟'},{en:'sister',cn:'姐妹'},{en:'father',cn:'父亲'},{en:'mother',cn:'母亲'},{en:'grandpa',cn:'爷爷'},{en:'grandma',cn:'奶奶'},{en:'man',cn:'男人'},{en:'woman',cn:'女人'}], sentences:['We\'re twins!','This is my brother.','Who\'s he?','He\'s my father.']}
+  ],
+  4: [
+    {unit:'Unit 1 Our school subjects', words:[{en:'school',cn:'学校'},{en:'subject',cn:'科目'},{en:'Chinese',cn:'语文'},{en:'Maths',cn:'数学'},{en:'English',cn:'英语'},{en:'Science',cn:'科学'},{en:'PE',cn:'体育'},{en:'Art',cn:'美术'},{en:'Music',cn:'音乐'}], sentences:['What subjects do you like?','I like Chinese.','We have Maths today.','Do you like PE?']},
+    {unit:'Unit 2 After school', words:[{en:'after',cn:'在…之后'},{en:'school',cn:'学校'},{en:'Monday',cn:'星期一'},{en:'Tuesday',cn:'星期二'},{en:'Wednesday',cn:'星期三'},{en:'Thursday',cn:'星期四'},{en:'Friday',cn:'星期五'},{en:'Saturday',cn:'星期六'},{en:'Sunday',cn:'星期日'}], sentences:['What day is it today?','It\'s Monday.','I have a football match.','See you on Friday.']},
+    {unit:'Unit 3 My day', words:[{en:'get up',cn:'起床'},{en:'go to school',cn:'上学'},{en:'have lunch',cn:'吃午餐'},{en:'go home',cn:'回家'},{en:'do homework',cn:'做作业'},{en:'go to bed',cn:'睡觉'},{en:'usually',cn:'通常'},{en:'sometimes',cn:'有时'},{en:'every day',cn:'每天'}], sentences:['I get up at seven.','I go to school at eight.','I have lunch at twelve.','I go to bed at nine.']},
+    {unit:'Unit 4 Drawing in the park', words:[{en:'park',cn:'公园'},{en:'flower',cn:'花'},{en:'tree',cn:'树'},{en:'boat',cn:'小船'},{en:'river',cn:'河'},{en:'hill',cn:'小山'},{en:'lake',cn:'湖'},{en:'draw',cn:'画'},{en:'easy',cn:'容易的'},{en:'difficult',cn:'困难的'}], sentences:['What can you see?','I can see a flower.','Can you draw it?','It\'s easy.']}
+  ],
+  5: [
+    {unit:'Unit 1 Cinderella', words:[{en:'prince',cn:'王子'},{en:'fairy',cn:'仙女'},{en:'why',cn:'为什么'},{en:'because',cn:'因为'},{en:'clothes',cn:'衣服'},{en:'put on',cn:'穿上'},{en:'before',cn:'在…之前'},{en:'leave',cn:'离开'},{en:'fit',cn:'合适'},{en:'mushroom',cn:'蘑菇'}], sentences:['Why are you sad?','Because I can\'t go to the party.','Put on your new clothes.','The shoe fits.']},
+    {unit:'Unit 2 How do you come to school?', words:[{en:'ship',cn:'轮船'},{en:'by bike',cn:'骑自行车'},{en:'by bus',cn:'乘公交'},{en:'by plane',cn:'乘飞机'},{en:'by train',cn:'乘火车'},{en:'on foot',cn:'步行'},{en:'metro',cn:'地铁'},{en:'taxi',cn:'出租车'},{en:'basket',cn:'篮子'},{en:'sky',cn:'天空'}], sentences:['How do you come to school?','I come to school by bus.','Do you live near school?','I go to school on foot.']},
+    {unit:'Unit 3 Asking the way', words:[{en:'stop',cn:'车站'},{en:'turn left',cn:'左转'},{en:'turn right',cn:'右转'},{en:'on your right',cn:'在你右边'},{en:'next to',cn:'紧挨着'},{en:'excuse me',cn:'打扰一下'},{en:'along',cn:'沿着'},{en:'street',cn:'街道'},{en:'cinema',cn:'电影院'},{en:'hospital',cn:'医院'}], sentences:['Excuse me, how do I get to the cinema?','Go along this street.','Turn left at the traffic lights.','It\'s on your right.']},
+    {unit:'Unit 4 Seeing the doctor', words:[{en:'toothache',cn:'牙痛'},{en:'fever',cn:'发烧'},{en:'cold',cn:'感冒'},{en:'headache',cn:'头痛'},{en:'see the doctor',cn:'看医生'},{en:'rest',cn:'休息'},{en:'drink',cn:'喝'},{en:'medicine',cn:'药'},{en:'feel',cn:'感觉'},{en:'brush',cn:'刷'}], sentences:['What\'s wrong with you?','I have a toothache.','You should brush your teeth.','Take some medicine.']}
+  ],
+  6: [
+    {unit:'Unit 1 The lion and the mouse', words:[{en:'large',cn:'大的'},{en:'strong',cn:'强壮的'},{en:'weak',cn:'弱小的'},{en:'sharp',cn:'锋利的'},{en:'bite',cn:'咬'},{en:'net',cn:'网'},{en:'hole',cn:'洞'},{en:'deep',cn:'深的'},{en:'happily',cn:'高兴地'},{en:'loudly',cn:'大声地'}], sentences:['The lion is large and strong.','The mouse is small and weak.','The mouse helped the lion.','They became friends.']},
+    {unit:'Unit 2 Good habits', words:[{en:'tidy',cn:'整洁的'},{en:'messy',cn:'凌乱的'},{en:'early',cn:'早的'},{en:'late',cn:'迟的'},{en:'fast',cn:'快的'},{en:'slow',cn:'慢的'},{en:'should',cn:'应该'},{en:'shouldn\'t',cn:'不应该'},{en:'habit',cn:'习惯'},{en:'clean',cn:'干净的'}], sentences:['He gets up early every day.','She keeps her room tidy.','You shouldn\'t go to bed late.','Good habits help us.']},
+    {unit:'Unit 3 A healthy diet', words:[{en:'healthy',cn:'健康的'},{en:'diet',cn:'饮食'},{en:'meat',cn:'肉'},{en:'vegetable',cn:'蔬菜'},{en:'fruit',cn:'水果'},{en:'sweet',cn:'甜的'},{en:'hamburger',cn:'汉堡'},{en:'cola',cn:'可乐'},{en:'a little',cn:'少量'},{en:'a few',cn:'几个'}], sentences:['What do you have for breakfast?','I have some bread and milk.','We need a healthy diet.','Don\'t eat too many sweets.']},
+    {unit:'Unit 4 Road safety', words:[{en:'safety',cn:'安全'},{en:'road',cn:'道路'},{en:'cross',cn:'穿过'},{en:'pavement',cn:'人行道'},{en:'look out',cn:'当心'},{en:'must',cn:'必须'},{en:'mustn\'t',cn:'禁止'},{en:'rule',cn:'规则'},{en:'follow',cn:'遵守'},{en:'traffic',cn:'交通'}], sentences:['You must look at the traffic lights.','You mustn\'t run on the road.','We must follow the rules.','Look out for cars.']}
+  ]
+};
+var ENGLISH_UNITS = ALL_ENGLISH[currentGrade] || [];
 
 const POEM_STORIES = {
   '绝句': '杜甫是我国最伟大的诗人之一，人称\u201c诗圣\u201d。安史之乱后，他逃难到四川成都，在朋友帮助下盖了一座草堂，就是现在著名的\u201c杜甫草堂\u201d。这首诗就写于草堂。春天来了，阳光暖暖地照在江山上，风里带着花草的香味。燕子衔着湿润的泥土飞来飞去做窝，沙滩上暖洋洋的，鸳鸯正舒服地睡大觉。杜甫看着这么美的春天，心情特别好，就写下了这首诗。你知道吗？杜甫一生写了一千五百多首诗，可他在成都草堂只住了不到四年，却留下了两百四十多首名作！',
@@ -700,6 +567,7 @@ const TOTAL_POEMS = 6; // 3 in unit 1 + 3 in unit 4
 // ==================== STATE ====================
 let currentMode = 'review';
 let currentUnit = 1;
+let currentGrade = parseInt(localStorage.getItem('app_grade')) || 3;
 let quizAnswered = {}; // key: qId => {correct, answered}
 let flashcardIndex = 0;
 let flashcardFlipped = false;
@@ -1615,11 +1483,11 @@ function renderRecite() {
     html += '<div style="color:var(--gray);font-size:0.9em;margin:4px 0">' + p.author + '</div>';
     html += '<div class="recite-poem" id="poemText_'+p.title+'">' + p.content.replace(/\n/g, '<br>') + '</div>';
     html += '<div class="recite-controls">';
-    html += '<button class="play-btn btn-primary" onclick="playPoemAudio(\'' + p.title + '\',\'normal\')" title="正常速度">▶</button>';
-    html += '<button class="play-btn btn-green" onclick="playPoemAudio(\'' + p.title + '\',\'slow\')" title="慢速" style="font-size:1.2em">🐢</button>';
+    html += '<button class="play-btn btn-primary" onclick="playPoemAudio('' + p.title + '','normal')" title="正常速度">▶</button>';
+    html += '<button class="play-btn btn-green" onclick="playPoemAudio('' + p.title + '','slow')" title="慢速" style="font-size:1.2em">🐢</button>';
     html += '<button class="play-btn" onclick="stopAudio()" title="停止" style="background:#eee;font-size:1.2em">⏹</button>';
     html += '</div>';
-    html += '<div class="mic-btn" id="micBtn_'+p.title+'" title="点击开始背诵" onclick="try{startReciteListen(\''+p.title+'\')}catch(e){alert(e.message)}">🎤</div>';
+    html += '<div class="mic-btn" id="micBtn_'+p.title+'" title="点击开始背诵" onclick="try{startReciteListen(''+p.title+'')}catch(e){alert(e.message)}">🎤</div>';
     html += '<div id="reciteResult_'+p.title+'" style="min-height:40px"></div>';
     html += '<div style="margin-top:10px;padding:8px 12px;background:#fff8e1;border-radius:8px;font-size:0.85em;line-height:1.7;border-left:3px solid #f39c12">';
     html += '<b style="color:#e67e22">\ud83d\udcd6 诗人小故事</b><br>' + (POEM_STORIES[p.title] || '') + '</div>';
@@ -1750,8 +1618,8 @@ function renderStory() {
   html += '<div id="storyFeedback" style="display:none;margin-top:10px;padding:8px 12px;border-radius:8px;font-size:0.9em"></div>';
   html += '</div>';
   html += '<div class="btn-group" style="justify-content:center;margin-top:16px">';
-  html += '<button class="btn btn-primary" onclick="speakStory(\'' + story.t + '\')">\u25b6 \u542c\u6545\u4e8b</button>';
-  html += '<button class="btn btn-green" onclick="switchMode(\'story\')">\ud83d\udd04 \u660e\u5929\u518d\u6765</button>';
+  html += '<button class="btn btn-primary" onclick="speakStory('' + story.t + '')">\u25b6 \u542c\u6545\u4e8b</button>';
+  html += '<button class="btn btn-green" onclick="switchMode('story')">\ud83d\udd04 \u660e\u5929\u518d\u6765</button>';
   html += '</div>';
   html += '</div></div>';
   document.getElementById('app').innerHTML = html;
@@ -1916,7 +1784,7 @@ function gradeRecite(spoken, poemTitle) {
   html+='<div class="recite-transcript">'+fmt(tC)+'</div>';
   html+='</div>';
   html+='<div class="btn-group" style="justify-content:center;margin-top:12px">';
-  html+='<button class="btn btn-primary btn-sm" onclick="startReciteListen(\''+poemTitle+'\')">再背一次</button>';
+  html+='<button class="btn btn-primary btn-sm" onclick="startReciteListen(''+poemTitle+'')">再背一次</button>';
   html+='</div></div>';
   if (resultDiv) resultDiv.innerHTML = html;
   if (acc>=90) addPoints(30); else if (acc>=60) addPoints(15);
@@ -2022,7 +1890,7 @@ function showVocabCard(word, num, total, label, li, wi, sec) {
   html += '<div class="game-answer" id="vocabAnswer" style="display:none"></div>';
   html += '</div>';
   html += '<div id="vocabBtnArea" style="text-align:center;margin-top:12px;display:flex;gap:10px;justify-content:center">';
-  html += '<button class="btn btn-sm" style="background:#eee" onclick="showVocabHint(\''+word+'\',\''+label+'\','+num+','+total+','+li+','+wi+')">\ud83d\udca1 看一看</button>';
+  html += '<button class="btn btn-sm" style="background:#eee" onclick="showVocabHint(''+word+'',''+label+'','+num+','+total+','+li+','+wi+')">\ud83d\udca1 看一看</button>';
   html += '<button class="btn btn-primary" id="vocabConfirmBtn" onclick="checkVocabAnswer()">确认</button>';
   html += '</div></div>';
   document.getElementById('app').innerHTML = html;
@@ -2272,26 +2140,6 @@ function finishLevel() {
 // ==================== SUBJECT SWITCHER ====================
 var currentSubject = localStorage.getItem('app_subject') || 'chinese';
 
-var currentGrade = parseInt(localStorage.getItem('app_grade') || '3');
-function switchGrade(grade) {
-  currentGrade = grade;
-  localStorage.setItem('app_grade', grade);
-  document.querySelectorAll('.grade-btn').forEach(function(b, i) {
-    b.classList.toggle('active', i + 1 === grade);
-  });
-  // Hide English for grades 1-2
-  var engBtn = document.querySelector('.subject-btn[data-subj="english"]');
-  if (engBtn) engBtn.style.display = grade <= 2 ? 'none' : '';
-  if (currentSubject === 'english' && grade <= 2) switchSubject('chinese');
-  var titles = {1:'一年级',2:'二年级',3:'三年级',4:'四年级',5:'五年级',6:'六年级'};
-  var el = document.getElementById('appTitle');
-  if (el) el.textContent = titles[grade] + '下册';
-  currentUnit = 1;
-  renderUnitTabs();
-  renderContent();
-  scrollToTop();
-}
-
 function switchSubject(subj) {
   currentSubject = subj;
   localStorage.setItem('app_subject', subj);
@@ -2318,7 +2166,7 @@ function renderModeTabs() {
   var tabs = modes[currentSubject] || modes.chinese;
   var el = document.getElementById('modeTabs');
   el.innerHTML = tabs.map(function(m, i) {
-    return '<div class="mode-tab' + (i===0?' active':'') + '" data-mode="' + m.id + '" onclick="switchMode(\'' + m.id + '\')">' + m.icon + m.label + '</div>';
+    return '<div class="mode-tab' + (i===0?' active':'') + '" data-mode="' + m.id + '" onclick="switchMode('' + m.id + '')">' + m.icon + m.label + '</div>';
   }).join('');
   currentMode = tabs[0].id;
 }
@@ -2444,7 +2292,7 @@ function showFormula() {
   var html = '<div class="unit active">';
   html += '<div class="unit-title">'+u.unit+'</div>';
   html += '<div class="unit-subtitle">公式卡片 '+(idx+1)+'/'+u.formulas.length+'</div>';
-  html += '<div class="formula-card" onclick="this.querySelector(\'.formula-back\').style.display=this.querySelector(\'.formula-back\').style.display===\'none\'?\'block\':\'none\'">';
+  html += '<div class="formula-card" onclick="this.querySelector('.formula-back').style.display=this.querySelector('.formula-back').style.display==='none'?'block':'none'">';
   html += '<div style="font-size:1.3em;font-weight:700;color:var(--primary);margin-bottom:12px">'+u.formulas[idx]+'</div>';
   html += '<div style="color:var(--gray);font-size:0.9em">点击翻转查看</div>';
   html += '</div>';
@@ -2605,7 +2453,7 @@ function showEngCard() {
   var html = '<div class="unit active">';
   html += '<div class="unit-title">'+u.unit+'</div>';
   html += '<div class="unit-subtitle">单词卡片 '+(idx+1)+'/'+u.words.length+'</div>';
-  html += '<div class="flashcard-scene"><div class="flashcard-container" onclick="this.classList.toggle(\'flipped\')">';
+  html += '<div class="flashcard-scene"><div class="flashcard-container" onclick="this.classList.toggle('flipped')">';
   html += '<div class="flashcard-face flashcard-front">';
   html += '<div style="font-size:2.5em;font-weight:700;color:var(--primary)">'+w.en+'</div>';
   html += '<div style="margin-top:12px;color:var(--gray)">点击翻转</div>';
@@ -2637,6 +2485,3 @@ function finishEngGame() {
   html += '</div></div></div>';
   document.getElementById('app').innerHTML = html;
 }
-</script>
-</body>
-</html>
