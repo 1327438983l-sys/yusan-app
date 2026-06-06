@@ -20,8 +20,11 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
 .badge-icon.earned{opacity:1;animation:badgePulse .6s ease}
 
 
-.grade-bar{display:flex;background:#fff;padding:6px 8px;gap:4px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:102;overflow-x:auto}
+.grade-bar{display:flex;background:#fff;padding:6px 8px;gap:4px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:103;overflow-x:auto}
 .grade-bar::-webkit-scrollbar{display:none}
+.semester-bar{display:flex;background:#f8f9fa;padding:4px 8px;gap:4px;border-bottom:1px solid #eee;position:sticky;top:0;z-index:102}
+.semester-btn{flex-shrink:0;padding:5px 16px;border:none;border-radius:14px;font-size:0.82em;cursor:pointer;background:#e8e8e8;color:#666;transition:all .2s}
+.semester-btn.active{background:var(--green);color:#fff;font-weight:600}
 .grade-btn{flex-shrink:0;padding:6px 14px;border:none;border-radius:16px;font-size:0.82em;cursor:pointer;background:#f0f0f0;color:#666;transition:all .2s;white-space:nowrap}
 .grade-btn.active{background:var(--primary);color:#fff;font-weight:600}
 
@@ -256,6 +259,10 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
   <button class="grade-btn" onclick="switchGrade(5)">五年级</button>
   <button class="grade-btn" onclick="switchGrade(6)">六年级</button>
 </div>
+<div class="semester-bar" id="semesterBar">
+  <button class="semester-btn" onclick="switchSemester('上')">上册</button>
+  <button class="semester-btn active" onclick="switchSemester('下')">下册</button>
+</div>
 <div class="subject-bar"  id="subjectBar">
   <button class="subject-btn active" data-subj="chinese" onclick="switchSubject('chinese')">📖 语文</button>
   <button class="subject-btn" data-subj="math" onclick="switchSubject('math')">🔢 数学</button>
@@ -351,7 +358,7 @@ var POEM_STORIES = {
   '清明': '杜牧是晚唐著名诗人。清明节那天，天上下着毛毛细雨，路上的行人都低着头，很伤心的样子\u2014\u2014因为清明节是祭拜亲人的日子。杜牧一个人走在路上，又累又冷又难过，特别想找个小酒馆喝杯酒暖暖身子。他看见路边有个放牛的小孩（牧童），就问：\u201c小朋友，哪里有酒馆呀？\u201d牧童没有说话，只是用手指了指远处\u2014\u2014那里有一片开满杏花的村庄，酒馆就在那里！这首诗就像一幅画：细雨、行人、牧童、杏花村\u2026\u2026是不是很有画面感？',
   '九月九日忆山东兄弟': '王维写这首诗的时候才17岁！他一个人离开家乡到长安（现在的西安）求学，年纪小小的就想家了。重阳节那天，别的小朋友都跟家人在一起登高（爬山）、戴茱萸（一种有香味的草，古人认为可以辟邪），可王维一个人在外地。他想：今天我的兄弟们肯定在爬山，每个人身上都插着茱萸，可是数来数去少了一个人\u2014\u2014那就是我呀！\u201c每逢佳节倍思亲\u201d这句话后来成了千古名句，每个在外面想家的人听到都会特别感动。你有没有离开家的时候特别想爸爸妈妈的经历？'
 };
-var UNITS = [
+var GRADE3_SEMESTERS = {"下": [
 {
   num: 1, title: "第一单元", theme: "可爱的生灵",
   subtitle: "感受春天的美好，体会作者对自然的热爱",
@@ -683,7 +690,321 @@ var UNITS = [
     }
   }
 }
-];
+],
+"上": [
+{
+  num: 1, title: "第一单元", theme: "学校生活",
+  subtitle: "感受学校的美好生活，体会阅读的乐趣",
+  review: {
+    poems: [],
+    words: [
+      {char:"坝",pinyin:"bà",words:"大坝 堤坝"},{char:"汉",pinyin:"hàn",words:"汉族 汉字"},{char:"艳",pinyin:"yàn",words:"鲜艳 艳丽"},{char:"扮",pinyin:"bàn",words:"打扮 扮演"},{char:"摔",pinyin:"shuāi",words:"摔跤 摔倒"},{char:"跤",pinyin:"jiāo",words:"摔跤 跌跤"},{char:"凤",pinyin:"fèng",words:"凤凰 凤尾"},{char:"洁",pinyin:"jié",words:"清洁 洁白"},{char:"粗",pinyin:"cū",words:"粗壮 粗心"},{char:"影",pinyin:"yǐng",words:"影子 影响"},{char:"荒",pinyin:"huāng",words:"荒野 荒凉"},{char:"笛",pinyin:"dí",words:"笛子 口笛"},{char:"舞",pinyin:"wǔ",words:"舞蹈 跳舞"},{char:"狂",pinyin:"kuáng",words:"疯狂 狂欢"},{char:"罚",pinyin:"fá",words:"处罚 惩罚"},{char:"假",pinyin:"jiǎ",words:"真假 假如"},{char:"互",pinyin:"hù",words:"互相 互助"},{char:"所",pinyin:"suǒ",words:"所以 所有"},{char:"够",pinyin:"gòu",words:"能够 足够"},{char:"猜",pinyin:"cāi",words:"猜测 猜想"}
+    ],
+    keySentences: [
+      "早晨，从山坡上，从坪坝里，从一条条开着绒球花和太阳花的小路上，走来了许多小学生。（排比句，描写上学路）",
+      "于是，一群一群的花从无人知道的地方突然跑出来，在绿草上跳舞、狂欢。（拟人句，花像孩子一样活泼）",
+      "《不懂就要问》——遇到不懂的问题要主动向老师请教，这是学习的好习惯。"
+    ],
+    tips: ["本单元主题：学校生活，感受新学期新气象","大青树下的小学：了解不同民族学生一起学习的场景","花的学校：学习拟人修辞，想象花儿在学校里上学","不懂就要问：学习孙中山勤学好问的精神"]
+  },
+  quiz: {
+    choose: [
+      {q:"大青树下的小学在哪里？",opts:["城市里","山里","海边","平原上"],ans:1},
+      {q:"花的学校中花儿在哪里上课？",opts:["教室里","树上","地下"],ans:2},
+      {q:"不懂就要问讲的是谁的故事？",opts:["孔子","孙中山","李白","杜甫"],ans:1},
+      {q:"《绚丽多彩》的近义词是？",opts:["五彩缤纷","灰暗单调","普普通通","平平淡淡"],ans:0},
+      {q:"花的学校用了什么修辞手法？",opts:["比喻","夸张","拟人","排比"],ans:2}
+    ],
+    fill: [
+      {q:"早晨，从山坡上，从____里，从一条条开着绒球花和太阳花的小路上。",a:"坪坝"},
+      {q:"一群一群的花从无人知道的地方____跑出来。",a:"突然"},
+      {q:"孙中山不懂就要____。",a:"问"}
+    ],
+    read: {
+      passage: "上课了，不同民族的小学生，在同一间教室里学习。大家一起朗读课文，那声音真好听！这时候，窗外十分安静，树枝不摇了，鸟儿不叫了，蝴蝶停在花朵上，好像都在听同学们读课文。",
+      questions: [
+        {q:"为什么窗外很安静？（ ）",opts:["刮风了","同学们在读书，小动物们也在听","老师在上课","天黑了"],ans:1},
+        {q:"这段话用了什么手法？（ ）",opts:["比喻","拟人","夸张","排比"],ans:1}
+      ]
+    }
+  }
+},
+{
+  num: 2, title: "第二单元", theme: "金秋时节",
+  subtitle: "感受秋天的美好，品味诗歌中的秋意",
+  review: {
+    poems: [
+      { title: "山行", author: "[唐] 杜牧", content: "远上寒山石径斜，白云生处有人家。\n停车坐爱枫林晚，霜叶红于二月花。", notes: "寒山=深秋时节的山。径=小路。坐=因为。红于=比…更红。描写深秋枫林美景，表达对大自然的热爱。" },
+      { title: "望洞庭", author: "[唐] 刘禹锡", content: "湖光秋月两相和，潭面无风镜未磨。\n遥望洞庭山水翠，白银盘里一青螺。", notes: "和=和谐。镜未磨=像没打磨的镜子（月光下的湖面朦胧美）。白银盘=洞庭湖。青螺=君山岛。" },
+      { title: "夜书所见", author: "[宋] 叶绍翁", content: "萧萧梧叶送寒声，江上秋风动客情。\n知有儿童挑促织，夜深篱落一灯明。", notes: "萧萧=风吹梧叶的声音。客情=思乡之情。挑促织=捉蟋蟀。篱落=篱笆。秋天的夜晚思念家乡。" }
+    ],
+    words: [
+      {char:"径",pinyin:"jìng",words:"石径 小径"},{char:"斜",pinyin:"xié",words:"歪斜 倾斜"},{char:"残",pinyin:"cán",words:"残阳 残疾"},{char:"君",pinyin:"jūn",words:"君子 君王"},{char:"橙",pinyin:"chéng",words:"橙子 橙色"},{char:"送",pinyin:"sòng",words:"送别 送行"},{char:"挑",pinyin:"tiǎo",words:"挑促织 挑选"},{char:"铺",pinyin:"pū",words:"铺路 铺满"},{char:"泥",pinyin:"ní",words:"水泥 泥土"},{char:"印",pinyin:"yìn",words:"脚印 印象"},{char:"排",pinyin:"pái",words:"排列 排队"},{char:"规",pinyin:"guī",words:"规则 规矩"},{char:"则",pinyin:"zé",words:"规则 原则"},{char:"乱",pinyin:"luàn",words:"凌乱 杂乱"},{char:"迟",pinyin:"chí",words:"迟到 迟疑"},{char:"颜",pinyin:"yán",words:"颜色 颜料"}
+    ],
+    keySentences: [
+      "停车坐爱枫林晚，霜叶红于二月花。（对比：秋天的红叶比春天的花更美）",
+      "每一片法国梧桐树的落叶，都像一个金色的小巴掌，熨帖地、平展地粘在水泥道上。（比喻：落叶像金色小巴掌）",
+      "秋天的雨，有一盒五彩缤纷的颜料。（拟人+比喻）"
+    ],
+    tips: ["三首古诗都是写秋天的，注意体会不同的秋意","山行：深秋枫叶之美；望洞庭：秋夜洞庭湖之美；夜书所见：秋夜思乡之情","铺满金色巴掌的水泥道：学习比喻和拟人","秋天的雨：用优美的语言描写秋的颜色、气味和声音"]
+  },
+  quiz: {
+    choose: [
+      {q:'《停车坐爱枫林晚》中「坐」的意思是？',opts:["坐下","座位","因为","乘坐"],ans:2},
+      {q:"《霜叶红于二月花》是什么意思？",opts:["霜比花红","枫叶比二月的花还红","二月的花更红","叶子上有霜"],ans:1},
+      {q:"夜书所见中诗人看到了什么？",opts:["月亮","儿童挑促织","大雁南飞","落叶"],ans:1},
+      {q:"秋天的雨把颜色给了谁？",opts:["春天","夏天","万物","冬天"],ans:2},
+      {q:"铺满金色巴掌的水泥道中的“巴掌”指的是？",opts:["人的手","法国梧桐树的落叶","云朵","石头"],ans:1}
+    ],
+    fill: [
+      {q:"远上寒山石径____，白云____处有人家。",a:"斜,生"},
+      {q:"湖光秋月两相____，潭面无风镜____磨。",a:"和,未"},
+      {q:"萧萧梧叶送____声，江上秋风动____情。",a:"寒,客"},
+      {q:"知有儿童挑____，夜深____一灯明。",a:"促织,篱落"},
+      {q:"秋天的雨，有一盒____的颜料。",a:"五彩缤纷"}
+    ],
+    read: {
+      passage: "秋天的雨，有一盒五彩缤纷的颜料。你看，它把黄色给了银杏树，黄黄的叶子像一把把小扇子，扇哪扇哪，扇走了夏天的炎热。它把红色给了枫树，红红的枫叶像一枚枚邮票，飘哇飘哇，邮来了秋天的凉爽。",
+      questions: [
+        {q:"秋天的雨有哪些颜色？（ ）",opts:["只有黄色","只有红色","五彩缤纷","没有颜色"],ans:2},
+        {q:"银杏叶像什么？（ ）",opts:["邮票","小扇子","蝴蝶","星星"],ans:1}
+      ]
+    }
+  }
+},
+{
+  num: 3, title: "第三单元", theme: "童话世界",
+  subtitle: "走进童话世界，感受故事中的真善美",
+  review: {
+    poems: [],
+    words: [
+      {char:"暴",pinyin:"bào",words:"暴风雨 暴躁"},{char:"凑",pinyin:"còu",words:"凑合 凑近"},{char:"孵",pinyin:"fū",words:"孵化 孵蛋"},{char:"叽",pinyin:"jī",words:"叽叽喳喳"},{char:"偶",pinyin:"ǒu",words:"偶尔 偶然"},{char:"尔",pinyin:"ěr",words:"偶尔 尔后"},{char:"萝",pinyin:"luó",words:"萝卜 菠萝"},{char:"卜",pinyin:"bo",words:"萝卜"},{char:"愁",pinyin:"chóu",words:"发愁 忧愁"},{char:"蜘",pinyin:"zhī",words:"蜘蛛"},{char:"蛛",pinyin:"zhū",words:"蜘蛛"},{char:"漂",pinyin:"piào",words:"漂亮"},{char:"撞",pinyin:"zhuàng",words:"撞击 撞到"},{char:"弹",pinyin:"dàn",words:"子弹 弹弓"}
+    ],
+    keySentences: [
+      "老屋已经活了一百多岁了，它的窗户变成了黑窟窿，门板也破了洞。（环境描写，突出老屋的古老）",
+      "小蜘蛛说：老屋老屋，我给你讲个故事吧。（对话描写，生动有趣）",
+      "总也倒不了的老屋：老屋一次次被需要，体现了乐于助人的品质。"
+    ],
+    tips: ["总也倒不了的老屋：学习预测故事的方法，体会助人为乐的精神","犟龟：认准目标不放弃，坚持就是胜利","小狗学叫：每个人都有自己的长处，不要盲目模仿别人","本单元要学习预测策略：根据线索猜故事发展"]
+  },
+  quiz: {
+    choose: [
+      {q:"老屋为什么一直不倒？",opts:["很结实","小动物需要它","有魔法","它害怕"],ans:1},
+      {q:"犟龟告诉我们什么道理？",opts:["要放弃","坚持就能到达","不用着急","听别人的话"],ans:1},
+      {q:"小狗学叫中小狗学的是什么？",opts:["猫叫","鸟叫","牛叫","狗叫"],ans:2},
+      {q:"预测故事时可以依据什么？",opts:["只能看封面","插图、题目、前文内容","随便猜","不需要依据"],ans:1},
+      {q:"老屋中谁住在老屋的屋檐下？",opts:["老屋自己","蜘蛛","小鸟和老母鸡"],ans:2}
+    ],
+    fill: [
+      {q:"老屋已经活了____多岁了。",a:"一百"},
+      {q:"老屋低头看看，墙壁吱吱呀呀地____。",a:"响"},
+      {q:"小狗跟小公鸡学____。",a:"叫"},
+      {q:"犟龟的全名叫____。",a:"陶陶"}
+    ],
+    read: {
+      passage: "“等等，老屋！”一个小小的声音在它门前响起，“再过一个晚上，行吗？今天晚上有暴风雨，我找不到一个安心睡觉的地方。”",
+      questions: [
+        {q:"这个声音是谁的？（ ）",opts:["小鸟","蜘蛛","小猫","蜜蜂"],ans:0},
+        {q:"老屋会怎么做？（ ）",opts:["关上门不理会","同意让小动物住一晚","赶快倒塌","出去找别人帮忙"], ans:1}
+      ]
+    }
+  }
+},
+{
+  num: 4, title: "第四单元", theme: "童话世界（续）",
+  subtitle: "继续走进奇妙的童话世界，感受想象力的魅力",
+  review: {
+    poems: [],
+    words: [
+      {char:"葫",pinyin:"hú",words:"葫芦"},{char:"芦",pinyin:"lu",words:"葫芦 芦苇"},{char:"妖",pinyin:"yāo",words:"妖怪 妖怪"},{char:"怪",pinyin:"guài",words:"奇怪 怪物"},{char:"矩",pinyin:"jǔ",words:"规矩 规则"},{char:"乖",pinyin:"guāi",words:"乖巧 乖孩子"},{char:"烫",pinyin:"tàng",words:"烫伤 热烫"},{char:"溜",pinyin:"liū",words:"溜走 溜冰"},{char:"葵",pinyin:"kuí",words:"向日葵"},{char:"揉",pinyin:"róu",words:"揉碎 揉面"},{char:"胃",pinyin:"wèi",words:"胃部 肠胃"},{char:"嚼",pinyin:"jiáo",words:"细嚼慢咽"},{char:"悲",pinyin:"bēi",words:"悲伤 悲痛"},{char:"咽",pinyin:"yàn",words:"咽下 吞咽"}
+    ],
+    keySentences: [
+      "我要什么就有什么，我想要什么，奶奶就给我什么。（宝葫芦的秘密：张葆有了宝葫芦，实现了所有愿望）",
+      "红头在牛肚子里随着草一起旅行，它害怕极了！（在牛肚子里旅行：有趣的科学童话）",
+      "蚂蚁队长说：全体都有，休息一会儿！（一块奶酪：纪律与关怀并重）"
+    ],
+    tips: ["宝葫芦的秘密：张葆想不劳而获，结果闹了很多笑话","在牛肚子里旅行：了解牛的四个胃和反刍的科学知识","一块奶酪：蚂蚁队长以身作则，遵守纪律","本单元重点：体会童话故事中的想象力和道理"]
+  },
+  quiz: {
+    choose: [
+      {q:"宝葫芦是谁给张葆的？",opts:["爸爸","奶奶","自己找到的","老师"],ans:1},
+      {q:"红头被什么吃进了肚子？",opts:["狮子","牛","羊","马"],ans:1},
+      {q:"在牛肚子里旅行中红头经历了什么？",opts:["坐火车","被牛吃进肚子后从嘴里出来","坐飞机","骑在牛背上"],ans:1},
+      {q:"一块奶酪中蚂蚁队长为什么让大家休息？",opts:["累了","奶酪太大搬不动","考验蚂蚁们的意志","休息是为了更好地工作"],ans:2},
+      {q:"牛有几个胃？",opts:["一个","两个","四个","三个"],ans:2}
+    ],
+    fill: [
+      {q:"张葆从奶奶那里得到了一个____。",a:"宝葫芦"},
+      {q:"红头和青头是____。",a:"好朋友"},
+      {q:"蚂蚁队长叼着奶酪的一角往前走，是因为它想____。",a:"考验大家"},
+      {q:"牛肚子里旅行告诉我们牛有四个胃，吃东西会____。",a:"反刍"}
+    ],
+    read: {
+      passage: "青头大吃一惊，它一下子蹦到牛身上，可是那头牛用尾巴把它赶走了。青头又跳到牛身上，隔着肚皮和红头说话：红头！不要怕，你会出来的！牛有四个胃，前三个胃是贮藏食物的，只有第四个胃才是管消化的！",
+      questions: [
+        {q:"青头为什么不怕危险去找红头？（ ）",opts:["它不知道危险","它们是好朋友","青头很勇敢","青头想救自己"],ans:1},
+        {q:"牛有几个管消化的胃？（ ）",opts:["四个","三个","一个","两个"],ans:2}
+      ]
+    }
+  }
+},
+{
+  num: 5, title: "第五单元", theme: "观察事物",
+  subtitle: "留心观察周围的事物，发现生活的美好",
+  review: {
+    poems: [],
+    words: [
+      {char:"搭",pinyin:"dā",words:"搭船 搭桥"},{char:"亲",pinyin:"qīn",words:"母亲 亲切"},{char:"父",pinyin:"fù",words:"父亲 父母"},{char:"啦",pinyin:"lā",words:"哗啦啦"},{char:"嘴",pinyin:"zuǐ",words:"嘴巴 嘴角"},{char:"悄",pinyin:"qiāo",words:"悄悄 静悄悄"},{char:"吞",pinyin:"tūn",words:"吞下 吞咽"},{char:"哦",pinyin:"ó",words:"哦 原来是"},{char:"蒲",pinyin:"pú",words:"蒲公英 蒲扇"},{char:"英",pinyin:"yīng",words:"蒲公英 英语"},{char:"耍",pinyin:"shuǎ",words:"玩耍 耍赖"},{char:"欠",pinyin:"qiàn",words:"哈欠 欠钱"},{char:"钓",pinyin:"diào",words:"钓鱼 钓竿"},{char:"拢",pinyin:"lǒng",words:"合拢 聚拢"},{char:"趣",pinyin:"qù",words:"有趣 趣味"}
+    ],
+    keySentences: [
+      "它一下子冲进水里，不见了。可是，没一会儿，它飞起来了，红色的长嘴衔着一条小鱼。（搭船的鸟：观察翠鸟捕鱼的精彩描写）",
+      "原来蒲公英的花就像我们的手掌，可以张开、合上。（金色的草地：用比喻解释花为什么时开时合）",
+      "多么可爱的草地！多么有趣的蒲公英！（感叹句，表达对草地的喜爱）"
+    ],
+    tips: ["搭船的鸟：学习仔细观察动物的方法，翠鸟捕鱼的动作描写","金色的草地：了解蒲公英花会随太阳开合的知识","本单元重点：学会观察和记录生活中的发现","写作要求：写观察日记，记录自己的发现"]
+  },
+  quiz: {
+    choose: [
+      {q:"搭船的鸟讲的是什么鸟？",opts:["乌鸦","翠鸟","麻雀","燕子"],ans:1},
+      {q:"金色的草地为什么是金色的？",opts:["撒了金粉","蒲公英花开了","太阳照的","秋天叶子黄了"],ans:1},
+      {q:"蒲公英的花什么时候张开？",opts:["晚上","清晨","中午","阴天"],ans:2},
+      {q:"搭船的鸟中翠鸟的嘴是什么颜色的？",opts:["黑色","红色","黄色","绿色"],ans:1},
+      {q:"观察时最重要的是？",opts:["走得快","看得仔细","想得远","记得多"],ans:1}
+    ],
+    fill: [
+      {q:"它一下子____进水里，不见了。",a:"冲"},
+      {q:"它红色的长嘴____着一条小鱼。",a:"衔"},
+      {q:"蒲公英的花就像我们的____。",a:"手掌"},
+      {q:"花朵张开时，草地是____的。",a:"金色"}
+    ],
+    read: {
+      passage: "我看见一只翠鸟站在船头。它的羽毛是翠绿的，翅膀带着一些蓝色，比鹦鹉还漂亮。它还有一张红色的长嘴。",
+      questions: [
+        {q:"翠鸟的羽毛是什么颜色？（ ）",opts:["红色","蓝色","翠绿的","黄色"],ans:2},
+        {q:"翠鸟的嘴有什么特点？（ ）",opts:["很短","红色的长嘴","很尖","黑色的"],ans:1}
+      ]
+    }
+  }
+},
+{
+  num: 6, title: "第六单元", theme: "祖国风光",
+  subtitle: "领略祖国的壮美河山，感受大自然的神奇",
+  review: {
+    poems: [],
+    words: [
+      {char:"富",pinyin:"fù",words:"富饶 丰富"},{char:"饶",pinyin:"ráo",words:"富饶 饶恕"},{char:"优",pinyin:"yōu",words:"优美 优秀"},{char:"浅",pinyin:"qiǎn",words:"浅绿 深浅"},{char:"错",pinyin:"cuò",words:"交错 错误"},{char:"岩",pinyin:"yán",words:"岩石 岩洞"},{char:"虾",pinyin:"xiā",words:"大虾 虾米"},{char:"挺",pinyin:"tǐng",words:"挺立 挺好"},{char:"鼓",pinyin:"gǔ",words:"鼓掌 鼓起"},{char:"数",pinyin:"shǔ",words:"数不清 数数"},{char:"滨",pinyin:"bīn",words:"海滨 河滨"},{char:"灰",pinyin:"huī",words:"灰色 灰尘"},{char:"渔",pinyin:"yú",words:"渔民 渔船"},{char:"遍",pinyin:"biàn",words:"遍地 遍布"},{char:"躺",pinyin:"tǎng",words:"躺下 平躺"},{char:"载",pinyin:"zài",words:"满载 载重"}
+    ],
+    keySentences: [
+      "西沙群岛一带海水五光十色，瑰丽无比：有深蓝的，淡青的，浅绿的，杏黄的。（色彩描写，写出海水的美丽）",
+      "小城里每一个庭院都栽了很多树。桉树、椰子树、橄榄树、凤凰树，还有别的许多亚热带树木。（排比，写出小城树木之多）",
+      "春天，树木抽出新的枝条，长出嫩绿的叶子。（拟人：抽出）"
+    ],
+    tips: ["富饶的西沙群岛：感受南海的美丽富饶，学习从不同方面描写景物","海滨小城：了解海边小城的特点，学习按方位描写","美丽的小兴安岭：按春、夏、秋、冬的顺序描写森林之美","香港璀璨的明珠：了解香港的繁华美丽"]
+  },
+  quiz: {
+    choose: [
+      {q:"西沙群岛海水为什么五光十色？",opts:["人工染的","海底高低不一","天气好","鱼多"],ans:1},
+      {q:"海滨小城的街道上种了什么？",opts:["柳树","凤凰树","松树","竹子"],ans:1},
+      {q:"小兴安岭春天有什么变化？",opts:["落叶","河水结冰","树木抽出新枝条","大雪纷飞"],ans:2},
+      {q:"香港被称为什么？",opts:["东方之珠","南海明珠","海上花园","鱼米之乡"],ans:0},
+      {q:"富饶的西沙群岛中“富饶”是什么意思？",opts:["贫穷","美丽","物产丰富","危险"],ans:2}
+    ],
+    fill: [
+      {q:"西沙群岛一带海水____光十色，____无比。",a:"五,瑰丽"},
+      {q:"小城的公园更美。树上____着各种各样的____。",a:"挂,灯笼"},
+      {q:"春天，树木____出新的____。",a:"抽,枝条"},
+      {q:"香港是亚太地区重要的____中心、____中心。",a:"航运,贸易"}
+    ],
+    read: {
+      passage: "春天，树木抽出新的枝条，长出嫩绿的叶子。积雪融化了，汇成小溪，淙淙地流着。小鹿在溪边散步，它们有的俯下身子喝水，有的侧着脑袋欣赏自己映在水里的影子。",
+      questions: [
+        {q:"小兴安岭的春天有什么？（ ）",opts:["大雪","嫩绿的叶子和小溪","果实成熟","落叶"],ans:1},
+        {q:"小鹿在做什么？（ ）",opts:["睡觉","吃草","喝水和欣赏自己的影子","跑步"],ans:2}
+      ]
+    }
+  }
+},
+{
+  num: 7, title: "第七单元", theme: "自然之美",
+  subtitle: "感受大自然的神奇美妙，聆听自然的声音",
+  review: {
+    poems: [
+      { title: "鹿柴", author: "[唐] 王维", content: "空山不见人，但闻人语响。\n返景入深林，复照青苔上。", notes: "鹿柴(zhài)=地名。空山=空旷的山谷。返景=夕阳的返照。复=又。写空山幽静的景色。" },
+      { title: "望天门山", author: "[唐] 李白", content: "天门中断楚江开，碧水东流至此回。\n两岸青山相对出，孤帆一片日边来。", notes: "天门山=安徽当涂的山。楚江=长江。中断=从中间断开。出=出现。描写天门山的雄伟和长江的壮阔。" },
+      { title: "饮湖上初晴后雨", author: "[宋] 苏轼", content: "水光潋滟晴方好，山色空蒙雨亦奇。\n欲把西湖比西子，淡妆浓抹总相宜。", notes: "潋滟(liàn yàn)=水波荡漾。空蒙=细雨迷蒙。西子=西施（古代美女）。把西湖比作美女西施。" }
+    ],
+    words: [
+      {char:"默",pinyin:"mò",words:"默默 沉默"},{char:"诵",pinyin:"sòng",words:"朗诵 背诵"},{char:"乐",pinyin:"yuè",words:"音乐 乐器"},{char:"器",pinyin:"qì",words:"乐器 器官"},{char:"滴",pinyin:"dī",words:"水滴 滴落"},{char:"敲",pinyin:"qiāo",words:"敲门 敲打"},{char:"鸣",pinyin:"míng",words:"鸣叫 鸟鸣"},{char:"诉",pinyin:"sù",words:"告诉 诉说"},{char:"读",pinyin:"dú",words:"读书 朗读"},{char:"册",pinyin:"cè",words:"书册 册子"}
+    ],
+    keySentences: [
+      "空山不见人，但闻人语响。（以声写静，空山的幽静）",
+      "风，是大自然的音乐家，他会在森林里演奏他的手风琴。（拟人，把风比作音乐家）",
+      "大自然是一本读不完的大书。（比喻：大自然像一本丰富的书）"
+    ],
+    tips: ["鹿柴：感受王维诗歌“诗中有画“的意境","望天门山：体会李白诗歌的豪迈气势","饮湖上初晴后雨：学习用比喻写景","大自然的声音：感受风声、水声、动物声的美妙","读不完的大书：学会观察大自然，用心感受"]
+  },
+  quiz: {
+    choose: [
+      {q:"《空山不见人》但能听到什么？",opts:["鸟叫","人说话的声音","水声","风声"],ans:1},
+      {q:"望天门山中长江水怎么流？",opts:["向西流","向东流","绕弯流","直线流"],ans:1},
+      {q:"苏轼把西湖比作什么？",opts:["镜子","宝石","西施","嫦娥"],ans:2},
+      {q:"《返景入深林》返景是什么？",opts:["日出的光","夕阳的反照","月光","闪电"],ans:1},
+      {q:"大自然的声音中风被比作什么？",opts:["画家","舞蹈家","音乐家","诗人"],ans:2}
+    ],
+    fill: [
+      {q:"空山不____人，但____人语响。",a:"见,闻"},
+      {q:"天门____楚江____，碧水东流至此回。",a:"中断,开"},
+      {q:"欲把西湖比____子，淡妆浓抹总____宜。",a:"西,相"},
+      {q:"风，是大自然的____家。",a:"音乐"}
+    ],
+    read: {
+      passage: "风，是大自然的音乐家，他会在森林里演奏他的手风琴。当他翻动树叶，树叶便像歌手一样，唱出各种不同的歌曲。不一样的树叶，有不一样的声音；不一样的季节，有不一样的音乐。",
+      questions: [
+        {q:"风被比作什么？（ ）",opts:["画家","厨师","音乐家","运动员"],ans:2},
+        {q:"这段话用了什么修辞手法？（ ）",opts:["夸张","拟人","比喻","排比"],ans:1}
+      ]
+    }
+  }
+},
+{
+  num: 8, title: "第八单元", theme: "美好品质",
+  subtitle: "学习古今中外人物的美好品质，做更好的自己",
+  review: {
+    poems: [],
+    words: [
+      {char:"司",pinyin:"sī",words:"司马光 司令"},{char:"跌",pinyin:"diē",words:"跌倒 跌落"},{char:"众",pinyin:"zhòng",words:"众人 群众"},{char:"弃",pinyin:"qì",words:"放弃 弃权"},{char:"持",pinyin:"chí",words:"坚持 持续"},{char:"掌",pinyin:"zhǎng",words:"手掌 掌声"},{char:"棒",pinyin:"bàng",words:"木棒 棒球"},{char:"恩",pinyin:"ēn",words:"恩情 感恩"},{char:"碗",pinyin:"wǎn",words:"大碗 碗筷"},{char:"瓷",pinyin:"cí",words:"瓷器 瓷碗"}
+    ],
+    keySentences: [
+      "众皆弃去，光持石击瓮破之，水迸，儿得活。（司马光砸缸：用简短的文言文讲了一个聪明机智的故事）",
+      "手术台就是阵地，我不能离开！（白求恩大夫：坚守岗位，忘我工作）",
+      "一个粗瓷大碗体现了赵一曼与战士们同甘共苦的精神。"
+    ],
+    tips: ["司马光：这篇课文是小古文，要学会借助注释理解意思","一定要争气：童第周发愤学习，为中国人争气","手术台就是阵地：白求恩在战火中坚持手术，体现国际主义精神","一个粗瓷大碗：赵一曼的廉洁奉公、关心战士的品质","本单元重点：学习古文翻译方法+体会人物品质"]
+  },
+  quiz: {
+    choose: [
+      {q:"司马光砸缸的故事告诉我们什么？",opts:["要砸东西","聪明机智","要勇敢","要多玩"],ans:1},
+      {q:"童第周为什么“一定要争气”？",opts:["想出名","为中国人争气","老师要求","爸妈要求"],ans:1},
+      {q:"手术台就是阵地讲的是谁？",opts:["司马光","童第周","白求恩","赵一曼"],ans:2},
+      {q:"赵一曼为什么不用大碗？",opts:["不喜欢","碗太大","想把好东西留给战士们","摔坏了"],ans:2},
+      {q:"司马光砸缸用的工具是？",opts:["锤子","石头","斧头","木棍"],ans:1}
+    ],
+    fill: [
+      {q:"众皆____去，光持石击____破之。",a:"弃,瓮"},
+      {q:"水迸，____得活。",a:"儿"},
+      {q:"手术台就是____。",a:"阵地"},
+      {q:"赵一曼端着一个粗瓷____，里面盛了半碗____。",a:"碗,高粱米饭"}
+    ],
+    read: {
+      passage: "群儿戏于庭，一儿登瓮，足跌没水中。众皆弃去，光持石击瓮破之，水迸，儿得活。",
+      questions: [
+        {q:"《众皆弃去》是什么意思？（ ）",opts:["大家都很开心","其他人都吓跑了","大家在玩耍","大家都去帮忙"],ans:1},
+        {q:"这个故事赞扬了司马光的什么品质？（ ）",opts:["勇敢","聪明机智、沉着冷静","力气大","跑步快"],ans:1}
+      ]
+    }
+  }
+  ]
+  };
 
 // ==================== CONSTANTS ====================
 const LEVELS = [
@@ -2282,6 +2603,7 @@ function finishLevel() {
 
 // ==================== SUBJECT SWITCHER ====================
 var currentSubject = localStorage.getItem('app_subject') || 'chinese';
+var currentSemester = localStorage.getItem('app_semester') || '下';
 
 var currentGrade = parseInt(localStorage.getItem('app_grade') || '3');
 var GRADE_DATA = {
@@ -2465,7 +2787,7 @@ function switchGrade(grade) {
   if (currentSubject === 'english' && grade <= 2) switchSubject('chinese');
   var titles = {1:'一年级',2:'二年级',3:'三年级',4:'四年级',5:'五年级',6:'六年级'};
   var el = document.getElementById('appTitle');
-  if (el) el.textContent = titles[grade] + '下册';
+  if (el) el.textContent = titles[grade] + currentSemester + '册';
   // Load grade data
   var d = GRADE_DATA[grade];
   if (d) {
@@ -2475,8 +2797,8 @@ function switchGrade(grade) {
   }
   // Auto-generate UNITS from TEXTBOOK_VOCAB
   if (TEXTBOOK_VOCAB && TEXTBOOK_VOCAB.length > 0) {
-    if (grade === 3 && typeof GRADE3_UNITS !== 'undefined') {
-      UNITS = GRADE3_UNITS; // Restore full grade 3 data with poems
+    if (grade === 3 && typeof GRADE3_SEMESTERS !== 'undefined' && GRADE3_SEMESTERS[currentSemester]) {
+      UNITS = GRADE3_SEMESTERS[currentSemester]; // Restore full grade 3 data with poems
     } else {
       // Get poems for this grade from TEXTS
       var gradePoems = (typeof TEXTS !== 'undefined' && TEXTS[grade]) ? TEXTS[grade] : [];
@@ -2500,6 +2822,15 @@ function switchGrade(grade) {
   renderContent();
   scrollToTop();
 }
+function switchSemester(sem) {
+  currentSemester = sem;
+  localStorage.setItem('app_semester', sem);
+  document.querySelectorAll('.semester-btn').forEach(function(b) {
+    b.classList.toggle('active', b.textContent.indexOf(sem) >= 0);
+  });
+  // Reload grade data with new semester
+  switchGrade(currentGrade);
+}
 function switchSubject(subj) {
   currentSubject = subj;
   localStorage.setItem('app_subject', subj);
@@ -2511,7 +2842,7 @@ function switchSubject(subj) {
   var gradeNames = {1:'一年级',2:'二年级',3:'三年级',4:'四年级',5:'五年级',6:'六年级'};
   var subjNames = {chinese:'语文',math:'数学',english:'英语'};
   var el = document.getElementById('appTitle');
-  if (el) el.textContent = gradeNames[currentGrade] + '下册·' + (subjNames[subj] || '语文') + '复习';
+  if (el) el.textContent = gradeNames[currentGrade] + currentSemester + '册·' + (subjNames[subj] || '语文') + '复习';
   // Show/hide mode tabs based on subject
   renderModeTabs();
   renderUnitTabs();
