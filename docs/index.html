@@ -295,12 +295,42 @@ body{font-family:"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;b
 // ==================== DATA ====================
 // Textbook vocabulary (课本词语表)
 var TEXTBOOK_VOCAB = [
+  // 第一单元
+  {lesson:'第1课 古诗三首', words:['迟日','江山','泥融','燕子','鸳鸯','蒌蒿','芦芽','河豚','梅子','泛尽','绿阴','黄鹂'], py:['chí rì','jiāng shān','ní róng','yàn zi','yuān yāng','lóu hāo','lú yá','hé tún','méi zi','fàn jìn','lǜ yīn','huáng lí']},
   {lesson:'第2课 燕子', words:['燕子','乌黑','剪刀','活泼','轻风','洒落','赶集','光彩夺目','春光','偶尔','闲散','纤细','电线'], py:['yàn zi','wū hēi','jiǎn dāo','huó pō','qīng fēng','sǎ luò','gǎn jí','guāng cǎi duó mù','chūn guāng','ǒu ěr','xián sàn','xiān xì','diàn xiàn']},
   {lesson:'第3课 荷花', words:['荷花','公园','清香','赶紧','荷叶','莲蓬','破裂','姿势','画家','本领','了不起','微风','停止'], py:['hé huā','gōng yuán','qīng xiāng','gǎn jǐn','hé yè','lián péng','pò liè','zī shì','huà jiā','běn lǐng','liǎo bu qǐ','wēi fēng','tíng zhǐ']},
-  {lesson:'第6课 灰雀', words:['友情','认识','忠诚','驯良','善良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','恶狠狠','猎人','收拾'], py:['yǒu qíng','rèn shi','zhōng chéng','xùn liáng','shàn liáng','wēn hé','dá xiè','huā yán qiǎo yǔ','zháo jí','xiāng xìn','chén tǔ','xiōng è','è hěn hěn','liè rén','shōu shi']},
-  {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生'], py:['tòng kuài','yún chèn','jīng měi','bié zhì','méi tóu','méi jīng dǎ cǎi','jī ling','huī xīn sàng qì','jī huì','tàn qì','táo shēng']},
-  {lesson:'第9课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异'], py:['níng jìng','qì guān','shì fǒu','qiè qiè sī yǔ','wēi xiǎn','fāng fǎ','jī ròu','gōng jī','lì yòng','hòu tuì','miǎn fèi','chā yì','qīng chu','qí yì']},
-  {lesson:'第10课 蜜蜂', words:['实验','验证','记号','减少','阻力','大约','包括','检查','至少','迷失','无误','逆风','陌生','景物','能力'], py:['shí yàn','yàn zhèng','jì hào','jiǎn shǎo','zǔ lì','dà yuē','bāo kuò','jiǎn chá','zhì shǎo','mí shī','wú wù','nì fēng','mò shēng','jǐng wù','néng lì']}
+  {lesson:'第4课 昆虫备忘录', words:['复眼','琢磨','凡是','距离','款款','黑绸','膜翅','益虫','形态','严丝合缝'], py:['fù yǎn','zuó mo','fán shì','jù lí','kuǎn kuǎn','hēi chóu','mó chì','yì chóng','xíng tài','yán sī hé fèng']},
+  // 第二单元
+  {lesson:'第5课 守株待兔', words:['宋国','耕田','释其耒','颈','折颈','守株待兔','冀','身为宋国笑'], py:['sòng guó','gēng tián','shì qí lěi','jǐng','zhé jǐng','shǒu zhū dài tù','jì','shēn wéi sòng guó xiào']},
+  {lesson:'第6课 会摇尾巴的狼', words:['陷阱','哀求','善良','驯良','温和','答谢','花言巧语','着急','相信','尘土','凶恶','猎人','收拾','忠实'], py:['xiàn jǐng','āi qiú','shàn liáng','xùn liáng','wēn hé','dá xiè','huā yán qiǎo yǔ','zháo jí','xiāng xìn','chén tǔ','xiōng è','liè rén','shōu shi','zhōng shí']},
+  {lesson:'第7课 鹿角和鹿腿', words:['痛快','匀称','精美','别致','眉头','没精打采','机灵','灰心丧气','机会','叹气','逃生','挣脱'], py:['tòng kuài','yún chèn','jīng měi','bié zhì','méi tóu','méi jīng dǎ cǎi','jī ling','huī xīn sàng qì','jī huì','tàn qì','táo shēng','zhèng tuō']},
+  {lesson:'第8课 池子与河流', words:['池子','河流','安逸','源源不断','遵循','安闲','淤塞','衰退','滔滔','清洁','豌豆','任凭'], py:['chí zi','hé liú','ān yì','yuán yuán bù duàn','zūn xún','ān xián','yū sè','shuāi tuì','tāo tāo','qīng jié','wān dòu','rèn píng']},
+  // 第三单元
+  {lesson:'第9课 花钟', words:['花钟','争奇斗艳','芬芳','迷人','醒来','凌晨','苏醒','娇嫩','灼伤','适宜','淡雅','昆虫','传播','大致'], py:['huā zhōng','zhēng qí dòu yàn','fēn fāng','mí rén','xǐng lái','líng chén','sū xǐng','jiāo nèn','zhuó shāng','shì yí','dàn yǎ','kūn chóng','chuán bō','dà zhì']},
+  {lesson:'第10课 蜜蜂', words:['实验','验证','记号','减少','阻力','大约','包括','检查','至少','迷失','无误','逆风','陌生','景物','能力'], py:['shí yàn','yàn zhèng','jì hào','jiǎn shǎo','zǔ lì','dà yuē','bāo kuò','jiǎn chá','zhì shǎo','mí shī','wú wù','nì fēng','mò shēng','jǐng wù','néng lì']},
+  {lesson:'第11课 小虾', words:['小虾','缸里','空隙','掀起','通体','追逐','搏斗','猛烈','蹦出','安静','自在','积聚'], py:['xiǎo xiā','gāng lǐ','kòng xì','xiān qǐ','tōng tǐ','zhuī zhú','bó dòu','měng liè','bèng chū','ān jìng','zì zài','jī jù']},
+  // 第四单元
+  {lesson:'第12课 古诗三首', words:['元日','爆竹','屠苏','曈曈','桃符','清明','纷纷','断魂','牧童','杏花村','茱萸','佳节'], py:['yuán rì','bào zhú','tú sū','tóng tóng','táo fú','qīng míng','fēn fēn','duàn hún','mù tóng','xìng huā cūn','zhū yú','jiā jié']},
+  {lesson:'第13课 纸的发明', words:['造纸术','发明','保存','记录','大约','吸收','经验','原料','朝鲜','欧洲','社会','促进'], py:['zào zhǐ shù','fā míng','bǎo cún','jì lù','dà yuē','xī shōu','jīng yàn','yuán liào','cháo xiǎn','ōu zhōu','shè huì','cù jìn']},
+  {lesson:'第14课 赵州桥', words:['赵州桥','雄伟','桥墩','横跨','创举','冲击力','坚固','美观','石栏','雕刻','缠绕','智慧'], py:['zhào zhōu qiáo','xióng wěi','qiáo dūn','héng kuà','chuàng jǔ','chōng jī lì','jiān gù','měi guān','shí lán','diāo kè','chán rào','zhì huì']},
+  {lesson:'第15课 一幅名扬中外的画', words:['名扬中外','汴京','北宋','张择端','风俗','街市','店铺','酒楼','毛驴','乘轿','纤夫','栏杆'], py:['míng yáng zhōng wài','biàn jīng','běi sòng','zhāng zé duān','fēng sú','jiē shì','diàn pù','jiǔ lóu','máo lǘ','chéng qiào','qiàn fū','lán gān']},
+  // 第五单元
+  {lesson:'第16课 小真的长头发', words:['长头发','套住','牧场','碍事','栅栏','晾晒','套牛','卷起','麻烦','悠闲','揉一揉','拉直'], py:['cháng tóu fa','tào zhù','mù chǎng','ài shì','zhà lán','liàng shài','tào niú','juǎn qǐ','má fan','yōu xián','róu yī róu','lā zhí']},
+  {lesson:'第17课 我变成了一棵树', words:['变成','树','鸟窝','三角形','正方形','圆形','椭圆形','菱形','叮咚','外婆','希望','想念'], py:['biàn chéng','shù','niǎo wō','sān jiǎo xíng','zhèng fāng xíng','yuán xíng','tuǒ yuán xíng','líng xíng','dīng dōng','wài pó','xī wàng','xiǎng niàn']},
+  // 第六单元
+  {lesson:'第18课 童年的水墨画', words:['水墨','染绿','钓竿','蜻蜓','扑腾','碎了','蹦跳','浪花','蘑菇','清爽','松树','松针'], py:['shuǐ mò','rǎn lǜ','diào gān','qīng tíng','pū téng','suì le','bèng tiào','làng huā','mó gū','qīng shuǎng','sōng shù','sōng zhēn']},
+  {lesson:'第19课 剃头大师', words:['剃头','大师','表弟','胆小','姑父','押进','理发','夺门而逃','骂','仇人','差生','付钱'], py:['tì tóu','dà shī','biǎo dì','dǎn xiǎo','gū fù','yā jìn','lǐ fà','duó mén ér táo','mà','chóu rén','chā shēng','fù qián']},
+  {lesson:'第20课 肥皂泡', words:['肥皂','泡','吹','串','婴儿','希望','透明','娇软','扯','仰','轻清透明','玲珑娇软'], py:['féi zào','pào','chuī','chuàn','yīng ér','xī wàng','tòu míng','jiāo ruǎn','chě','yǎng','qīng qīng tòu míng','líng lóng jiāo ruǎn']},
+  {lesson:'第21课 我不能失信', words:['宋庆龄','失信','伯伯','鸽子','叠花篮','解释','歉意','守信','等待','忘记'], py:['sòng qìng líng','shī xìn','bó bo','gē zi','dié huā lán','jiě shì','qiàn yì','shǒu xìn','děng dài','wàng jì']},
+  // 第七单元
+  {lesson:'第22课 我们的奇妙世界', words:['奇妙','呈现','变幻','蜡烛','诱人','圆润','乘凉','光芒','刀剑','普通','模型','宁静'], py:['qí miào','chéng xiàn','biàn huàn','là zhú','yòu rén','yuán rùn','chéng liáng','guāng máng','dāo jiàn','pǔ tōng','mó xíng','níng jìng']},
+  {lesson:'第23课 海底世界', words:['宁静','器官','是否','窃窃私语','危险','方法','肌肉','攻击','利用','后退','免费','差异','清楚','奇异'], py:['níng jìng','qì guān','shì fǒu','qiè qiè sī yǔ','wēi xiǎn','fāng fǎ','jī ròu','gōng jī','lì yòng','hòu tuì','miǎn fèi','chā yì','qīng chu','qí yì']},
+  {lesson:'第24课 火烧云', words:['火烧云','喂猪','笑盈盈','红彤彤','金灿灿','半紫半黄','半灰半百合色','葡萄灰','梨黄','茄子紫','凶猛','镇静'], py:['huǒ shāo yún','wèi zhū','xiào yíng yíng','hóng tóng tóng','jīn càn càn','bàn zǐ bàn huáng','bàn huī bàn bǎi hé sè','pú táo huī','lí huáng','qié zi zǐ','xiōng měng','zhèn jìng']},
+  // 第八单元
+  {lesson:'第25课 慢性子裁缝和急性子顾客', words:['裁缝','顾客','春装','夏装','秋装','冬装','性子','夸奖','衬衫','负责','手艺','布料'], py:['cái feng','gù kè','chūn zhuāng','xià zhuāng','qiū zhuāng','dōng zhuāng','xìng zi','kuā jiǎng','chèn shān','fù zé','shǒu yì','bù liào']},
+  {lesson:'第26课 方帽子店', words:['方帽子','圆帽子','舒服','奇怪','橱窗','各式各样','香扣','古董','小孩子','改变'], py:['fāng mào zi','yuán mào zi','shū fu','qí guài','chu chuāng','gè shì gè yàng','xiāng kòu','gǔ dǒng','xiǎo hái zi','gǎi biàn']},
+  {lesson:'第27课 漏', words:['漏','老虎','贼','莫非','厉害','翻山越岭','抱住','骨架','粘住','胶','偏','漏雨'], py:['lòu','lǎo hǔ','zéi','mò fēi','lì hài','fān shān yuè lǐng','bào zhù','gǔ jià','zhān zhù','jiāo','piān','lòu yǔ']},
+  {lesson:'第28课 枣核', words:['枣核','夫妻','犁','扶犁','勤快','牲口','折腾','大摇大摆','官府','善罢甘休','争辩','钱'], py:['zǎo hé','fū qī','lí','fú lí','qín kuai','shēng kou','zhē teng','dà yáo dà bǎi','guān fǔ','shàn bà gān xiū','zhēng biàn','qián']}
 ];
 
 // ==================== MATH (苏教版三年级下册) ====================
@@ -369,14 +399,58 @@ var UNITS = [
       { title: "三衢道中", author: "[宋] 曾几", content: "梅子黄时日日晴，小溪泛尽却山行。\n绿阴不减来时路，添得黄鹂四五声。", notes: "三衢(qú)=今浙江衢州。泛尽=乘船走到尽头。却=又。黄鹂=黄莺。写初夏山行的愉悦心情。" }
     ],
     words: [
-      {char:"融",pinyin:"róng",words:"融化 融合"},{char:"燕",pinyin:"yàn",words:"燕子 海燕"},{char:"鸳",pinyin:"yuān",words:"鸳鸯"},{char:"鸯",pinyin:"yāng",words:"鸳鸯"},{char:"惠",pinyin:"huì",words:"恩惠 优惠"},{char:"崇",pinyin:"chóng",words:"崇高 崇拜"},{char:"芦",pinyin:"lú",words:"芦苇 芦芽"},{char:"芽",pinyin:"yá",words:"发芽 豆芽"},{char:"短",pinyin:"duǎn",words:"长短 短处"},{char:"梅",pinyin:"méi",words:"梅子 梅花"},{char:"溪",pinyin:"xī",words:"小溪 溪水"},{char:"泛",pinyin:"fàn",words:"泛舟 广泛"},{char:"减",pinyin:"jiǎn",words:"减少 减法"},{char:"凑",pinyin:"còu",words:"凑合 凑巧"},{char:"拂",pinyin:"fú",words:"吹拂 拂过"},{char:"集",pinyin:"jí",words:"集合 集市"},{char:"聚",pinyin:"jù",words:"聚会 聚拢"},{char:"形",pinyin:"xíng",words:"形状 形象"},{char:"掠",pinyin:"lüè",words:"掠过 掠夺"},{char:"偶",pinyin:"ǒu",words:"偶尔 偶然"},{char:"沾",pinyin:"zhān",words:"沾水 沾湿"},{char:"倦",pinyin:"juàn",words:"疲倦 倦意"},{char:"纤",pinyin:"xiān",words:"纤细 纤维"},{char:"痕",pinyin:"hén",words:"痕迹 伤痕"},{char:"瓣",pinyin:"bàn",words:"花瓣 豆瓣"},{char:"蓬",pinyin:"péng",words:"莲蓬 蓬松"},{char:"胀",pinyin:"zhàng",words:"饱胀 肿胀"},{char:"裂",pinyin:"liè",words:"裂开 破裂"},{char:"姿",pinyin:"zī",words:"姿势 姿态"},{char:"势",pinyin:"shì",words:"姿势 气势"},{char:"仿",pinyin:"fǎng",words:"仿佛 模仿"},{char:"佛",pinyin:"fú",words:"仿佛"},{char:"随",pinyin:"suí",words:"跟随 随便"},{char:"蹈",pinyin:"dǎo",words:"舞蹈 手舞足蹈"},{char:"蚂",pinyin:"mǎ",words:"蚂蚁"},{char:"蚂",pinyin:"mà",words:"蚂蚱"},{char:"蚱",pinyin:"zhà",words:"蚂蚱"},{char:"翩",pinyin:"piān",words:"翩翩起舞"},{char:"膜",pinyin:"mó",words:"薄膜 耳膜"},{char:"斑",pinyin:"bān",words:"斑点 斑马"}
+      {char:"融",pinyin:"róng",words:"融化 融合"},
+      {char:"燕",pinyin:"yàn",words:"燕子 海燕"},
+      {char:"鸳",pinyin:"yuān",words:"鸳鸯"},
+      {char:"鸯",pinyin:"yāng",words:"鸳鸯"},
+      {char:"惠",pinyin:"huì",words:"恩惠 优惠"},
+      {char:"崇",pinyin:"chóng",words:"崇高 崇拜"},
+      {char:"芦",pinyin:"lú",words:"芦苇 芦芽"},
+      {char:"芽",pinyin:"yá",words:"发芽 豆芽"},
+      {char:"短",pinyin:"duǎn",words:"长短 短处"},
+      {char:"梅",pinyin:"méi",words:"梅子 梅花"},
+      {char:"溪",pinyin:"xī",words:"小溪 溪水"},
+      {char:"泛",pinyin:"fàn",words:"泛舟 广泛"},
+      {char:"减",pinyin:"jiǎn",words:"减少 减法"},
+      {char:"凑",pinyin:"còu",words:"凑合 凑巧"},
+      {char:"拂",pinyin:"fú",words:"吹拂 拂过"},
+      {char:"集",pinyin:"jí",words:"集合 集市"},
+      {char:"聚",pinyin:"jù",words:"聚会 聚拢"},
+      {char:"形",pinyin:"xíng",words:"形状 形象"},
+      {char:"掠",pinyin:"lüè",words:"掠过 掠夺"},
+      {char:"偶",pinyin:"ǒu",words:"偶尔 偶然"},
+      {char:"沾",pinyin:"zhān",words:"沾水 沾湿"},
+      {char:"倦",pinyin:"juàn",words:"疲倦 倦意"},
+      {char:"纤",pinyin:"xiān",words:"纤细 纤维"},
+      {char:"痕",pinyin:"hén",words:"痕迹 伤痕"},
+      {char:"瓣",pinyin:"bàn",words:"花瓣 豆瓣"},
+      {char:"蓬",pinyin:"péng",words:"莲蓬 蓬松"},
+      {char:"胀",pinyin:"zhàng",words:"饱胀 肿胀"},
+      {char:"裂",pinyin:"liè",words:"裂开 破裂"},
+      {char:"姿",pinyin:"zī",words:"姿势 姿态"},
+      {char:"势",pinyin:"shì",words:"姿势 气势"},
+      {char:"仿",pinyin:"fǎng",words:"仿佛 模仿"},
+      {char:"佛",pinyin:"fú",words:"仿佛"},
+      {char:"随",pinyin:"suí",words:"跟随 随便"},
+      {char:"蹈",pinyin:"dǎo",words:"舞蹈 手舞足蹈"},
+      {char:"蚂",pinyin:"mà",words:"蚂蚱"},
+      {char:"蚱",pinyin:"zhà",words:"蚂蚱"},
+      {char:"翩",pinyin:"piān",words:"翩翩起舞"},
+      {char:"膜",pinyin:"mó",words:"薄膜 耳膜"},
+      {char:"斑",pinyin:"bān",words:"斑点 斑马"},
+      {char:"录",pinyin:"lù",words:"记录 目录 备忘录"}
     ],
     keySentences: [
       "一身<em>乌黑</em>的羽毛，一对<em>轻快有力</em>的翅膀，加上<em>剪刀似的</em>尾巴，凑成了那样可爱的活泼的小燕子。（比喻：尾巴像剪刀）",
       "荷叶<em>挨挨挤挤</em>的，像一个个碧绿的<em>大圆盘</em>。（比喻：荷叶像大圆盘）",
       "白荷花在这些大圆盘之间冒出来。有的才展开两三片花瓣儿。有的花瓣儿<em>全展开了</em>，露出嫩黄色的小莲蓬。有的还是花骨朵儿，看起来<em>饱胀得马上要破裂似的</em>。（排比+拟人）"
     ],
-    tips: ["本单元重点：感受春天的美好，学习比喻、拟人等修辞手法","三首古诗都是描写春天景色的，注意理解诗意和作者情感","背诵要求：三首古诗全文背诵+默写","《燕子》和《荷花》要求有感情地朗读课文"]
+    tips: [
+      "本单元重点：感受春天的美好，学习比喻、拟人等修辞手法",
+      "三首古诗都是描写春天景色的，注意理解诗意和作者情感",
+      "背诵要求：三首古诗全文背诵+默写",
+      "《燕子》和《荷花》要求有感情地朗读课文"
+    ]
   },
   quiz: {
     choose: [
@@ -412,15 +486,40 @@ var UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"宋",pinyin:"sòng",words:"宋国 宋朝"},{char:"耕",pinyin:"gēng",words:"耕田 耕种"},{char:"释",pinyin:"shì",words:"解释 释放"},{char:"冀",pinyin:"jì",words:"希望 希冀"},{char:"颈",pinyin:"jǐng",words:"脖子 头颈"},{char:"匀",pinyin:"yún",words:"匀称 均匀"},{char:"致",pinyin:"zhì",words:"精致 兴致"},{char:"配",pinyin:"pèi",words:"配合 分配"},{char:"传",pinyin:"chuán",words:"传说 传递"},{char:"传",pinyin:"zhuàn",words:"传记 自传"},{char:"恼",pinyin:"nǎo",words:"烦恼 恼怒"},{char:"狮",pinyin:"shī",words:"狮子 狮群"},{char:"谦",pinyin:"qiān",words:"谦虚 谦让"},{char:"虚",pinyin:"xū",words:"谦虚 虚心"},{char:"懦",pinyin:"nuò",words:"懦弱 懦夫"},{char:"弱",pinyin:"ruò",words:"懦弱 弱小"},{char:"提",pinyin:"tí",words:"提倡 提醒"},{char:"尘",pinyin:"chén",words:"尘土 灰尘"},{char:"捧",pinyin:"pěng",words:"捧起 吹捧"},{char:"代",pinyin:"dài",words:"代价 代替"},{char:"价",pinyin:"jià",words:"代价 价格"},{char:"触",pinyin:"chù",words:"触角 触摸"},{char:"骄傲",pinyin:"jiāo ào",words:"骄傲 自满"},{char:"古代",pinyin:"gǔ dài",words:"古代 古老"},{char:"国王",pinyin:"guó wáng",words:"国王 君主"},{char:"骄傲",pinyin:"jiāo ào",words:"骄傲 傲慢"},{char:"谦虚",pinyin:"qiān xū",words:"谦虚 谦逊"}
+      {char:"宋",pinyin:"sòng",words:"宋国 宋朝"},
+      {char:"耕",pinyin:"gēng",words:"耕田 耕种"},
+      {char:"释",pinyin:"shì",words:"解释 释放"},
+      {char:"冀",pinyin:"jì",words:"希望 希冀"},
+      {char:"颈",pinyin:"jǐng",words:"脖子 头颈"},
+      {char:"匀",pinyin:"yún",words:"匀称 均匀"},
+      {char:"致",pinyin:"zhì",words:"精致 兴致"},
+      {char:"配",pinyin:"pèi",words:"配合 分配"},
+      {char:"传",pinyin:"chuán",words:"传说 传递"},
+      {char:"恼",pinyin:"nǎo",words:"烦恼 恼怒"},
+      {char:"狮",pinyin:"shī",words:"狮子 狮群"},
+      {char:"谦",pinyin:"qiān",words:"谦虚 谦让"},
+      {char:"虚",pinyin:"xū",words:"谦虚 虚心"},
+      {char:"懦",pinyin:"nuò",words:"懦弱 懦夫"},
+      {char:"弱",pinyin:"ruò",words:"懦弱 弱小"},
+      {char:"尘",pinyin:"chén",words:"尘土 灰尘"},
+      {char:"捧",pinyin:"pěng",words:"捧起 吹捧"},
+      {char:"代",pinyin:"dài",words:"代价 代替"},
+      {char:"价",pinyin:"jià",words:"代价 价格"},
+      {char:"触",pinyin:"chù",words:"触角 触摸"},
+      {char:"骄傲",pinyin:"jiāo ào",words:"骄傲 自满"},
+      {char:"谦虚",pinyin:"qiān xū",words:"谦虚 谦逊"}
     ],
     keySentences: [
       "宋人有耕者。田中有株。兔走触株，折颈而死。因释其耒而守株，冀复得兔。兔不可复得，而身为宋国笑。（守株待兔全文，注意理解每个字的意思）",
       "鹿忽然看到了自己的腿，不禁噘起了嘴，皱起了眉头：唉，这四条腿太细了，怎么配得上这两只美丽的角呢！（语言描写+神态描写）",
-      "鹿不敢犹豫，撒开长腿就跑。有力的长腿在灌木丛中蹦来跳去，不一会儿，就把凶猛的狮子远远地甩在了后面。（动作描写）",
       "河水对池子说：我用源源不断的水，年年给人们带来利益。这就叫做<em>流动</em>，才会<em>长流不断</em>。（对比：安逸vs奉献）"
     ],
-    tips: ["守株待兔：不能指望不劳而获，要靠自己的努力","鹿角和鹿腿：不要只看外表，实用的才是最重要的","池子与河流：不能贪图安逸，要像河流一样不断进取","狼和鹿：不要被表面的友善所迷惑","本单元要掌握：文言文翻译+寓言寓意"]
+    tips: [
+      "守株待兔：不能指望不劳而获，要靠自己的努力",
+      "鹿角和鹿腿：不要只看外表，实用的才是最重要的",
+      "池子与河流：不能贪图安逸，要像河流一样不断进取",
+      "本单元要掌握：文言文翻译+寓言寓意"
+    ]
   },
   quiz: {
     choose: [
@@ -455,36 +554,69 @@ var UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"宁",pinyin:"níng",words:"宁静 安宁"},{char:"官",pinyin:"guān",words:"官员 官府"},{char:"汪",pinyin:"wāng",words:"汪汪 水汪汪"},{char:"险",pinyin:"xiǎn",words:"危险 险要"},{char:"参",pinyin:"cān",words:"参加 参与"},{char:"参",pinyin:"shēn",words:"人参 海参"},{char:"攻",pinyin:"gōng",words:"进攻 攻击"},{char:"推",pinyin:"tuī",words:"推开 推动"},{char:"迅",pinyin:"xùn",words:"迅速"},{char:"速",pinyin:"sù",words:"迅速 速度"},{char:"退",pinyin:"tuì",words:"后退 退步"},{char:"钢",pinyin:"gāng",words:"钢铁 钢琴"},{char:"铁",pinyin:"tiě",words:"钢铁 铁路"},{char:"悄",pinyin:"qiǎo",words:"静悄悄 悄悄"},{char:"嗡",pinyin:"wēng",words:"嗡嗡"},{char:"斑",pinyin:"bān",words:"斑点 斑马"},{char:"蜜",pinyin:"mì",words:"蜜蜂 蜂蜜"},{char:"辨",pinyin:"biàn",words:"辨认 辨别"},{char:"跨",pinyin:"kuà",words:"跨越 跨步"},{char:"括",pinyin:"kuò",words:"包括 括号"},{char:"检",pinyin:"jiǎn",words:"检查 检验"},{char:"查",pinyin:"chá",words:"检查 查看"},{char:"确",pinyin:"què",words:"确实 准确"},{char:"误",pinyin:"wù",words:"错误 误会"},{char:"途",pinyin:"tú",words:"路途 用途"},{char:"陌",pinyin:"mò",words:"陌生 陌路"},{char:"超",pinyin:"chāo",words:"超过 超级"}
+      {char:"钟",pinyin:"zhōng",words:"花钟 钟表"},
+      {char:"斗",pinyin:"dòu",words:"争奇斗艳 斗争"},
+      {char:"艳",pinyin:"yàn",words:"争奇斗艳 鲜艳"},
+      {char:"芬",pinyin:"fēn",words:"芬芳"},
+      {char:"芳",pinyin:"fāng",words:"芬芳 芳香"},
+      {char:"内",pinyin:"nèi",words:"内部 内心"},
+      {char:"醒",pinyin:"xǐng",words:"苏醒 醒来"},
+      {char:"寿",pinyin:"shòu",words:"寿命 长寿"},
+      {char:"苏",pinyin:"sū",words:"苏醒 苏州"},
+      {char:"强",pinyin:"qiáng",words:"强大 强壮"},
+      {char:"示",pinyin:"shì",words:"表示 显示"},
+      {char:"昆",pinyin:"kūn",words:"昆虫 昆仑"},
+      {char:"修",pinyin:"xiū",words:"修建 修理"},
+      {char:"建",pinyin:"jiàn",words:"建造 建设"},
+      {char:"蜜",pinyin:"mì",words:"蜜蜂 蜂蜜"},
+      {char:"蜂",pinyin:"fēng",words:"蜜蜂 蜂窝"},
+      {char:"辨",pinyin:"biàn",words:"辨认 辨别"},
+      {char:"阻",pinyin:"zǔ",words:"阻力 阻挡"},
+      {char:"跨",pinyin:"kuà",words:"跨越 跨步"},
+      {char:"括",pinyin:"kuò",words:"包括 括号"},
+      {char:"检",pinyin:"jiǎn",words:"检查 检验"},
+      {char:"查",pinyin:"chá",words:"检查 查看"},
+      {char:"确",pinyin:"què",words:"确实 准确"},
+      {char:"误",pinyin:"wù",words:"错误 误会"},
+      {char:"途",pinyin:"tú",words:"路途 用途"},
+      {char:"陌",pinyin:"mò",words:"陌生 陌路"},
+      {char:"缸",pinyin:"gāng",words:"水缸 鱼缸"},
+      {char:"隙",pinyin:"xì",words:"空隙 间隙"},
+      {char:"掀",pinyin:"xiān",words:"掀起 掀开"},
+      {char:"搏",pinyin:"bó",words:"搏斗 搏击"}
     ],
     keySentences: [
-      "你可知道，大海深处是什么样的吗？（设问句，引出下文对海底世界的描写）",
-      "海底是否没有一点儿声音呢？不是的。海底的动物常常在窃窃私语。（设问+拟人）",
-      "它们吃东西的时候发出一种声音，行进的时候发出另一种声音，遇到危险还会发出警报。（排比）",
+      "凌晨四点，牵牛花吹起了紫色的小喇叭；五点左右，艳丽的蔷薇绽开了笑脸……（拟人+排比，写花钟）",
       "蜜蜂靠的不是<em>超常的记忆力</em>，而是一种<em>我无法解释的本能</em>。（转折关系，文章中心句）",
       "小虾在缸里十分自在。它们相互<em>搏斗</em>着，蹦出水面是常有的事。（动作描写）"
     ],
-    tips: ["海底世界：了解海底的声音、动物、植物、矿藏等特点","蜜蜂：法布尔的实验，蜜蜂辨认方向靠的是本能","小虾：观察小虾的外形、动作、生活习性","本单元重点：学会观察，了解自然界的奥秘"]
+    tips: [
+      "花钟：了解不同花开放的时间，学习用拟人手法描写花",
+      "蜜蜂：法布尔的实验，蜜蜂辨认方向靠的是本能",
+      "小虾：观察小虾的外形、动作、生活习性",
+      "本单元重点：学会观察，了解自然界的奥秘"
+    ]
   },
   quiz: {
     choose: [
-      {q:"海底世界里动物们常常在做什么？",opts:["大声唱歌","窃窃私语","互相追逐","睡觉"],ans:1},
+      {q:"花钟一文中牵牛花在几点开放？",opts:["三点","四点","五点","六点"],ans:1},
       {q:"蜜蜂辨认方向靠的是什么？",opts:["超常的记忆力","一种本能","眼睛好","嗅觉灵敏"],ans:1},
       {q:"小虾一文中虾在缸里十分？",opts:["害怕","安静","自在","暴躁"],ans:2},
-      {q:"海底世界从哪几个方面来介绍海底？",opts:["只有动物","声音和动物","声音、动物、植物、矿藏","只有矿藏"],ans:2},
-      {q:"蜜蜂一文中作者是？",opts:["达尔文","法布尔","列文虎克","牛顿"],ans:1}
+      {q:"花钟一文告诉我们要学会什么？",opts:["种花","观察","画画","唱歌"],ans:1},
+      {q:"蜜蜂一文中作者是？",opts:["达尔文","法布尔","列文虎克","牛顿"],ans:1},
+      {q:"花钟一文中植物开花与什么关系最密切？",opts:["温度","湿度","光照和时间","土壤"],ans:2}
     ],
     fill: [
-      {q:"你可知道，大海深处是____样的吗？",a:"什么"},
-      {q:"海底的动物常常在____私语。",a:"窃窃"},
+      {q:"凌晨四点，牵牛花吹起了紫色的____。",a:"小喇叭"},
       {q:"蜜蜂靠的不是超常的____，而是一种我无法解释的____。",a:"记忆力,本能"},
-      {q:"它们相互____着，蹦出水面是常有的事。",a:"搏斗"}
+      {q:"它们相互____着，蹦出水面是常有的事。",a:"搏斗"},
+      {q:"不同的植物为什么开花的时间____呢？",a:"不同"}
     ],
     read: {
-      passage: "海面上波涛澎湃的时候，海底依然很宁静。最大的风浪，也只能影响到海面以下几十米深。阳光射进海底，是否没有一点儿声音呢？不是的。海底的动物常常在窃窃私语。你用水中听音器一听，就能听见各种声音：有的像蜜蜂一样嗡嗡，有的像小鸟一样啾啾，有的像小狗一样汪汪，还有的好像在打鼾。",
+      passage: "凌晨四点，牵牛花吹起了紫色的小喇叭；五点左右，艳丽的蔷薇绽开了笑脸；七点，睡莲从梦中醒来；中午十二点左右，午时花开花了；下午三点，万寿菊欣然怒放；傍晚六点，烟草花在暮色中苏醒；月光花在七点左右舒展开自己的花瓣；夜来香在晚上八点开花；昙花却在九点左右含笑一现……",
       questions: [
-        {q:"海底的特点是？（ ）",opts:["又吵又乱","很宁静","很危险","很热"],ans:1},
-        {q:"文中用了什么修辞手法来写海底的声音？（ ）",opts:["夸张","拟人","比喻和排比","对比"],ans:2}
+        {q:"这段话主要写了什么？（ ）",opts:["花的颜色","不同的花在不同时间开放","花的形状","花的香味"],ans:1},
+        {q:"文中用了什么修辞手法？（ ）",opts:["夸张","拟人","排比","比喻"],ans:1}
       ]
     }
   }
@@ -499,7 +631,31 @@ var UNITS = [
       { title: "九月九日忆山东兄弟", author: "[唐] 王维", content: "独在异乡为异客，每逢佳节倍思亲。\n遥知兄弟登高处，遍插茱萸少一人。", notes: "九月九日=重阳节。山东=华山以东。异乡=他乡。倍=更加。茱萸(zhū yú)=一种香草，重阳节佩戴辟邪。写游子对家乡亲人的思念。" }
     ],
     words: [
-      {char:"符",pinyin:"fú",words:"符号 符合"},{char:"欲",pinyin:"yù",words:"欲望 欲望"},{char:"魂",pinyin:"hún",words:"灵魂 魂魄"},{char:"借",pinyin:"jiè",words:"借问 借书"},{char:"酒",pinyin:"jiǔ",words:"酒家 白酒"},{char:"牧",pinyin:"mù",words:"牧童 放牧"},{char:"兄",pinyin:"xiōng",words:"兄弟 兄长"},{char:"独",pinyin:"dú",words:"独自 独立"},{char:"异",pinyin:"yì",words:"异乡 奇异"},{char:"佳",pinyin:"jiā",words:"佳节 美好"},{char:"倍",pinyin:"bèi",words:"加倍 倍数"},{char:"逢",pinyin:"féng",words:"每逢 相逢"},{char:"插",pinyin:"chā",words:"插花 安插"},{char:"忆",pinyin:"yì",words:"回忆 记忆"},{char:"术",pinyin:"shù",words:"技术 美术"},{char:"伟",pinyin:"wěi",words:"伟大 雄伟"},{char:"录",pinyin:"lù",words:"记录 目录"},{char:"保",pinyin:"bǎo",words:"保存 保护"},{char:"存",pinyin:"cún",words:"保存 生存"},{char:"约",pinyin:"yuē",words:"大约 约定"},{char:"验",pinyin:"yàn",words:"经验 检验"},{char:"阿",pinyin:"ā",words:"阿姨"},{char:"欧",pinyin:"ōu",words:"欧洲 欧盟"},{char:"洲",pinyin:"zhōu",words:"欧洲 亚洲"},{char:"社",pinyin:"shè",words:"社会 社区"}
+      {char:"符",pinyin:"fú",words:"符号 符合"},
+      {char:"欲",pinyin:"yù",words:"欲望 欲望"},
+      {char:"魂",pinyin:"hún",words:"灵魂 魂魄"},
+      {char:"借",pinyin:"jiè",words:"借问 借书"},
+      {char:"酒",pinyin:"jiǔ",words:"酒家 白酒"},
+      {char:"牧",pinyin:"mù",words:"牧童 放牧"},
+      {char:"兄",pinyin:"xiōng",words:"兄弟 兄长"},
+      {char:"独",pinyin:"dú",words:"独自 独立"},
+      {char:"异",pinyin:"yì",words:"异乡 奇异"},
+      {char:"佳",pinyin:"jiā",words:"佳节 美好"},
+      {char:"倍",pinyin:"bèi",words:"加倍 倍数"},
+      {char:"逢",pinyin:"féng",words:"每逢 相逢"},
+      {char:"插",pinyin:"chā",words:"插花 安插"},
+      {char:"忆",pinyin:"yì",words:"回忆 记忆"},
+      {char:"术",pinyin:"shù",words:"技术 美术"},
+      {char:"伟",pinyin:"wěi",words:"伟大 雄伟"},
+      {char:"录",pinyin:"lù",words:"记录 目录"},
+      {char:"保",pinyin:"bǎo",words:"保存 保护"},
+      {char:"存",pinyin:"cún",words:"保存 生存"},
+      {char:"约",pinyin:"yuē",words:"大约 约定"},
+      {char:"验",pinyin:"yàn",words:"经验 检验"},
+      {char:"阿",pinyin:"ā",words:"阿姨"},
+      {char:"欧",pinyin:"ōu",words:"欧洲 欧盟"},
+      {char:"洲",pinyin:"zhōu",words:"欧洲 亚洲"},
+      {char:"社",pinyin:"shè",words:"社会 社区"}
     ],
     keySentences: [
       "爆竹声中一岁除，春风送暖入屠苏。（春节热闹场景）",
@@ -508,7 +664,12 @@ var UNITS = [
       "造纸术的发明，是中国对世界文明的伟大贡献之一。（中心句）",
       "赵州桥非常雄伟。桥长五十多米，有九米多宽，中间行车马，两旁走人。（列数字说明方法）"
     ],
-    tips: ["三首古诗分别写三个传统节日：春节、清明节、重阳节","背诵要求：三首古诗全文背诵+默写，会解释重点字词","纸的发明：了解造纸术的发明过程和意义","赵州桥：了解赵州桥的特点（坚固、美观），学习说明方法","一幅名扬中外的画：了解《清明上河图》"]
+    tips: [
+      "三首古诗分别写三个传统节日：春节、清明节、重阳节",
+      "背诵要求：三首古诗全文背诵+默写，会解释重点字词",
+      "纸的发明：了解造纸术的发明过程和意义",
+      "赵州桥：了解赵州桥的特点（坚固、美观），学习说明方法"
+    ]
   },
   quiz: {
     choose: [
@@ -543,28 +704,59 @@ var UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"棚",pinyin:"péng",words:"草棚 凉棚"},{char:"萝",pinyin:"luó",words:"萝卜"},{char:"卜",pinyin:"bo",words:"萝卜"},{char:"愁",pinyin:"chóu",words:"发愁 忧愁"},{char:"沾",pinyin:"zhān",words:"沾水 沾湿"},{char:"晾",pinyin:"liàng",words:"晾干 晾晒"},{char:"绳",pinyin:"shéng",words:"绳子 跳绳"},{char:"剪",pinyin:"jiǎn",words:"剪刀 剪纸"},{char:"状",pinyin:"zhuàng",words:"形状 告状"},{char:"狐",pinyin:"hú",words:"狐狸"},{char:"狸",pinyin:"lí",words:"狐狸"},{char:"腰",pinyin:"yāo",words:"弯腰 腰部"},{char:"零",pinyin:"líng",words:"零食 零件"},{char:"巧",pinyin:"qiǎo",words:"心灵手巧 灵巧"},{char:"克",pinyin:"kè",words:"千克 克服"},{char:"肠",pinyin:"cháng",words:"香肠 肠胃"},{char:"继",pinyin:"jì",words:"继续 继承"},{char:"续",pinyin:"xù",words:"继续 续写"},{char:"抬",pinyin:"tái",words:"抬头 抬手"},{char:"麻",pinyin:"má",words:"麻烦 芝麻"},{char:"烦",pinyin:"fán",words:"麻烦 烦恼"}
+      {char:"套",pinyin:"tào",words:"套住 套路"},
+      {char:"麻",pinyin:"má",words:"麻烦 芝麻"},
+      {char:"烦",pinyin:"fán",words:"麻烦 烦恼"},
+      {char:"悠",pinyin:"yōu",words:"悠闲 悠久"},
+      {char:"闲",pinyin:"xián",words:"悠闲 空闲"},
+      {char:"椅",pinyin:"yǐ",words:"椅子 躺椅"},
+      {char:"牧",pinyin:"mù",words:"牧场 放牧"},
+      {char:"栅",pinyin:"zhà",words:"栅栏"},
+      {char:"栏",pinyin:"lán",words:"栅栏 栏杆"},
+      {char:"晾",pinyin:"liàng",words:"晾干 晾晒"},
+      {char:"揉",pinyin:"róu",words:"揉一揉 揉面"},
+      {char:"状",pinyin:"zhuàng",words:"形状 告状"},
+      {char:"狐",pinyin:"hú",words:"狐狸"},
+      {char:"狸",pinyin:"lí",words:"狐狸"},
+      {char:"腰",pinyin:"yāo",words:"弯腰 腰部"},
+      {char:"零",pinyin:"líng",words:"零食 零件"},
+      {char:"巧",pinyin:"qiǎo",words:"心灵手巧 灵巧"},
+      {char:"克",pinyin:"kè",words:"千克 克服"},
+      {char:"肠",pinyin:"cháng",words:"香肠 肠胃"},
+      {char:"继",pinyin:"jì",words:"继续 继承"},
+      {char:"续",pinyin:"xù",words:"继续 续写"},
+      {char:"抬",pinyin:"tái",words:"抬头 抬手"},
+      {char:"烦",pinyin:"fán",words:"烦恼 烦闷"},
+      {char:"丁",pinyin:"dīng",words:"叮咚 丁零"},
+      {char:"零",pinyin:"líng",words:"丁零 零食"},
+      {char:"蜜",pinyin:"mì",words:"秘密 蜜蜂"},
+      {char:"秘",pinyin:"mì",words:"秘密 保密"},
+      {char:"密",pinyin:"mì",words:"秘密 密码"}
     ],
     keySentences: [
-      "胡萝卜先生常常为胡子发愁，因为他长着浓密的胡子，必须每天刮。（故事开头）",
+      "小真说：嘿，我能把头发长得<em>很长很长</em>。要是从桥上把辫子垂下去，就能钓上鱼来呢。（大胆想象）",
       "我真希望变成一棵树，这样就没人在你玩的时候叫你吃饭了。（想象的起因）",
-      "我心里想，我变成了一棵大树，身上长满了各种形状的鸟窝。（大胆想象）",
-      "一支铅笔的梦想：它想溜出教室，到山坡上开出花朵，到小河边给小鱼当旗杆……（连续想象）"
+      "我心里想，我变成了一棵大树，身上长满了各种形状的鸟窝。（大胆想象）"
     ],
-    tips: ["本单元是习作单元，重点培养想象力","胡萝卜先生的长胡子：故事留白，续编结尾","我变成了一棵树：学会用想象表达愿望","例文：一支铅笔的梦想——学习用连续想象写故事","习作要求：大胆想象，写出奇妙有趣的故事"]
+    tips: [
+      "本单元是习作单元，重点培养想象力",
+      "小真的长头发：想象长头发的各种用途，学习大胆想象",
+      "我变成了一棵树：学会用想象表达愿望",
+      "习作要求：大胆想象，写出奇妙有趣的故事"
+    ]
   },
   quiz: {
     choose: [
-      {q:"胡萝卜先生为什么发愁？",opts:["没有朋友","胡子太长太浓密","没有钱","没有工作"],ans:1},
+      {q:"小真的长头发中长头发可以做什么？",opts:["写字","钓鱼和套牛","做饭","唱歌"],ans:1},
       {q:"我变成了一棵树中我想变成树的原因是？",opts:["喜欢树","不想被人叫去吃饭","想遮阳","想结果子"],ans:1},
-      {q:"铅笔的梦想中铅笔想去哪里？",opts:["教室","山坡上开花","图书馆","家里"],ans:1},
       {q:"本单元重点培养什么能力？",opts:["计算能力","阅读能力","想象力","记忆力"],ans:2},
-      {q:"一支铅笔的梦想用了什么写法？",opts:["夸张","连续想象","比喻","拟人"],ans:1}
+      {q:"小真的长头发中头发可以拉直吗？",opts:["不能","能，而且不会断","只能拉一点点","要用胶水"],ans:1},
+      {q:"我变成了一棵树中树上长的是什么？",opts:["水果","树叶","鸟窝","花朵"],ans:2}
     ],
     fill: [
-      {q:"胡萝卜先生常常为胡子发____，因为他长着____的胡子。",a:"愁,浓密"},
+      {q:"小真说：嘿，我能把头发长得____。",a:"很长很长"},
       {q:"我真____变成一棵树，这样就没人叫你____了。",a:"希望,吃饭"},
-      {q:"铅笔想溜出____，到山坡上开出____。",a:"教室,花朵"}
+      {q:"我变的树上长满了各种____的鸟窝。",a:"形状"}
     ],
     read: {
       passage: "我真希望变成一棵树，这样就没人在你玩的时候叫你吃饭了。我心里想着，就觉得身上痒痒的，低头一看，发现许多小树枝正从我身上冒出来。呀，我真的变成了一棵树！你猜，我变的树上会长什么？当然不是苹果啦，梨也不对——对了，鸟窝！我变的树上长满了各种形状的鸟窝：三角形的、正方形的、长方形的、圆形的、椭圆形的、菱形的……",
@@ -581,29 +773,65 @@ var UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"墨",pinyin:"mò",words:"水墨 墨水"},{char:"染",pinyin:"rǎn",words:"染色 染绿"},{char:"碎",pinyin:"suì",words:"打碎 碎片"},{char:"浪",pinyin:"làng",words:"波浪 浪花"},{char:"溅",pinyin:"jiàn",words:"飞溅 溅起"},{char:"爽",pinyin:"shuǎng",words:"凉爽 爽快"},{char:"蘑",pinyin:"mó",words:"蘑菇"},{char:"菇",pinyin:"gū",words:"蘑菇"},{char:"腾",pinyin:"téng",words:"沸腾 飞腾"},{char:"碎",pinyin:"suì",words:"打碎 破碎"},{char:"胆",pinyin:"dǎn",words:"胆子 勇敢"},{char:"鬼",pinyin:"guǐ",words:"鬼怪 小鬼"},{char:"理",pinyin:"lǐ",words:"道理 理由"},{char:"夺",pinyin:"duó",words:"争夺 抢夺"},{char:"骂",pinyin:"mà",words:"骂人 责骂"},{char:"仇",pinyin:"chóu",words:"仇恨 仇人"},{char:"差",pinyin:"chà",words:"差生 差不多"},{char:"付",pinyin:"fù",words:"付出 交付"},{char:"倍",pinyin:"bèi",words:"加倍 倍数"},{char:"虽",pinyin:"suī",words:"虽然 虽说"},{char:"件",pinyin:"jiàn",words:"事件 一件"},{char:"皂",pinyin:"zào",words:"肥皂 香皂"},{char:"碗",pinyin:"wǎn",words:"饭碗 碗"},{char:"悠",pinyin:"yōu",words:"悠闲 悠久"},{char:"若",pinyin:"ruò",words:"若是 假若"},{char:"透",pinyin:"tòu",words:"透明 透气"},{char:"娇",pinyin:"jiāo",words:"娇嫩 撒娇"},{char:"扯",pinyin:"chě",words:"扯开 拉扯"},{char:"仰",pinyin:"yǎng",words:"仰望 仰头"},{char:"串",pinyin:"chuàn",words:"一串 串门"},{char:"婴",pinyin:"yīng",words:"婴儿"},{char:"希",pinyin:"xī",words:"希望 希腊"}
+      {char:"墨",pinyin:"mò",words:"水墨 墨水"},
+      {char:"染",pinyin:"rǎn",words:"染色 染绿"},
+      {char:"碎",pinyin:"suì",words:"打碎 碎片"},
+      {char:"浪",pinyin:"làng",words:"波浪 浪花"},
+      {char:"溅",pinyin:"jiàn",words:"飞溅 溅起"},
+      {char:"爽",pinyin:"shuǎng",words:"凉爽 爽快"},
+      {char:"蘑",pinyin:"mó",words:"蘑菇"},
+      {char:"菇",pinyin:"gū",words:"蘑菇"},
+      {char:"腾",pinyin:"téng",words:"沸腾 飞腾"},
+      {char:"剃",pinyin:"tì",words:"剃头 剃刀"},
+      {char:"执",pinyin:"zhí",words:"执行 坚执"},
+      {char:"否",pinyin:"fǒu",words:"是否 否则"},
+      {char:"骂",pinyin:"mà",words:"骂人 责骂"},
+      {char:"仇",pinyin:"chóu",words:"仇恨 仇人"},
+      {char:"差",pinyin:"chà",words:"差生 差不多"},
+      {char:"付",pinyin:"fù",words:"付出 交付"},
+      {char:"倍",pinyin:"bèi",words:"加倍 倍数"},
+      {char:"虽",pinyin:"suī",words:"虽然 虽说"},
+      {char:"件",pinyin:"jiàn",words:"事件 一件"},
+      {char:"皂",pinyin:"zào",words:"肥皂 香皂"},
+      {char:"碗",pinyin:"wǎn",words:"饭碗 碗"},
+      {char:"悠",pinyin:"yōu",words:"悠闲 悠久"},
+      {char:"若",pinyin:"ruò",words:"若是 假若"},
+      {char:"透",pinyin:"tòu",words:"透明 透气"},
+      {char:"娇",pinyin:"jiāo",words:"娇嫩 撒娇"},
+      {char:"扯",pinyin:"chě",words:"扯开 拉扯"},
+      {char:"仰",pinyin:"yǎng",words:"仰望 仰头"},
+      {char:"串",pinyin:"chuàn",words:"一串 串门"},
+      {char:"庆",pinyin:"qìng",words:"庆祝 庆贺"},
+      {char:"盼",pinyin:"pàn",words:"盼望 期盼"},
+      {char:"叠",pinyin:"dié",words:"折叠 叠花篮"},
+      {char:"歉",pinyin:"qiàn",words:"歉意 道歉"}
     ],
     keySentences: [
       "垂柳把溪水当做梳妆的镜子，山溪像绿玉带一样平静。（比喻+拟人）",
       "人影给溪水染绿了，钓竿上立着一只红蜻蜓。（色彩描写：绿+红）",
-      "忽然扑腾一声人影碎了，草地上蹦跳着鱼儿和笑声。（以动写静）",
       "这肥皂泡，吹起来很美丽，五色的浮光，在那轻清透明的球面上乱转。（描写肥皂泡的美）",
-      "灰雀在树枝间来回跳动，婉转地歌唱，非常惹人喜爱。（拟人+外形+声音）"
+      "宋庆龄说：我并不后悔，因为我没有失信。（语言描写，表现守信品质）"
     ],
-    tips: ["童年的水墨画：三首小诗分别写了溪边、江上、林中的童年场景","肥皂泡：吹肥皂泡的过程和想象","灰雀：列宁和小男孩的故事，诚实守信","我不能失信：宋庆龄小时候守信用的故事","本单元重点：感受童年的美好，学习细节描写"]
+    tips: [
+      "童年的水墨画：三首小诗分别写了溪边、江上、林中的童年场景",
+      "剃头大师：感受童年的有趣经历，学习幽默的语言",
+      "肥皂泡：吹肥皂泡的过程和想象",
+      "我不能失信：宋庆龄小时候守信用的故事"
+    ]
   },
   quiz: {
     choose: [
       {q:"童年的水墨画中溪水像什么？",opts:["镜子和绿玉带","银带","蓝色的天空","一条蛇"],ans:0},
       {q:"肥皂泡是什么颜色的？",opts:["只有一种颜色","五色的浮光","黑色","白色"],ans:1},
-      {q:"灰雀的故事发生在谁和谁之间？",opts:["老师和学生","列宁和小男孩","父亲和儿子","两个同学"],ans:1},
       {q:"我不能失信讲的是谁的故事？",opts:["鲁迅","宋庆龄","毛泽东","周恩来"],ans:1},
-      {q:"垂柳把溪水当做什么？",opts:["被子","梳妆的镜子","玩具","朋友"],ans:1}
+      {q:"垂柳把溪水当做什么？",opts:["被子","梳妆的镜子","玩具","朋友"],ans:1},
+      {q:"剃头大师一文中我给小沙剃头的结果是？",opts:["很成功","很糟糕","一般","没有剃"],ans:1},
+      {q:"宋庆龄为什么没有去伯伯家？",opts:["生病了","要等朋友来","忘记了","不想去"],ans:1}
     ],
     fill: [
       {q:"人影给溪水____了，钓竿上____着一只红蜻蜓。",a:"染绿,立"},
       {q:"这肥皂泡，吹起来很美丽，____的浮光，在那轻清____的球面上乱转。",a:"五色,透明"},
-      {q:"灰雀在树枝间来回____，____地歌唱。",a:"跳动,婉转"}
+      {q:"宋庆龄说：我并不____，因为我没有____。",a:"后悔,失信"}
     ],
     read: {
       passage: "垂柳把溪水当做梳妆的镜子，山溪像绿玉带一样平静。人影给溪水染绿了，钓竿上立着一只红蜻蜓。忽然扑腾一声人影碎了，草地上蹦跳着鱼儿和笑声。",
@@ -621,15 +849,54 @@ var UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"必",pinyin:"bì",words:"必须 必定"},{char:"胡",pinyin:"hú",words:"胡子 胡说"},{char:"灿",pinyin:"càn",words:"灿烂 金灿灿"},{char:"骑",pinyin:"qí",words:"骑马 骑车"},{char:"秒",pinyin:"miǎo",words:"秒针 争分夺秒"},{char:"凶",pinyin:"xiōng",words:"凶猛 凶恶"},{char:"猛",pinyin:"měng",words:"凶猛 勇猛"},{char:"庙",pinyin:"miào",words:"寺庙 庙会"},{char:"威",pinyin:"wēi",words:"威武 威风"},{char:"武",pinyin:"wǔ",words:"威武 武术"},{char:"镇",pinyin:"zhèn",words:"镇静 小镇"},{char:"型",pinyin:"xíng",words:"模型 类型"},{char:"蜡",pinyin:"là",words:"蜡烛 蜡笔"},{char:"烛",pinyin:"zhú",words:"蜡烛 烛光"},{char:"诱",pinyin:"yòu",words:"诱人 诱惑"},{char:"润",pinyin:"rùn",words:"湿润 滋润"},{char:"乘",pinyin:"chéng",words:"乘法 乘客"},{char:"芒",pinyin:"máng",words:"光芒 芒果"},{char:"冰",pinyin:"bīng",words:"冰块 冰冷"},{char:"剑",pinyin:"jiàn",words:"宝剑 刀剑"},{char:"普",pinyin:"pǔ",words:"普通 普及"},{char:"通",pinyin:"tōng",words:"普通 通过"},{char:"模",pinyin:"mó",words:"模型 模仿"},{char:"型",pinyin:"xíng",words:"模型 类型"}
+      {char:"必",pinyin:"bì",words:"必须 必定"},
+      {char:"胡",pinyin:"hú",words:"胡子 胡说"},
+      {char:"灿",pinyin:"càn",words:"灿烂 金灿灿"},
+      {char:"骑",pinyin:"qí",words:"骑马 骑车"},
+      {char:"秒",pinyin:"miǎo",words:"秒针 争分夺秒"},
+      {char:"凶",pinyin:"xiōng",words:"凶猛 凶恶"},
+      {char:"猛",pinyin:"měng",words:"凶猛 勇猛"},
+      {char:"庙",pinyin:"miào",words:"寺庙 庙会"},
+      {char:"威",pinyin:"wēi",words:"威武 威风"},
+      {char:"武",pinyin:"wǔ",words:"威武 武术"},
+      {char:"镇",pinyin:"zhèn",words:"镇静 小镇"},
+      {char:"型",pinyin:"xíng",words:"模型 类型"},
+      {char:"宁",pinyin:"níng",words:"宁静 安宁"},
+      {char:"官",pinyin:"guān",words:"官员 官府"},
+      {char:"汪",pinyin:"wāng",words:"汪汪 水汪汪"},
+      {char:"险",pinyin:"xiǎn",words:"危险 险要"},
+      {char:"参",pinyin:"cān",words:"参加 参与"},
+      {char:"攻",pinyin:"gōng",words:"进攻 攻击"},
+      {char:"推",pinyin:"tuī",words:"推开 推动"},
+      {char:"迅",pinyin:"xùn",words:"迅速"},
+      {char:"速",pinyin:"sù",words:"迅速 速度"},
+      {char:"退",pinyin:"tuì",words:"后退 退步"},
+      {char:"钢",pinyin:"gāng",words:"钢铁 钢琴"},
+      {char:"铁",pinyin:"tiě",words:"钢铁 铁路"},
+      {char:"悄",pinyin:"qiǎo",words:"静悄悄 悄悄"},
+      {char:"蜡",pinyin:"là",words:"蜡烛 蜡笔"},
+      {char:"烛",pinyin:"zhú",words:"蜡烛 烛光"},
+      {char:"诱",pinyin:"yòu",words:"诱人 诱惑"},
+      {char:"润",pinyin:"rùn",words:"湿润 滋润"},
+      {char:"乘",pinyin:"chéng",words:"乘法 乘客"},
+      {char:"芒",pinyin:"máng",words:"光芒 芒果"},
+      {char:"冰",pinyin:"bīng",words:"冰块 冰冷"},
+      {char:"剑",pinyin:"jiàn",words:"宝剑 刀剑"},
+      {char:"普",pinyin:"pǔ",words:"普通 普及"},
+      {char:"通",pinyin:"tōng",words:"普通 通过"},
+      {char:"模",pinyin:"mó",words:"模型 模仿"}
     ],
     keySentences: [
       "这地方的火烧云变化极多，一会儿红彤彤的，一会儿金灿灿的，一会儿半紫半黄，一会儿半灰半百合色。（排比+颜色描写）",
-      "一会儿，天空出现一匹马，马头向南，马尾向西。马是跪着的，像等人骑上它的背，它才站起来似的。（动态变化描写）",
       "天空的云从西边一直烧到东边，红彤彤的，好像是天空着了火。（比喻：云像着火）",
-      "这是一个奇妙的世界，一切看上去都是有生命的。（中心句）"
+      "你可知道，大海深处是什么样的吗？海底的动物常常在窃窃私语。（设问+拟人）"
     ],
-    tips: ["火烧云：萧红写的，描写火烧云的颜色和形状变化","暴风雨来临之前：观察暴风雨前的自然现象","我们奇妙的世界：从天空和大地两个方面写世界的奇妙","国宝大熊猫：说明文，介绍大熊猫的外形、习性、分布等","本单元重点：学习观察和描写自然现象"]
+    tips: [
+      "我们奇妙的世界：从天空和大地两个方面写世界的奇妙",
+      "海底世界：了解海底的声音、动物、植物、矿藏等特点",
+      "火烧云：萧红写的，描写火烧云的颜色和形状变化",
+      "本单元重点：学习观察和描写自然现象"
+    ]
   },
   quiz: {
     choose: [
@@ -637,12 +904,14 @@ var UNITS = [
       {q:"火烧云的作者是？",opts:["萧红","冰心","老舍","鲁迅"],ans:0},
       {q:"天空的云从西边一直烧到东边用了什么词？",opts:["飘","飞","烧","走"],ans:2},
       {q:"我们奇妙的世界从哪两方面来写？",opts:["动物和植物","天空和大地","城市和农村","白天和晚上"],ans:1},
-      {q:"国宝大熊猫是什么文体？",opts:["记叙文","说明文","童话","诗歌"],ans:1}
+      {q:"海底世界里动物们常常在做什么？",opts:["大声唱歌","窃窃私语","互相追逐","睡觉"],ans:1},
+      {q:"海底世界从哪几个方面来介绍海底？",opts:["只有动物","声音和动物","声音、动物、植物、矿藏","只有矿藏"],ans:2}
     ],
     fill: [
       {q:"这地方的火烧云变化极多，一会儿____，一会儿____。",a:"红彤彤的,金灿灿的"},
       {q:"天空的云从西边一直____到东边，好像是天空____了火。",a:"烧,着"},
-      {q:"马是____着的，像等人骑上它的背，它才____似的。",a:"跪,站起来"}
+      {q:"海底的动物常常在____私语。",a:"窃窃"},
+      {q:"你可知道，大海深处是____样的吗？",a:"什么"}
     ],
     read: {
       passage: "这地方的火烧云变化极多，一会儿红彤彤的，一会儿金灿灿的，一会儿半紫半黄，一会儿半灰半百合色。葡萄灰，梨黄，茄子紫，这些颜色天空都有。还有些说也说不出来、见也没见过的颜色。\n一会儿，天空出现一匹马，马头向南，马尾向西。马是跪着的，像等人骑上它的背，它才站起来似的。过了两三秒钟，那匹马大起来了，腿伸开了，脖子也长了，尾巴却不见了。看的人正在寻找尾巴，那匹马变模糊了。",
@@ -659,14 +928,49 @@ var UNITS = [
   review: {
     poems: [],
     words: [
-      {char:"性",pinyin:"xìng",words:"性格 性别"},{char:"卷",pinyin:"juǎn",words:"卷起 龙卷风"},{char:"货",pinyin:"huò",words:"货物 货币"},{char:"取",pinyin:"qǔ",words:"取得 取笑"},{char:"夹",pinyin:"jiā",words:"夹子 文件夹"},{char:"夸",pinyin:"kuā",words:"夸奖 夸张"},{char:"务",pinyin:"wù",words:"任务 服务"},{char:"衬",pinyin:"chèn",words:"衬衫 衬托"},{char:"衫",pinyin:"shān",words:"衬衫 衣衫"},{char:"负",pinyin:"fù",words:"负责 负担"},{char:"责",pinyin:"zé",words:"负责 责任"},{char:"艺",pinyin:"yì",words:"手艺 艺术"},{char:"泄",pinyin:"xiè",words:"泄漏 发泄"},{char:"漏",pinyin:"lòu",words:"漏雨 遗漏"},{char:"喂",pinyin:"wèi",words:"喂养 喂食"},{char:"胖",pinyin:"pàng",words:"胖子 肥胖"},{char:"驴",pinyin:"lǘ",words:"毛驴 驴子"},{char:"贼",pinyin:"zéi",words:"盗贼 小贼"},{char:"狼",pinyin:"láng",words:"灰狼 恶狼"},{char:"莫",pinyin:"mò",words:"莫非 莫名"},{char:"厉",pinyin:"lì",words:"厉害 厉声"},{char:"抱",pinyin:"bào",words:"抱住 拥抱"},{char:"架",pinyin:"jià",words:"打架 书架"},{char:"粘",pinyin:"zhān",words:"粘住 粘贴"},{char:"胶",pinyin:"jiāo",words:"胶水 胶带"},{char:"偏",pinyin:"piān",words:"偏偏 偏偏"}
+      {char:"性",pinyin:"xìng",words:"性格 性别"},
+      {char:"卷",pinyin:"juǎn",words:"卷起 龙卷风"},
+      {char:"货",pinyin:"huò",words:"货物 货币"},
+      {char:"取",pinyin:"qǔ",words:"取得 取笑"},
+      {char:"夹",pinyin:"jiā",words:"夹子 文件夹"},
+      {char:"夸",pinyin:"kuā",words:"夸奖 夸张"},
+      {char:"务",pinyin:"wù",words:"任务 服务"},
+      {char:"衬",pinyin:"chèn",words:"衬衫 衬托"},
+      {char:"衫",pinyin:"shān",words:"衬衫 衣衫"},
+      {char:"负",pinyin:"fù",words:"负责 负担"},
+      {char:"责",pinyin:"zé",words:"负责 责任"},
+      {char:"艺",pinyin:"yì",words:"手艺 艺术"},
+      {char:"泄",pinyin:"xiè",words:"泄漏 发泄"},
+      {char:"漏",pinyin:"lòu",words:"漏雨 遗漏"},
+      {char:"喂",pinyin:"wèi",words:"喂养 喂食"},
+      {char:"胖",pinyin:"pàng",words:"胖子 肥胖"},
+      {char:"驴",pinyin:"lǘ",words:"毛驴 驴子"},
+      {char:"贼",pinyin:"zéi",words:"盗贼 小贼"},
+      {char:"狼",pinyin:"láng",words:"灰狼 恶狼"},
+      {char:"莫",pinyin:"mò",words:"莫非 莫名"},
+      {char:"厉",pinyin:"lì",words:"厉害 厉声"},
+      {char:"抱",pinyin:"bào",words:"抱住 拥抱"},
+      {char:"架",pinyin:"jià",words:"打架 书架"},
+      {char:"粘",pinyin:"zhān",words:"粘住 粘贴"},
+      {char:"胶",pinyin:"jiāo",words:"胶水 胶带"},
+      {char:"偏",pinyin:"piān",words:"偏偏 偏偏"},
+      {char:"核",pinyin:"hé",words:"枣核 核心"},
+      {char:"犁",pinyin:"lí",words:"犁地 扶犁"},
+      {char:"牲",pinyin:"shēng",words:"牲口 牲畜"},
+      {char:"罢",pinyin:"bà",words:"善罢甘休 罢工"},
+      {char:"辩",pinyin:"biàn",words:"争辩 辩论"}
     ],
     keySentences: [
-      "慢性子裁缝和急性子顾客：顾客说我要的是春装，裁缝说我已经做好了。（对比产生幽默效果）",
+      "慢性子裁缝说：我已经做好了。急性子顾客说：这么快？（对比产生幽默效果）",
       "老虎趴在驴圈里想：漏！我翻山越岭这么多年，还从没见过莫非'漏'比我还厉害？（心理描写，故事反转）",
       "枣核虽然小，但是很聪明很勇敢，什么事都能干好。（中心句）"
     ],
-    tips: ["慢性子裁缝和急性子顾客：感受人物性格对比产生的幽默","漏：民间故事，注意情节的反复和反转","枣核：民间故事，枣核虽小但聪明能干","本单元重点：学会复述故事，感受故事的趣味","口语交际：趣味故事会，选择一个故事讲给大家听"]
+    tips: [
+      "慢性子裁缝和急性子顾客：感受人物性格对比产生的幽默",
+      "漏：民间故事，注意情节的反复和反转",
+      "枣核：民间故事，枣核虽小但聪明能干",
+      "本单元重点：学会复述故事，感受故事的趣味"
+    ]
   },
   quiz: {
     choose: [
@@ -674,7 +978,8 @@ var UNITS = [
       {q:"漏这个故事中老虎怕的是什么？",opts:["猎人","漏","狼","猴子"],ans:1},
       {q:"枣核虽然小但是怎样？",opts:["很胖","很聪明勇敢","很笨","很胆小"],ans:1},
       {q:"漏这个故事的特点是？",opts:["只有一个情节","情节反复反转","很短","没有对话"],ans:1},
-      {q:"本单元重点学习什么能力？",opts:["写作文","复述故事","画画","唱歌"],ans:1}
+      {q:"本单元重点学习什么能力？",opts:["写作文","复述故事","画画","唱歌"],ans:1},
+      {q:"方帽子店告诉我们什么道理？",opts:["帽子都是方的","要勇于改变不合理的事物","帽子很重要","要一直戴帽子"],ans:1}
     ],
     fill: [
       {q:"慢性子裁缝和急性子____，两个人性格形成了____。",a:"顾客,对比"},
